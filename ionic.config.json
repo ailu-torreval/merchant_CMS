@@ -1,0 +1,7 @@
+{
+  "name": "merchant_CMS",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
