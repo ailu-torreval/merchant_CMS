@@ -1,0 +1,68 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>STEP 1 - Merchant Information</ion-card-title>
+    <ion-card-subtitle>Add data about the merchant.</ion-card-subtitle>
+  </ion-card-header>
+
+  
+
+  <ion-item>
+    <ion-input
+    label="Company Name"
+    labelPlacement="stacked"
+      [(ngModel)]="companyName" 
+      type="text"
+      placeholder="Enter your company name..."
+    ></ion-input>
+  </ion-item>
+  <ion-label
+    *ngIf="unvalidName"
+    class="ion-padding unvalid-field"
+    color="danger"
+  >
+    <ion-icon name="alert-circle-outline"></ion-icon>
+    <ion-text> Please add a valid name. </ion-text>
+  </ion-label>
+
+  <ion-item>
+    <ion-input
+    label="Bio"
+    labelPlacement="stacked"
+      [(ngModel)]="bio" 
+      type="text"
+      placeholder="Add coompany's bio..."
+      [counter]="true"
+      maxlength="250"
+    ></ion-input>
+  </ion-item>
+  <ion-label
+    *ngIf="unvalidBio"
+    class="ion-padding unvalid-field"
+    color="danger"
+  >
+    <ion-icon name="alert-circle-outline"></ion-icon>
+    <ion-text> Please add bio. </ion-text>
+  </ion-label>
+
+  <!-- ADD IMAGE AND LOGO -->
+
+  <ion-item>
+    <ion-label position="stacked"> Merchant Type </ion-label>
+    <ion-segment (ionChange)="manageMerchantType($event)" value="restaurant">
+      <ion-segment-button value="restaurant">
+        <ion-label>Restaurant</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="kiosk">
+        <ion-label>Kiosk</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-item>
+  <ion-label
+    *ngIf="unvalidType"
+    class="ion-padding unvalid-field"
+    color="danger"
+  >
+    <ion-icon name="alert-circle-outline"></ion-icon>
+    <ion-text> Please specify the type of vendor </ion-text>
+  </ion-label>
+</ion-card>
