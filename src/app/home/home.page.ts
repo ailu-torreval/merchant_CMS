@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MerchantScript } from '../myScripts/MerchantScript';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,7 @@ export class HomePage {
 
 
 
-  constructor() {}
+  constructor(public merchantScript: MerchantScript) {}
 
 
 }

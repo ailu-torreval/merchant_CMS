@@ -1,10 +1,10 @@
 <ion-card>
   <ion-card-header>
-    <ion-card-title>STEP 2 - Merchant Information</ion-card-title>
-    <ion-card-subtitle>Add data about your company.</ion-card-subtitle>
+    <ion-card-title>STEP 6 - Menu Categories</ion-card-title>
+    <ion-card-subtitle>Add information about your menu.</ion-card-subtitle>
   </ion-card-header>
 
-  <ion-item>
+  <!-- <ion-item>
     <ion-input mode="ios" label="Contact Email" labelPlacement="stacked" [(ngModel)]="email" type="email"
       placeholder="Enter your company email..."></ion-input>
   </ion-item>
@@ -76,10 +76,10 @@
   <ion-label *ngIf="unvalidMaps" class="ion-padding unvalid-field" color="danger">
     <ion-icon name="alert-circle-outline"></ion-icon>
     <ion-text> Please add a valid Url. </ion-text>
-  </ion-label>
+  </ion-label> -->
 
   <ion-row class="btns-row">
-    <ion-button (click)="merchantScript.changeToStep(1)" shape="round" mode="ios">Previous</ion-button>
-    <ion-button (click)="validateForm()" shape="round" mode="ios">Next</ion-button>
+    <ion-button (click)="merchantScript.changeToStep(5)" shape="round" mode="ios">Previous</ion-button>
+    <ion-button (click)="validateForm()" shape="round" mode="ios">Finish</ion-button>
   </ion-row>
 </ion-card>

@@ -7,6 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MerchantScript } from './myScripts/MerchantScript';
+
 import { FormsModule } from '@angular/forms';
 
 @NgModule({

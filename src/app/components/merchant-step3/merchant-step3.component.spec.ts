@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { DeliveryInfoComponent } from './delivery-info.component';
+import { MerchantStep3Component } from './merchant-step3.component';
 
-describe('DeliveryInfoComponent', () => {
-  let component: DeliveryInfoComponent;
-  let fixture: ComponentFixture<DeliveryInfoComponent>;
+describe('MerchantStep3Component', () => {
+  let component: MerchantStep3Component;
+  let fixture: ComponentFixture<MerchantStep3Component>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeliveryInfoComponent ],
+      declarations: [ MerchantStep3Component ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DeliveryInfoComponent);
+    fixture = TestBed.createComponent(MerchantStep3Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

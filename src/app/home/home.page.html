@@ -5,17 +5,25 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-row class="merchant-info1">
+  <ion-row *ngIf="merchantScript.step === 1" class="merchant-info1">
 <app-merchant-step1></app-merchant-step1>
   </ion-row>
 
 
 
-  <ion-row class="merchant-info2">
+  <ion-row *ngIf="merchantScript.step === 2" class="merchant-info2">
     <app-merchant-step2></app-merchant-step2>
   </ion-row>
-  <ion-row class="opening-hours"></ion-row>
-  <ion-row class="delivery-info"> </ion-row>
-  <ion-row class="menu-info1"> </ion-row>
-  <ion-row class="menu-info2"> </ion-row>
+  <ion-row *ngIf="merchantScript.step === 3" class="opening-hours">
+    <app-merchant-step3></app-merchant-step3>
+  </ion-row>
+  <ion-row *ngIf="merchantScript.step === 4" class="delivery-info">
+    <app-merchant-step4></app-merchant-step4>
+  </ion-row>
+  <ion-row *ngIf="merchantScript.step === 5" class="menu-info1">
+    <app-merchant-step5></app-merchant-step5>
+  </ion-row>
+  <ion-row *ngIf="merchantScript.step === 6" class="menu-info2">
+    <app-merchant-step6></app-merchant-step6>
+  </ion-row>
 </ion-content>

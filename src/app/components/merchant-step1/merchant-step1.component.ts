@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MerchantScript } from 'src/app/myScripts/MerchantScript';
 
 @Component({
   selector: 'app-merchant-step1',
@@ -14,13 +15,20 @@ export class MerchantStep1Component  implements OnInit {
   unvalidName: boolean = false;
   unvalidBio: boolean = false;
   unvalidType: boolean = false;
+  unvalidLogo: boolean = false;
+  unvalidThumbnail: boolean = false;
 
-  constructor() { }
+
+  constructor(public merchantScript: MerchantScript) { }
 
   ngOnInit() {}
 
   manageMerchantType(ev: any) {
     console.log('merchant type: ', ev);
+  }
+
+  validateForm() {
+    this.merchantScript.changeToStep(2);
   }
 
 }

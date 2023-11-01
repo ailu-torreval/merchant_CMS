@@ -1,19 +1,44 @@
 <ion-card>
   <ion-card-header>
-    <ion-card-title>STEP 2 - Merchant Information</ion-card-title>
-    <ion-card-subtitle>Add data about your company.</ion-card-subtitle>
+    <ion-card-title>STEP 4 - Delivery Information</ion-card-title>
+    <ion-card-subtitle>Specify </ion-card-subtitle>
   </ion-card-header>
 
-  <ion-item>
-    <ion-input mode="ios" label="Contact Email" labelPlacement="stacked" [(ngModel)]="email" type="email"
-      placeholder="Enter your company email..."></ion-input>
+
+  <ion-label > Delivery Options </ion-label>
+  <ion-item lines="none">
+    <ion-segment mode="ios" (ionChange)="manageDeliveryOptions($event)" value="both">
+      <ion-segment-button  value="delivery">
+        <ion-label> <ion-icon slot="start" name="bicycle"></ion-icon> <ion-text> Delivery</ion-text> </ion-label>
+      </ion-segment-button>
+      <ion-segment-button  value="pickup">
+        <ion-label> <ion-icon slot="start" name="bag"></ion-icon> Pickup</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="both">
+        <ion-label><ion-icon slot="start" name="bicycle"></ion-icon><ion-icon slot="start" name="bag"></ion-icon> Both</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-item>
-  <ion-label *ngIf="unvalidEmail" class="ion-padding unvalid-field" color="danger">
+  <ion-label
+    *ngIf="unvalidDeliveryOpt"
+    class="ion-padding unvalid-field"
+    color="danger"
+  >
     <ion-icon name="alert-circle-outline"></ion-icon>
-    <ion-text> Please add a valid email. </ion-text>
+    <ion-text> Please specify at least one selling option.</ion-text>
   </ion-label>
 
   <ion-item>
+    <ion-label>Pickup time is also consider as preparation time. If its needed, this time can be changed on each order.</ion-label>
+    <ion-input mode="ios" label="Pickup Time" labelPlacement="stacked" [(ngModel)]="pickupTime" type="number"
+      placeholder="minutes"></ion-input> Min.
+  </ion-item>
+  <ion-label *ngIf="unvalidPickupTime" class="ion-padding unvalid-field" color="danger">
+    <ion-icon name="alert-circle-outline"></ion-icon>
+    <ion-text> Please add a valid time. </ion-text>
+  </ion-label>
+
+  <!-- <ion-item>
     <ion-input mode="ios" label="Phone Number" labelPlacement="stacked" [(ngModel)]="phoneNr" type="text"
       placeholder="Only numbers, without prefix"></ion-input>
   </ion-item>
@@ -76,10 +101,10 @@
   <ion-label *ngIf="unvalidMaps" class="ion-padding unvalid-field" color="danger">
     <ion-icon name="alert-circle-outline"></ion-icon>
     <ion-text> Please add a valid Url. </ion-text>
-  </ion-label>
+  </ion-label> -->
 
   <ion-row class="btns-row">
-    <ion-button (click)="merchantScript.changeToStep(1)" shape="round" mode="ios">Previous</ion-button>
+    <ion-button (click)="merchantScript.changeToStep(3)" shape="round" mode="ios">Previous</ion-button>
     <ion-button (click)="validateForm()" shape="round" mode="ios">Next</ion-button>
   </ion-row>
 </ion-card>

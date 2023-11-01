@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MerchantScript } from 'src/app/myScripts/MerchantScript';
 
 @Component({
   selector: 'app-merchant-step2',
@@ -26,8 +27,12 @@ export class MerchantStep2Component  implements OnInit {
 
 
 
-  constructor() { }
+  constructor(public merchantScript: MerchantScript) { }
 
   ngOnInit() {}
+
+  validateForm() {
+    this.merchantScript.changeToStep(3);
+  }
 
 }

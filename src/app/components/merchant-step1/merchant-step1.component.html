@@ -1,12 +1,12 @@
-<ion-card>
+<ion-card class="ion-padding">
   <ion-card-header>
     <ion-card-title>STEP 1 - Merchant Information</ion-card-title>
-    <ion-card-subtitle>Add data about the merchant.</ion-card-subtitle>
+    <ion-card-subtitle>Add data about your company.</ion-card-subtitle>
   </ion-card-header>
 
   
 
-  <ion-item>
+  <ion-item lines="none">
     <ion-input
     label="Company Name"
     labelPlacement="stacked"
@@ -24,7 +24,7 @@
     <ion-text> Please add a valid name. </ion-text>
   </ion-label>
 
-  <ion-item>
+  <ion-item lines="none">
     <ion-input
     label="Bio"
     labelPlacement="stacked"
@@ -45,11 +45,41 @@
   </ion-label>
 
   <!-- ADD IMAGE AND LOGO -->
+  <ion-item>
+    <ion-input
+    label="Add Logo"
+    labelPlacement="stacked"
+    ></ion-input>
+  </ion-item>
+  <ion-label
+    *ngIf="unvalidLogo"
+    class="ion-padding unvalid-field"
+    color="danger"
+  >
+    <ion-icon name="alert-circle-outline"></ion-icon>
+    <ion-text> Please add a valid image. </ion-text>
+  </ion-label>
+
 
   <ion-item>
-    <ion-label position="stacked"> Merchant Type </ion-label>
-    <ion-segment (ionChange)="manageMerchantType($event)" value="restaurant">
-      <ion-segment-button value="restaurant">
+    <ion-input
+    label="Add Merchant Thumbnail"
+    labelPlacement="stacked"
+    ></ion-input>
+  </ion-item>
+  <ion-label
+    *ngIf="unvalidThumbnail"
+    class="ion-padding unvalid-field"
+    color="danger"
+  >
+    <ion-icon name="alert-circle-outline"></ion-icon>
+    <ion-text> Please add a valid image. </ion-text>
+  </ion-label>
+
+  <ion-item lines="none">
+    <ion-label > Merchant Type </ion-label>
+    <ion-segment mode="ios" (ionChange)="manageMerchantType($event)" value="restaurant">
+      <ion-segment-button  value="restaurant">
         <ion-label>Restaurant</ion-label>
       </ion-segment-button>
       <ion-segment-button value="kiosk">
@@ -65,4 +95,8 @@
     <ion-icon name="alert-circle-outline"></ion-icon>
     <ion-text> Please specify the type of vendor </ion-text>
   </ion-label>
+  <ion-row class="btns-row">
+    <div></div>
+    <ion-button (click)="validateForm()" shape="round" mode="ios">Next</ion-button>
+  </ion-row>
 </ion-card>
