@@ -8,8 +8,10 @@ import { MerchantScript } from 'src/app/myScripts/MerchantScript';
 })
 export class MerchantStep4Component implements OnInit {
   pickupTime: number = 15;
+  minOrderValue: number = 0;
+  deliveryPrice: number = 0;
+  deliveryOptions:string = '';
 
-  unvalidDeliveryOpt: boolean = false;
   unvalidPickupTime: boolean = false;
 
   constructor(public merchantScript: MerchantScript) { }
@@ -17,7 +19,13 @@ export class MerchantStep4Component implements OnInit {
   ngOnInit() { }
 
   manageDeliveryOptions(ev: any) {
-    console.log(ev);
+    console.log(ev.detail.value);
+    this.deliveryOptions = ev.detail.value
+  }
+
+  handleDistance(ev:any) {
+    console.log(ev.detail.value);
+    
   }
 
   validateForm() {

@@ -29,29 +29,30 @@
 
 
 ion-card {
-    width: 50vw;
-    padding: 2rem 5rem;
+  width: max-content;
+  min-width: 50vw;
+  padding: 2rem 5rem;
 
-    .btns-row {
-        padding-top: 1rem;
-        display: flex;
-        justify-content: space-between;
-    }
+  .btns-row {
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
 
 
-ion-segment-button {
+  ion-segment-button {
     --indicator-color: var(--ion-color-secondary);
-}
+  }
 
 
 
-/* Material Design styles */
-ion-segment-button.md {
+  /* Material Design styles */
+  ion-segment-button.md {
     --color: #fff;
     --color-checked: var(--ion-color-secondary);
     --indicator-height: 4px;
   }
-  
+
   /* iOS styles */
   ion-segment-button.ios {
     --color: #000;

@@ -9,6 +9,7 @@ import { MerchantStep3Component } from './merchant-step3/merchant-step3.componen
 import { MerchantStep5Component } from './merchant-step5/merchant-step5.component';
 import { MerchantStep6Component } from './merchant-step6/merchant-step6.component';
 import { MerchantInfoComfirmComponent } from './merchant-info-comfirm/merchant-info-comfirm.component';
+import { OpeningHoursInputComponent } from './opening-hours-input/opening-hours-input.component';
 
 
 
@@ -19,7 +20,8 @@ export const components = [
     MerchantStep4Component,
     MerchantStep5Component,
     MerchantStep6Component,
-    MerchantInfoComfirmComponent
+    MerchantInfoComfirmComponent,
+    OpeningHoursInputComponent
 ]
 
 @NgModule({

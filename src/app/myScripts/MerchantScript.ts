@@ -5,7 +5,7 @@ import { Merchant } from './Interfaces';
 
 export class MerchantScript {
 
-  step: number = 3;
+  step: number = 4;
 
   merchant: Merchant = {
     dietaryOptionsIds: [], // list of dietryOptions ids

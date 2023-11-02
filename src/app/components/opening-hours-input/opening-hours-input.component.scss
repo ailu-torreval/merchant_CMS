@@ -1,0 +1,14 @@
+.day-slot {
+    --background: var(--ion-color-light);
+    border-radius: 20px;
+    margin-block: 5px;
+    width: 100%;
+    // ion-row {
+    //     display: flex;
+    // }
+
+    .closed-toggle {
+        --background: var(--ion-color-fadedyellow);
+        border-radius: 20px;
+    }
+}

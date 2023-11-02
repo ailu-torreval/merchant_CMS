@@ -1,0 +1,31 @@
+<ion-item class="day-slot" lines="none">
+  <ion-row class="ion-justify-content-between ion-nowrap ion-align-items-center">
+    <ion-col>
+      <ion-text>{{day}}:</ion-text>
+    </ion-col>
+    <ion-col>
+      <ion-list>
+        <ion-item>
+          <ion-select (ionChange)="handleOpening($event)" interface="popover" placeholder="Opens at">
+            <ion-select-option *ngFor="let time of timeOptions" [value]="time">{{time}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      </ion-col>
+      <ion-col>
+      <ion-list>
+        <ion-item>
+          <ion-select (ionChange)="handleClosing($event)" interface="popover" placeholder="Closes at">
+            <ion-select-option *ngFor="let time of timeOptions" [value]="time">{{time}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+    <ion-col>
+      <ion-item class="closed-toggle" lines="none">
+        <ion-label>Closed for the Day</ion-label>
+        <ion-toggle slot="end"></ion-toggle>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-item>

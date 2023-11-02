@@ -8,6 +8,8 @@ import { MerchantScript } from 'src/app/myScripts/MerchantScript';
 })
 export class MerchantStep3Component  implements OnInit {
 
+  days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
   constructor(public merchantScript: MerchantScript) { }
 
   ngOnInit() {}
