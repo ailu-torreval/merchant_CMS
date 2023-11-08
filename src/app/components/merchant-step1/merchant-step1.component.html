@@ -4,99 +4,72 @@
     <ion-card-subtitle>Add data about your company.</ion-card-subtitle>
   </ion-card-header>
 
-  
 
-  <ion-item lines="none">
-    <ion-input
-    label="Company Name"
-    labelPlacement="stacked"
-      [(ngModel)]="companyName" 
-      type="text"
-      placeholder="Enter your company name..."
-    ></ion-input>
-  </ion-item>
-  <ion-label
-    *ngIf="unvalidName"
-    class="ion-padding unvalid-field"
-    color="danger"
-  >
-    <ion-icon name="alert-circle-outline"></ion-icon>
-    <ion-text> Please add a valid name. </ion-text>
-  </ion-label>
+  <ion-card-content>
+    <form action="" [formGroup]="step1Form">
+      <ion-item>
+        <ion-input label="Company Name" labelPlacement="stacked" type="text" placeholder="Enter your company name..."
+          formControlName="name"></ion-input>
+      </ion-item>
+      <ng-container *ngFor="let er of merchantScript.errors">
+        <ion-label
+          *ngIf="step1Form.get('name')?.hasError(er) && (step1Form.get('name')?.touched || step1Form.get('name')?.dirty)"
+          class="ion-padding invalid-field" color="danger">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <ion-text> Please add a valid name. </ion-text>
+        </ion-label>
+      </ng-container>
 
-  <ion-item lines="none">
-    <ion-input
-    label="Bio"
-    labelPlacement="stacked"
-      [(ngModel)]="bio" 
-      type="text"
-      placeholder="Add coompany's bio..."
-      [counter]="true"
-      maxlength="250"
-    ></ion-input>
-  </ion-item>
-  <ion-label
-    *ngIf="unvalidBio"
-    class="ion-padding unvalid-field"
-    color="danger"
-  >
-    <ion-icon name="alert-circle-outline"></ion-icon>
-    <ion-text> Please add bio. </ion-text>
-  </ion-label>
+      <ion-item lines="none">
+        <ion-textarea label="Bio" labelPlacement="stacked" type="text"
+          placeholder="Add a short description of your company..." [counter]="true" maxlength="250"
+          formControlName="bio"></ion-textarea>
+      </ion-item>
+      <ion-label
+        *ngIf="step1Form.get('bio')?.hasError('required') && (step1Form.get('bio')?.touched || step1Form.get('bio')?.dirty)"
+        class="ion-padding invalid-field" color="danger">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        <ion-text> Please add a bio. </ion-text>
+      </ion-label>
 
-  <!-- ADD IMAGE AND LOGO -->
-  <ion-item>
-    <ion-input
-    label="Add Logo"
-    labelPlacement="stacked"
-    ></ion-input>
-  </ion-item>
-  <ion-label
-    *ngIf="unvalidLogo"
-    class="ion-padding unvalid-field"
-    color="danger"
-  >
-    <ion-icon name="alert-circle-outline"></ion-icon>
-    <ion-text> Please add a valid image. </ion-text>
-  </ion-label>
+      <!-- ADD IMAGE AND LOGO -->
+      <ion-item>
+        <ion-input label="Add Logo" labelPlacement="stacked"></ion-input>
+      </ion-item>
+      <ion-label *ngIf="invalidLogo" class="ion-padding invalid-field" color="danger">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        <ion-text> Please add a valid image. </ion-text>
+      </ion-label>
 
 
-  <ion-item>
-    <ion-input
-    label="Add Merchant Thumbnail"
-    labelPlacement="stacked"
-    ></ion-input>
-  </ion-item>
-  <ion-label
-    *ngIf="unvalidThumbnail"
-    class="ion-padding unvalid-field"
-    color="danger"
-  >
-    <ion-icon name="alert-circle-outline"></ion-icon>
-    <ion-text> Please add a valid image. </ion-text>
-  </ion-label>
+      <ion-item>
+        <ion-input label="Add Merchant Thumbnail" labelPlacement="stacked"></ion-input>
+      </ion-item>
+      <ion-label *ngIf="invalidThumbnail" class="ion-padding invalid-field" color="danger">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        <ion-text> Please add a valid image. </ion-text>
+      </ion-label>
 
-  <ion-item lines="none">
-    <ion-label > Merchant Type </ion-label>
-    <ion-segment mode="ios" (ionChange)="manageMerchantType($event)" value="restaurant">
-      <ion-segment-button  value="restaurant">
-        <ion-label>Restaurant</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="kiosk">
-        <ion-label>Kiosk</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-item>
-  <ion-label
-    *ngIf="unvalidType"
-    class="ion-padding unvalid-field"
-    color="danger"
-  >
-    <ion-icon name="alert-circle-outline"></ion-icon>
-    <ion-text> Please specify the type of vendor </ion-text>
-  </ion-label>
-  <ion-row class="btns-row">
-    <div></div>
-    <ion-button (click)="validateForm()" shape="round" mode="ios">Next</ion-button>
-  </ion-row>
+
+
+      <ion-label> Merchant Type </ion-label>
+      <ion-item lines="none">
+        <ion-segment mode="ios" formControlName="merchantType" (ionChange)="manageMerchantType($event)" value="1"
+          value="restaurant">
+          <ion-segment-button [value]="1">
+            <ion-label>Restaurant</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="2">
+            <ion-label>Kiosk</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-item>
+
+
+      <ion-row class="btns-row">
+        <div></div>
+        <ion-button (click)="validateForm()" [disabled]="!step1Form.valid" shape="round" mode="ios">Next</ion-button>
+      </ion-row>
+    </form>
+  </ion-card-content>
 </ion-card>

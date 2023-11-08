@@ -5,7 +5,9 @@ import { Merchant } from './Interfaces';
 
 export class MerchantScript {
 
-  step: number = 4;
+  errors: string[] = ["required", "minlength", "email", "pattern", "custom", "min", "max", "maxlength"];
+
+  step: number = 2;
 
   merchant: Merchant = {
     dietaryOptionsIds: [], // list of dietryOptions ids
@@ -55,6 +57,15 @@ export class MerchantScript {
   }
   constructor() { }
 
+
+  populateMerchantPartially(data: Partial<Merchant>) {
+    for (const controlName of Object.keys(this.merchant)) {
+      if (data.hasOwnProperty(controlName)) {
+        (this.merchant as any)[controlName] = data[controlName as keyof Merchant];
+      }
+    }
+    console.log(this.merchant);
+  }
 
   changeToStep(step: number) {
     this.step = step;

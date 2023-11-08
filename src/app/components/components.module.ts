@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MerchantStep1Component } from './merchant-step1/merchant-step1.component';
 import { MerchantStep2Component } from './merchant-step2/merchant-step2.component';
 import { MerchantStep4Component } from './merchant-step4/merchant-step4.component';
@@ -29,7 +29,8 @@ export const components = [
   imports: [
     CommonModule,
     IonicModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: components
 })

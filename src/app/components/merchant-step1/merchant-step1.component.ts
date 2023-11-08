@@ -1,34 +1,55 @@
 import { Component, OnInit } from '@angular/core';
 import { MerchantScript } from 'src/app/myScripts/MerchantScript';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Merchant } from '../../myScripts/Interfaces';
 
 @Component({
   selector: 'app-merchant-step1',
   templateUrl: './merchant-step1.component.html',
   styleUrls: ['./merchant-step1.component.scss'],
 })
-export class MerchantStep1Component  implements OnInit {
-  companyName: string | undefined;
-  bio: string | undefined;
+export class MerchantStep1Component implements OnInit {
 
 
+  step1Form = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    bio: new FormControl('', Validators.required),
+    merchantType: new FormControl(1, Validators.required),
+  })
 
-  unvalidName: boolean = false;
-  unvalidBio: boolean = false;
-  unvalidType: boolean = false;
-  unvalidLogo: boolean = false;
-  unvalidThumbnail: boolean = false;
+  invalidLogo: boolean = false;
+  invalidThumbnail: boolean = false;
 
 
-  constructor(public merchantScript: MerchantScript) { }
+  constructor(public merchantScript: MerchantScript) { 
+    if(this.merchantScript.merchant.name) {
+      this.step1Form.get('name')?.setValue(this.merchantScript.merchant.name);
+      this.step1Form.get('bio')?.setValue(this.merchantScript.merchant.bio);
 
-  ngOnInit() {}
+      //this one doesnt work idk why
+     this.step1Form.get('merchantType')?.setValue(this.merchantScript.merchant.merchantType);
+    }
+  }
+
+  ngOnInit() { }
 
   manageMerchantType(ev: any) {
     console.log('merchant type: ', ev);
   }
 
   validateForm() {
-    this.merchantScript.changeToStep(2);
+    // convert merchantType to number
+    const merchantType = this.step1Form.get('merchantType')?.value;
+    this.step1Form.get('merchantType')?.setValue(Number(merchantType));
+
+    // check img and logo 
+    if (!this.invalidLogo && !this.invalidThumbnail) {
+      //add logo and thumbnail manually
+      console.log(this.step1Form.value);
+      this.merchantScript.populateMerchantPartially(this.step1Form.value as Partial<Merchant>);
+
+      this.merchantScript.changeToStep(2);
+    }
   }
 
 }

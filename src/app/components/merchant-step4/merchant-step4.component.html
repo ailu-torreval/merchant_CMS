@@ -6,7 +6,7 @@
 
 
   <ion-label> Delivery Options </ion-label>
-  <ion-item  lines="none">
+  <ion-item lines="none">
     <ion-segment mode="ios" (ionChange)="manageDeliveryOptions($event)" value="both">
       <ion-segment-button value="delivery">
         <ion-label> <ion-icon slot="start" name="bicycle"></ion-icon> <ion-text> Delivery</ion-text> </ion-label>
@@ -22,15 +22,15 @@
   </ion-item>
 
   <ion-row class="ion-align-items-center">
-    <ion-col class="flex" size="3" >
-    <ion-item>
+    <ion-col class="flex" size="3">
+      <ion-item>
         <ion-input mode="ios" label="Pickup Time" labelPlacement="stacked" [(ngModel)]="pickupTime" type="number"
           placeholder="minutes">
-        
+
         </ion-input>
-          Min.
-        </ion-item>
-      </ion-col>
+        Min.
+      </ion-item>
+    </ion-col>
     <ion-col size="4">
       <ion-label>Pickup time is also consider as preparation time. If its needed, this time can be changed on each
         order.</ion-label>
@@ -44,9 +44,9 @@
   <ion-row>
     <ion-col size="3">
       <ion-item>
-        <ion-input mode="ios" label="Minimal Order Value" labelPlacement="stacked" [(ngModel)]="minOrderValue" type="number"
-          ></ion-input>
-          Kr.
+        <ion-input mode="ios" label="Minimal Order Value" labelPlacement="stacked" [(ngModel)]="minOrderValue"
+          type="number"></ion-input>
+        Kr.
       </ion-item>
     </ion-col>
   </ion-row>
@@ -56,7 +56,8 @@
 
     <ion-list>
       <ion-item>
-        <ion-select  label="Max. Distance for Delivery" labelPlacement="stacked" (ionChange)="handleDistance($event)" interface="popover" placeholder="kms.">
+        <ion-select label="Max. Distance for Delivery" labelPlacement="stacked" (ionChange)="handleDistance($event)"
+          interface="popover" placeholder="kms.">
           <ion-select-option>0 - 1.5 km.</ion-select-option>
           <ion-select-option>1.6 - 3 km.</ion-select-option>
           <ion-select-option> 3 - 5.5 km.</ion-select-option>
@@ -66,9 +67,9 @@
 
     <ion-col size="3">
       <ion-item>
-        <ion-input mode="ios" label="Delivery Price" labelPlacement="stacked" [(ngModel)]="deliveryPrice" type="number"
-          ></ion-input>
-          Kr.
+        <ion-input mode="ios" label="Delivery Price" labelPlacement="stacked" [(ngModel)]="deliveryPrice"
+          type="number"></ion-input>
+        Kr.
       </ion-item>
     </ion-col>
   </ion-row>
