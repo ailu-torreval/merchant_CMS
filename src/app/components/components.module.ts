@@ -10,6 +10,8 @@ import { MerchantStep5Component } from './merchant-step5/merchant-step5.componen
 import { MerchantStep6Component } from './merchant-step6/merchant-step6.component';
 import { MerchantInfoComfirmComponent } from './merchant-info-comfirm/merchant-info-comfirm.component';
 import { OpeningHoursInputComponent } from './opening-hours-input/opening-hours-input.component';
+import { MerchantScript } from '../myScripts/MerchantScript';
+import { LocationService } from '../services/location.service';
 
 
 
@@ -30,8 +32,9 @@ export const components = [
     CommonModule,
     IonicModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
+  providers: [MerchantScript, LocationService],
   exports: components
 })
 export class ComponentsModule { }

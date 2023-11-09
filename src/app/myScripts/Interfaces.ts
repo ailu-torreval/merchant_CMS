@@ -17,6 +17,7 @@ export interface DietaryOptions {
 
 
 export interface Merchant {
+    [key: string]: any;
     dietaryOptionsIds: object, // list of dietryOptions ids
     date: string,
     name: string,

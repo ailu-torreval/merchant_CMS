@@ -6,6 +6,8 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { ComponentsModule } from '../components/components.module';
+import { LocationService } from '../services/location.service';
+import { MerchantScript } from '../myScripts/MerchantScript';
 
 
 @NgModule({
@@ -15,8 +17,9 @@ import { ComponentsModule } from '../components/components.module';
     ReactiveFormsModule,
     IonicModule,
     HomePageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
   ],
+  providers: [MerchantScript, LocationService],
   declarations: [HomePage]
 })
 export class HomePageModule { }

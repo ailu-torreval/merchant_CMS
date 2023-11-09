@@ -34,13 +34,11 @@ export class MerchantStep1Component implements OnInit {
   ngOnInit() { }
 
   manageMerchantType(ev: any) {
-    console.log('merchant type: ', ev);
+    console.log('merchant type: ', ev.detail.value);
+    console.log( this.step1Form.get('merchantType')?.value);
   }
 
   validateForm() {
-    // convert merchantType to number
-    const merchantType = this.step1Form.get('merchantType')?.value;
-    this.step1Form.get('merchantType')?.setValue(Number(merchantType));
 
     // check img and logo 
     if (!this.invalidLogo && !this.invalidThumbnail) {

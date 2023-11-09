@@ -54,12 +54,11 @@
 
       <ion-label> Merchant Type </ion-label>
       <ion-item lines="none">
-        <ion-segment mode="ios" formControlName="merchantType" (ionChange)="manageMerchantType($event)" value="1"
-          value="restaurant">
+        <ion-segment mode="ios" formControlName="merchantType" (ionChange)="manageMerchantType($event)" [value]="1">
           <ion-segment-button [value]="1">
             <ion-label>Restaurant</ion-label>
           </ion-segment-button>
-          <ion-segment-button value="2">
+          <ion-segment-button [value]="2">
             <ion-label>Kiosk</ion-label>
           </ion-segment-button>
         </ion-segment>

@@ -6,8 +6,8 @@
     <ion-col>
       <ion-list>
         <ion-item>
-          <ion-select (ionChange)="handleOpening($event)" interface="popover" placeholder="Opens at">
-            <ion-select-option *ngFor="let time of timeOptions" [value]="time">{{time}}</ion-select-option>
+          <ion-select (ionChange)="handleOpening($event)" interface="popover" placeholder="Opens at" [(ngModel)]="openingTime">
+            <ion-select-option *ngFor="let time of timeOptions" [value]="time" [disabled]="isClosedForTheDay" >{{time}}</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-list>
@@ -15,16 +15,16 @@
       <ion-col>
       <ion-list>
         <ion-item>
-          <ion-select (ionChange)="handleClosing($event)" interface="popover" placeholder="Closes at">
-            <ion-select-option *ngFor="let time of timeOptions" [value]="time">{{time}}</ion-select-option>
+          <ion-select (ionChange)="handleClosing($event)" interface="popover" placeholder="Closes at" [(ngModel)]="closingTime">
+            <ion-select-option *ngFor="let time of timeOptions" [value]="time" [disabled]="isClosedForTheDay" >{{time}}</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-list>
     </ion-col>
     <ion-col>
       <ion-item class="closed-toggle" lines="none">
-        <ion-label>Closed for the Day</ion-label>
-        <ion-toggle slot="end"></ion-toggle>
+        <ion-label>Closed for the Day </ion-label>
+        <ion-toggle (ionChange)="handleClosedToggle($event)" aria-label="Close for the day" slot="end" [(ngModel)]="isClosedForTheDay" ></ion-toggle>
       </ion-item>
     </ion-col>
   </ion-row>

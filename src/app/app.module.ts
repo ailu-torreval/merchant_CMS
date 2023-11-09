@@ -9,11 +9,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { MerchantScript } from './myScripts/MerchantScript';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LocationService } from './services/location.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, FormsModule, ReactiveFormsModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, MerchantScript],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, FormsModule, ReactiveFormsModule, HttpClientModule],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, MerchantScript, LocationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Merchant } from 'src/app/myScripts/Interfaces';
 import { MerchantScript } from 'src/app/myScripts/MerchantScript';
 
 @Component({
@@ -7,12 +9,15 @@ import { MerchantScript } from 'src/app/myScripts/MerchantScript';
   styleUrls: ['./merchant-step4.component.scss'],
 })
 export class MerchantStep4Component implements OnInit {
-  pickupTime: number = 15;
-  minOrderValue: number = 0;
-  deliveryPrice: number = 0;
-  deliveryOptions:string = '';
 
-  unvalidPickupTime: boolean = false;
+  step4Form = new FormGroup({
+    deliveryOptions: new FormControl(2, Validators.required),
+    defaultPickupTime: new FormControl(15, [Validators.required, Validators.min(0)]),
+    minOrderValue : new FormControl(0, [Validators.required, Validators.min(0)]),
+    distanceLimit : new FormControl(0, [Validators.required, Validators.min(1.5)]),
+    deliveryPrice: new FormControl('', [Validators.required, Validators.min(0)])
+  })
+
 
   constructor(public merchantScript: MerchantScript) { }
 
@@ -20,7 +25,7 @@ export class MerchantStep4Component implements OnInit {
 
   manageDeliveryOptions(ev: any) {
     console.log(ev.detail.value);
-    this.deliveryOptions = ev.detail.value
+    console.log(this.step4Form.get('deliveryOptions')?.value);
   }
 
   handleDistance(ev:any) {
@@ -29,6 +34,7 @@ export class MerchantStep4Component implements OnInit {
   }
 
   validateForm() {
+    this.merchantScript.populateMerchantPartially(this.step4Form.value as Partial<Merchant>);
     this.merchantScript.changeToStep(5);
   }
 

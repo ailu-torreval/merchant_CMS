@@ -4,29 +4,30 @@
     <ion-card-subtitle>Specify </ion-card-subtitle>
   </ion-card-header>
 
-
-  <ion-label> Delivery Options </ion-label>
+  <ion-card-content>
+    <form action="" [formGroup]="step4Form">
+      <ion-label> Delivery Options </ion-label>
   <ion-item lines="none">
-    <ion-segment mode="ios" (ionChange)="manageDeliveryOptions($event)" value="both">
-      <ion-segment-button value="delivery">
+    <ion-segment mode="ios" (ionChange)="manageDeliveryOptions($event)" [value]="2" formControlName="deliveryOptions">
+      <ion-segment-button [value]="1">
         <ion-label> <ion-icon slot="start" name="bicycle"></ion-icon> <ion-text> Delivery</ion-text> </ion-label>
       </ion-segment-button>
-      <ion-segment-button value="pickup">
+      <ion-segment-button [value]="0">
         <ion-label> <ion-icon slot="start" name="bag"></ion-icon> Pickup</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="both">
+      <ion-segment-button [value]="2">
         <ion-label><ion-icon slot="start" name="bicycle"></ion-icon><ion-icon slot="start" name="bag"></ion-icon>
           Both</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-item>
 
+
   <ion-row class="ion-align-items-center">
     <ion-col class="flex" size="3">
       <ion-item>
-        <ion-input mode="ios" label="Pickup Time" labelPlacement="stacked" [(ngModel)]="pickupTime" type="number"
+        <ion-input mode="ios" label="Pickup Time" labelPlacement="stacked" formControlName="defaultPickupTime" type="number"
           placeholder="minutes">
-
         </ion-input>
         Min.
       </ion-item>
@@ -36,112 +37,75 @@
         order.</ion-label>
     </ion-col>
   </ion-row>
-  <ion-label *ngIf="unvalidPickupTime" class="ion-padding unvalid-field" color="danger">
-    <ion-icon name="alert-circle-outline"></ion-icon>
-    <ion-text> Please add a valid time. </ion-text>
-  </ion-label>
+  <ng-container *ngFor="let er of merchantScript.errors">
+    <ion-label
+      *ngIf="step4Form.get('defaultPickupTime')?.hasError(er) && (step4Form.get('defaultPickupTime')?.touched || step4Form.get('defaultPickupTime')?.dirty)"
+      class="ion-padding invalid-field" color="danger">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <ion-text> Please add a valid time. </ion-text>
+    </ion-label>
+  </ng-container>
+
 
   <ion-row>
     <ion-col size="3">
       <ion-item>
-        <ion-input mode="ios" label="Minimal Order Value" labelPlacement="stacked" [(ngModel)]="minOrderValue"
+        <ion-input mode="ios" label="Minimal Order Value" labelPlacement="stacked" formControlName="minOrderValue"
           type="number"></ion-input>
         Kr.
       </ion-item>
+      <ng-container *ngFor="let er of merchantScript.errors">
+        <ion-label
+          *ngIf="step4Form.get('minOrderValue')?.hasError(er) && (step4Form.get('minOrderValue')?.touched || step4Form.get('minOrderValue')?.dirty)"
+          class="ion-padding invalid-field" color="danger">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <ion-text> Please add a valid value. </ion-text>
+        </ion-label>
+      </ng-container>
     </ion-col>
   </ion-row>
 
 
-  <ion-row *ngIf="deliveryOptions !== 'pickup'">
+  <ion-row *ngIf="this.step4Form.get('deliveryOptions')?.value !== 0">
 
     <ion-list>
       <ion-item>
-        <ion-select label="Max. Distance for Delivery" labelPlacement="stacked" (ionChange)="handleDistance($event)"
-          interface="popover" placeholder="kms.">
-          <ion-select-option>0 - 1.5 km.</ion-select-option>
-          <ion-select-option>1.6 - 3 km.</ion-select-option>
-          <ion-select-option> 3 - 5.5 km.</ion-select-option>
+        <ion-select label="Max. Distance for Delivery" labelPlacement="stacked" (ionChange)="handleDistance($event)" formControlName="distanceLimit"  
+          interface="popover" placeholder="km.">
+          <ion-select-option [value]="1.5" >1.5 km.</ion-select-option>
+          <ion-select-option [value]="3">3 km.</ion-select-option>
+          <ion-select-option [value]="5.5">5.5 km.</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-list>
 
     <ion-col size="3">
       <ion-item>
-        <ion-input mode="ios" label="Delivery Price" labelPlacement="stacked" [(ngModel)]="deliveryPrice"
+        <ion-input mode="ios" label="Delivery Price" labelPlacement="stacked"  formControlName="deliveryPrice"
           type="number"></ion-input>
         Kr.
       </ion-item>
+      <ng-container *ngFor="let er of merchantScript.errors">
+        <ion-label
+          *ngIf="step4Form.get('deliveryPrice')?.hasError(er) && (step4Form.get('deliveryPrice')?.touched || step4Form.get('deliveryPrice')?.dirty)"
+          class="ion-padding invalid-field" color="danger">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <ion-text> Please add a valid value. </ion-text>
+        </ion-label>
+      </ng-container>
     </ion-col>
   </ion-row>
-
-
-  <!-- <ion-item>
-    <ion-input mode="ios" label="Phone Number" labelPlacement="stacked" [(ngModel)]="phoneNr" type="text"
-      placeholder="Only numbers, without prefix"></ion-input>
-  </ion-item>
-  <ion-label *ngIf="unvalidPhoneNr" class="ion-padding unvalid-field" color="danger">
-    <ion-icon name="alert-circle-outline"></ion-icon>
-    <ion-text> Please add a valid phone number. </ion-text>
-  </ion-label>
-
-  <ion-row>
-    <ion-text>Address Information</ion-text>
-  </ion-row>
-
-
-
-
-  <ion-item>
-    <ion-input mode="ios" label="Street Name and Number" labelPlacement="stacked" [(ngModel)]="address1" type="text"
-      placeholder="Enter street and number..."></ion-input>
-  </ion-item>
-  <ion-label *ngIf="unvalidAddr1" class="ion-padding unvalid-field" color="danger">
-    <ion-icon name="alert-circle-outline"></ion-icon>
-    <ion-text> Please add a valid address. </ion-text>
-  </ion-label>
-
-  <ion-item>
-    <ion-input mode="ios" label="Address Line 2" labelPlacement="stacked" [(ngModel)]="address2" type="text"
-      placeholder="Extra information..."></ion-input>
-  </ion-item>
-
-  <ion-row>
-    <ion-col size="4">
-      <ion-item>
-        <ion-input mode="ios" label="Zip Code" labelPlacement="stacked" [(ngModel)]="zip" type="nuber"
-          placeholder="Only numbers"></ion-input>
-      </ion-item>
-      <ion-label *ngIf="unvalidZip" class="ion-padding unvalid-field" color="danger">
-        <ion-icon name="alert-circle-outline"></ion-icon>
-        <ion-text> Please add a valid zip code. </ion-text>
-      </ion-label>
-    </ion-col>
-    <ion-col size="8">
-      <ion-item>
-        <ion-input mode="ios" label="City" labelPlacement="stacked" [(ngModel)]="city" type="text"
-          placeholder="Enter city..."></ion-input>
-      </ion-item>
-      <ion-label *ngIf="unvalidCity" class="ion-padding unvalid-field" color="danger">
-        <ion-icon name="alert-circle-outline"></ion-icon>
-        <ion-text> Please add a valid city. </ion-text>
-      </ion-label>
-    </ion-col>
-  </ion-row>
-
-  <ion-item>
-    <ion-label position="stacked">
-      <h1>Google Maps Link</h1>
-      <p>Add the link to your Google Maps Url</p>
-    </ion-label>
-    <ion-input mode="ios" [(ngModel)]="googleMaps" type="text" placeholder="Add link here..."></ion-input>
-  </ion-item>
-  <ion-label *ngIf="unvalidMaps" class="ion-padding unvalid-field" color="danger">
-    <ion-icon name="alert-circle-outline"></ion-icon>
-    <ion-text> Please add a valid Url. </ion-text>
-  </ion-label> -->
 
   <ion-row class="btns-row">
     <ion-button (click)="merchantScript.changeToStep(3)" shape="round" mode="ios">Previous</ion-button>
-    <ion-button (click)="validateForm()" shape="round" mode="ios">Next</ion-button>
+    <ion-button (click)="validateForm()" [disabled]="!step4Form.valid" shape="round" mode="ios">Next</ion-button>
   </ion-row>
+    </form>
+  </ion-card-content>
+
+
+
+
+
+
 </ion-card>
