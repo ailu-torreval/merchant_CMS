@@ -3,6 +3,57 @@
     <ion-card-title>STEP 5 - Menu Information</ion-card-title>
     <ion-card-subtitle>Add data about your menu.</ion-card-subtitle>
   </ion-card-header>
+
+
+
+
+  <ion-card-content>
+
+    <ion-item lines="none" class="ion-no-padding">
+      <ion-label>
+        <h2>Dietary Options</h2>
+        <p>Select a dietary option if you offer products for any of this diets.</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-list class="grid">
+      <ion-item lines="none" class="item" *ngFor="let option of dietOptions" >
+              <ion-checkbox [(ngModel)]="option.checked" labelPlacement="end" alignment="center">
+                <div class="ion-no-padding">
+                  <img [src]="createImgSrc(option.icon)" width="50">
+                  <ion-text>{{option.name}}</ion-text>   
+                </div>
+              </ion-checkbox>
+      </ion-item>
+
+    </ion-list>
+
+
+    <ion-item lines="none" class="ion-no-padding">
+      <ion-label>
+        <h2>Main Categories</h2>
+        <p>Select the categories that suit to your company.</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-list class="grid-long">
+      <ion-item lines="none" class="item" *ngFor="let cat of mainCategories" >
+              <ion-checkbox [(ngModel)]="cat.checked" labelPlacement="end" alignment="center">
+                <div class="ion-no-padding">
+                  <img [src]="createImgSrc(cat.icon)" width="20">
+                  <ion-text>{{cat.name}}</ion-text>   
+                </div>
+              </ion-checkbox>
+      </ion-item>
+
+    </ion-list>
+
+
+
+
+
+  </ion-card-content>
+
 <!-- 
   <ion-item>
     <ion-input mode="ios" label="Contact Email" labelPlacement="stacked" [(ngModel)]="email" type="email"
@@ -80,6 +131,6 @@
 
   <ion-row class="btns-row">
     <ion-button (click)="merchantScript.changeToStep(4)" shape="round" mode="ios">Previous</ion-button>
-    <ion-button (click)="merchantScript.changeToStep(6)" shape="round" mode="ios">Next</ion-button>
+    <ion-button (click)="nextStep()" shape="round" mode="ios">Next</ion-button>
   </ion-row>
 </ion-card>

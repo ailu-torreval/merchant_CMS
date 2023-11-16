@@ -7,9 +7,10 @@ export class MerchantScript {
 
   errors: string[] = ["required", "minlength", "email", "pattern", "custom", "min", "max", "maxlength"];
 
-  step: number = 2;
+  step: number = 6;
 
   merchant: Merchant = {
+    id: "24",
     dietaryOptionsIds: [], // list of dietryOptions ids
     date: "",
     name: "",

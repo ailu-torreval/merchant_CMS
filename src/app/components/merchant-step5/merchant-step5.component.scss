@@ -1,0 +1,56 @@
+.header {
+  ion-text:nth-child(1) {
+    font-size: 1rem;
+    color: black;
+  }
+
+  ion-text:nth-child(3) {
+    color: yellow;
+  }
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 1rem;
+
+  .item {
+    --background: var(--ion-color-medium);
+    border-radius: 10px;
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      ion-text {
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}
+
+.grid-long {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 0.5rem;
+
+  .item {
+    --background: var(--ion-color-medium);
+    border-radius: 10px;
+    width: max-content;
+
+    div {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      justify-content: center;
+      align-items: center;
+
+      ion-text {
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}

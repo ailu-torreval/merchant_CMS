@@ -1,23 +1,26 @@
 
 
 export interface MainCategories {
-    id: number,
+    id: string,
     name: string,
     description: string,
     icon: string, // as in SVG
+    checked?: boolean,
 }
 
 export interface DietaryOptions {
-    id: number,
+    id: string,
     name: string,
     description: string,
     icon: string, // as in SVG
     sortOrder: number, //rækkefølge or sorting
+    checked?: boolean,
 }
 
 
 export interface Merchant {
     [key: string]: any;
+    id?: string,
     dietaryOptionsIds: object, // list of dietryOptions ids
     date: string,
     name: string,
@@ -57,7 +60,7 @@ export interface Merchant {
     feeRate: number, // for future use as percentage
     priceRange: number, // 0=cheap, 1=okay, 2=expensive
     mainCategoryIds: object, // reference to a list of MainCategories
-    menuCategories: MenuCategories | undefined, // reference to a list of MenuCategories
+    menuCategories: MenuCategories[] | undefined, // reference to a list of MenuCategories
     // mainCategories: MainCategories, // reference to a list of MainCategories
     vat: string,
     isOpen: boolean | undefined,
@@ -75,8 +78,8 @@ export interface Ratings {
 }
 
 export interface MenuCategories {
-    id: number,
-    merchantId: number,
+    id: string,
+    merchantId?: string,
     name: string,
     description: string,
     sortOrder: number, //rækkefølge or sorting

@@ -4,82 +4,38 @@
     <ion-card-subtitle>Add information about your menu.</ion-card-subtitle>
   </ion-card-header>
 
-  <!-- <ion-item>
-    <ion-input mode="ios" label="Contact Email" labelPlacement="stacked" [(ngModel)]="email" type="email"
-      placeholder="Enter your company email..."></ion-input>
-  </ion-item>
-  <ion-label *ngIf="unvalidEmail" class="ion-padding unvalid-field" color="danger">
-    <ion-icon name="alert-circle-outline"></ion-icon>
-    <ion-text> Please add a valid email. </ion-text>
-  </ion-label>
 
-  <ion-item>
-    <ion-input mode="ios" label="Phone Number" labelPlacement="stacked" [(ngModel)]="phoneNr" type="text"
-      placeholder="Only numbers, without prefix"></ion-input>
-  </ion-item>
-  <ion-label *ngIf="unvalidPhoneNr" class="ion-padding unvalid-field" color="danger">
-    <ion-icon name="alert-circle-outline"></ion-icon>
-    <ion-text> Please add a valid phone number. </ion-text>
-  </ion-label>
-
-  <ion-row>
-    <ion-text>Address Information</ion-text>
-  </ion-row>
+  <ion-card-content>
+    <form [formGroup]="newCatForm" >
+      <ion-input label="Title" labelPlacement="stacked" type="text" formControlName="newCatName" >
+      </ion-input>
+      <ion-input label="Subtitle" labelPlacement="stacked" maxLength="75" [counter]="true" type="text" formControlName="newCatDesc" >
+      </ion-input>
+      <ion-button (click)="addCategory()" [disabled]="!newCatForm.valid" fill="clear" mode="ios"> <ion-icon slot="start" name="add-circle"></ion-icon> Add</ion-button>
+    </form>
 
 
+    <ion-list *ngIf="categories.length > 0">
+      mnkjnkj
+      <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
+      <!-- Casting $event to $any is a temporary fix for this bug https://github.com/ionic-team/ionic-framework/issues/24245 -->
+      <ion-reorder-group [disabled]="false" (ionItemReorder)="handleReorder($any($event))">
+        <ion-item *ngFor="let cat of categories" >
+          <ion-label>
+            <h2>{{cat.name}}</h2>
+            <p>{{cat.description}}</p>
+         </ion-label>
+          <ion-reorder slot="end"></ion-reorder>
+        </ion-item>
 
-
-  <ion-item>
-    <ion-input mode="ios" label="Street Name and Number" labelPlacement="stacked" [(ngModel)]="address1" type="text"
-      placeholder="Enter street and number..."></ion-input>
-  </ion-item>
-  <ion-label *ngIf="unvalidAddr1" class="ion-padding unvalid-field" color="danger">
-    <ion-icon name="alert-circle-outline"></ion-icon>
-    <ion-text> Please add a valid address. </ion-text>
-  </ion-label>
-
-  <ion-item>
-    <ion-input mode="ios" label="Address Line 2" labelPlacement="stacked" [(ngModel)]="address2" type="text"
-      placeholder="Extra information..."></ion-input>
-  </ion-item>
-
-  <ion-row>
-    <ion-col size="4">
-      <ion-item>
-        <ion-input mode="ios" label="Zip Code" labelPlacement="stacked" [(ngModel)]="zip" type="nuber"
-          placeholder="Only numbers"></ion-input>
-      </ion-item>
-      <ion-label *ngIf="unvalidZip" class="ion-padding unvalid-field" color="danger">
-        <ion-icon name="alert-circle-outline"></ion-icon>
-        <ion-text> Please add a valid zip code. </ion-text>
-      </ion-label>
-    </ion-col>
-    <ion-col size="8">
-      <ion-item>
-        <ion-input mode="ios" label="City" labelPlacement="stacked" [(ngModel)]="city" type="text"
-          placeholder="Enter city..."></ion-input>
-      </ion-item>
-      <ion-label *ngIf="unvalidCity" class="ion-padding unvalid-field" color="danger">
-        <ion-icon name="alert-circle-outline"></ion-icon>
-        <ion-text> Please add a valid city. </ion-text>
-      </ion-label>
-    </ion-col>
-  </ion-row>
-
-  <ion-item>
-    <ion-label position="stacked">
-      <h1>Google Maps Link</h1>
-      <p>Add the link to your Google Maps Url</p>
-    </ion-label>
-    <ion-input mode="ios" [(ngModel)]="googleMaps" type="text" placeholder="Add link here..."></ion-input>
-  </ion-item>
-  <ion-label *ngIf="unvalidMaps" class="ion-padding unvalid-field" color="danger">
-    <ion-icon name="alert-circle-outline"></ion-icon>
-    <ion-text> Please add a valid Url. </ion-text>
-  </ion-label> -->
+      </ion-reorder-group>
+    </ion-list>
+    
+    <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
+  </ion-card-content>
 
   <ion-row class="btns-row">
     <ion-button (click)="merchantScript.changeToStep(5)" shape="round" mode="ios">Previous</ion-button>
-    <ion-button (click)="validateForm()" shape="round" mode="ios">Finish</ion-button>
+    <ion-button (click)="nextStep()" shape="round" mode="ios">Next</ion-button>
   </ion-row>
 </ion-card>
