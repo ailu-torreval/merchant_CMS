@@ -21,7 +21,9 @@ export class MerchantStep1Component implements OnInit {
   invalidThumbnail: boolean = false;
 
 
-  constructor(public merchantScript: MerchantScript) { 
+  constructor(public merchantScript: MerchantScript) {}
+
+  ngOnInit() { 
     if(this.merchantScript.merchant.name) {
       this.step1Form.get('name')?.setValue(this.merchantScript.merchant.name);
       this.step1Form.get('bio')?.setValue(this.merchantScript.merchant.bio);
@@ -30,8 +32,6 @@ export class MerchantStep1Component implements OnInit {
      this.step1Form.get('merchantType')?.setValue(this.merchantScript.merchant.merchantType);
     }
   }
-
-  ngOnInit() { }
 
   manageMerchantType(ev: any) {
     console.log('merchant type: ', ev.detail.value);

@@ -45,16 +45,27 @@ export class MerchantStep6Component implements OnInit {
     const itemMove = this.categories.splice(ev.detail.from, 1)[0];
     this.categories.splice(ev.detail.to, 0, itemMove);
 
-    // Finish the reorder and position the item in the DOM based on
-    // where the gesture ended. This method can also be called directly
-    // by the reorder group
     ev.detail.complete();
   }
 
+  deleteCat(catName: string) {
+    const index = this.categories.findIndex((cat) => cat.name === catName);
+    this.categories.splice(index, 1);
+  }
+
   nextStep() {
-    this.categories.forEach((category, index) => {
-      category.sortOrder = index;
-    });
+
+      this.categories.forEach((category, index) => {
+        category.sortOrder = index;
+      });
+  
+      this.merchantScript.merchant.menuCategories = this.categories;
+
+      this.merchantScript.changeToStep(7);
+
+    
+
+    // add sort order to each category
 
     //merchant script shouldnt have menucategories obj inside, but only ids, so first post each menu category, then get the ids, then post merchant with ids
 

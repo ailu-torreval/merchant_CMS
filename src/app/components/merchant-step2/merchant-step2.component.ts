@@ -24,7 +24,16 @@ export class MerchantStep2Component  implements OnInit {
 
   constructor(public merchantScript: MerchantScript, private locationService: LocationService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(this.merchantScript.merchant.email){
+      this.step2Form.get('email')?.setValue(this.merchantScript.merchant.email);
+      this.step2Form.get('phone')?.setValue(this.merchantScript.merchant.phone);
+      this.step2Form.get('address1')?.setValue(this.merchantScript.merchant.address1);
+      this.step2Form.get('address2')?.setValue(this.merchantScript.merchant.address2);
+      this.step2Form.get('zip')?.setValue(this.merchantScript.merchant.zip);
+      this.step2Form.get('city')?.setValue(this.merchantScript.merchant.city);
+    }
+  }
 
  async  validateForm() {
     //check address
@@ -32,6 +41,7 @@ export class MerchantStep2Component  implements OnInit {
     // get coords from address
     // create an object with form data and coords
     // populate merchant object
+
 
     try {      
          const results = await this.locationService.getCoords(this.step2Form.get('address1')?.value || '', this.step2Form.get('address2')?.value || '', this.step2Form.get('zip')?.value || '', this.step2Form.get('city')?.value || '');
@@ -45,6 +55,8 @@ export class MerchantStep2Component  implements OnInit {
          this.merchantScript.populateMerchantPartially(this.step2Form.value as Partial<Merchant>);
          this.merchantScript.populateMerchantPartially(locationData  as Partial<Merchant>);
      
+         console.log(this.merchantScript.merchant);
+         
          this.merchantScript.changeToStep(3);
     }
     catch (err) {

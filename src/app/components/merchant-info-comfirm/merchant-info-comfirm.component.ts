@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MerchantScript } from 'src/app/myScripts/MerchantScript';
 
 @Component({
   selector: 'app-merchant-info-comfirm',
@@ -7,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MerchantInfoComfirmComponent  implements OnInit {
 
-  constructor() { }
+  constructor(public merchantScript: MerchantScript) { }
 
   ngOnInit() {}
+
+  confirmData() {
+    console.log('confirmData');
+  }
 
 }

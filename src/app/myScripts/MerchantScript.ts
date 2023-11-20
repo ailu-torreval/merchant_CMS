@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Merchant } from './Interfaces';
+import { MenuCategories } from 'src/assets/Interfaces';
 
 @Injectable()
 
@@ -7,7 +8,7 @@ export class MerchantScript {
 
   errors: string[] = ["required", "minlength", "email", "pattern", "custom", "min", "max", "maxlength"];
 
-  step: number = 6;
+  step: number = 7;
 
   merchant: Merchant = {
     id: "24",
@@ -56,6 +57,10 @@ export class MerchantScript {
     email: "",
     distanceLimit: 0
   }
+
+  menuCategoriesObject: MenuCategories[] = [];
+
+
   constructor() { }
 
 

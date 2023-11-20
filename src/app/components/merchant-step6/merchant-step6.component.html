@@ -1,41 +1,89 @@
 <ion-card>
   <ion-card-header>
     <ion-card-title>STEP 6 - Menu Categories</ion-card-title>
-    <ion-card-subtitle>Add information about your menu.</ion-card-subtitle>
+    <ion-card-subtitle
+      >Dividing your menu in tabs makes it easier to read for the client. <br />
+      Order the categories as you preffer.</ion-card-subtitle
+    >
   </ion-card-header>
 
-
   <ion-card-content>
-    <form [formGroup]="newCatForm" >
-      <ion-input label="Title" labelPlacement="stacked" type="text" formControlName="newCatName" >
-      </ion-input>
-      <ion-input label="Subtitle" labelPlacement="stacked" maxLength="75" [counter]="true" type="text" formControlName="newCatDesc" >
-      </ion-input>
-      <ion-button (click)="addCategory()" [disabled]="!newCatForm.valid" fill="clear" mode="ios"> <ion-icon slot="start" name="add-circle"></ion-icon> Add</ion-button>
-    </form>
+    <div class="add-cat-container">
+      <ion-label lines="none">
+        <ion-text color="tertiary">Add Category</ion-text>
+      </ion-label>
+      <form [formGroup]="newCatForm">
+        <ion-item>
+          <ion-input
+            label="Title"
+            labelPlacement="stacked"
+            type="text"
+            formControlName="newCatName"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Subtitle"
+            labelPlacement="stacked"
+            maxLength="75"
+            [counter]="true"
+            type="text"
+            formControlName="newCatDesc"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-button
+          (click)="addCategory()"
+          [disabled]="!newCatForm.valid"
+          fill="clear"
+          shape="round"
+          mode="ios"
+          expand="block"
+        >
+          <ion-icon slot="start" name="add-circle"></ion-icon> Add</ion-button
+        >
+      </form>
+    </div>
 
 
     <ion-list *ngIf="categories.length > 0">
-      mnkjnkj
-      <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
-      <!-- Casting $event to $any is a temporary fix for this bug https://github.com/ionic-team/ionic-framework/issues/24245 -->
-      <ion-reorder-group [disabled]="false" (ionItemReorder)="handleReorder($any($event))">
-        <ion-item *ngFor="let cat of categories" >
+      <ion-row class="cat-container-title">
+        <h2>Menu Categories</h2>
+        <p>Drag items to reorder the tabs.</p>
+      </ion-row>
+      <ion-reorder-group
+        [disabled]="false"
+        (ionItemReorder)="handleReorder($any($event))"
+      >
+        <ion-item *ngFor="let cat of categories">
           <ion-label>
-            <h2>{{cat.name}}</h2>
-            <p>{{cat.description}}</p>
-         </ion-label>
-          <ion-reorder slot="end"></ion-reorder>
+            <h2>{{ cat.name }}</h2>
+            <p>{{ cat.description }}</p>
+          </ion-label>
+          <ion-button
+            (click)="deleteCat(cat.name)"
+            fill="clear"
+            shape="round"
+            color="danger"
+          >
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+          <ion-reorder slot="end">
+            <ion-icon name="chevron-expand"></ion-icon>
+          </ion-reorder>
         </ion-item>
-
       </ion-reorder-group>
     </ion-list>
-    
-    <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
   </ion-card-content>
 
   <ion-row class="btns-row">
-    <ion-button (click)="merchantScript.changeToStep(5)" shape="round" mode="ios">Previous</ion-button>
-    <ion-button (click)="nextStep()" shape="round" mode="ios">Next</ion-button>
+    <ion-button
+      (click)="merchantScript.changeToStep(5)"
+      shape="round"
+      mode="ios"
+      >Previous</ion-button
+    >
+    <ion-button (click)="nextStep()" [disabled]="categories.length === 0" shape="round" mode="ios">Next</ion-button>
   </ion-row>
 </ion-card>
