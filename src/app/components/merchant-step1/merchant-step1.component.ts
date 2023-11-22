@@ -21,22 +21,21 @@ export class MerchantStep1Component implements OnInit {
   rawLogo: string = '';
   croppedImg: any = '';
   croppedLogo: any = '';
+  invalidImgs:boolean = false;
 
   isMobile = Capacitor.getPlatform() !== 'web';
 
   step1Form = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     bio: new FormControl('', Validators.required),
-    merchantType: new FormControl(1, Validators.required),
-    logo: new FormControl(''),
-    picture: new FormControl(''),
+    merchantType: new FormControl(1, Validators.required)
   });
 
   logo: any;
   picture: any;
 
-  invalidLogo: boolean = false;
-  invalidThumbnail: boolean = false;
+  isValidLogo: boolean = false;
+  isValidThumbnail: boolean = false;
 
   constructor(public merchantScript: MerchantScript, public photoService: PhotoService, private loadingCtrl: LoadingController, private modalCtrl: ModalController) {}
 
@@ -77,12 +76,10 @@ export class MerchantStep1Component implements OnInit {
     if(image) {
       if(isLogo) {
         this.rawLogo = `data:image/jpeg;base64,${image.base64String}`;
-        this.invalidLogo = false;
         this.croppedLogo = null;
         this.openCropModal(this.rawLogo, isLogo);
       } else {
         this.rawImg = `data:image/jpeg;base64,${image.base64String}`;
-        this.invalidThumbnail = false;
         this.croppedImg = null;
         this.openCropModal(this.rawImg, isLogo);
       }
@@ -91,8 +88,6 @@ export class MerchantStep1Component implements OnInit {
   }
 
   async openCropModal(image:string | undefined , isLogo: boolean) {
-    console.log('open crop modal', isLogo , image);
-
     const modal = await this.modalCtrl.create({
       component: ImageCropPage,
       componentProps: {
@@ -103,20 +98,46 @@ export class MerchantStep1Component implements OnInit {
     await modal.present();
 
 
+    const { data } = await modal.onWillDismiss();
+    console.log(data);
+    if (data && "refresh" in data && data.refresh) {
+      if(isLogo) {
+        this.croppedLogo = data.refresh;
+        this.merchantScript.merchant.logo = this.croppedLogo;
+        this.isValidLogo = true;
+      } else {
+        this.croppedImg = data.refresh;
+        console.log(this.croppedImg);
+        
+        this.merchantScript.merchant.picture = this.croppedImg;
+        this.isValidThumbnail = true;
+      }
+    }
+  }
 
+  removeImg(isLogo: boolean) {
+    if(isLogo) {
+      this.merchantScript.merchant.logo = '';
+      this.croppedLogo = null;
+      this.isValidLogo = false;
+    } else {
+      this.merchantScript.merchant.picture = '';
+      this.croppedImg = null;
+      this.isValidThumbnail = false;
+    }
   }
 
 
   validateForm() {
     // check img and logo
-    if (!this.invalidLogo && !this.invalidThumbnail) {
-      //add logo and thumbnail manually
+    if (this.isValidLogo && this.isValidThumbnail) {
       console.log(this.step1Form.value);
       this.merchantScript.populateMerchantPartially(
         this.step1Form.value as Partial<Merchant>
       );
-
       this.merchantScript.changeToStep(2);
-    }
+    } else {
+      this.invalidImgs = true;
+    } 
   }
 }

@@ -56,53 +56,65 @@
 
 
       <ion-item>
-        <ion-button
-          (click)="selectImage(true)"
-          fill="clear"
-          shape="round"
-          mode="ios"
-          expand="block"
-        >
-          <ion-icon slot="start" name="add-circle"></ion-icon>Select
-          Logo</ion-button
-        >
+        <ion-label>
+          <h3>Add Logo</h3>
+          <ion-button
+            (click)="selectImage(true)"
+            fill="clear"
+            shape="round"
+            mode="ios"
+            expand="block"
+          >
+            <ion-icon slot="start" name="add-circle"></ion-icon>Select
+            Logo</ion-button
+          >
+        </ion-label>
         <!-- <ion-input label="Add Logo" formControlName="logo" type="hidden" [(ngModel)]="merchantScript.merchant.logo" labelPlacement="stacked"></ion-input> -->
       </ion-item>
       <br />
-      <img [src]="merchantScript.merchant.logo" *ngIf="merchantScript.merchant.logo" />
-
-      <ion-label
-        *ngIf="invalidLogo"
-        class="ion-padding invalid-field"
-        color="danger"
-      >
-        <ion-icon name="alert-circle-outline"></ion-icon>
-        <ion-text> Please add a valid image. </ion-text>
-      </ion-label>
-
-      <ion-item>
+      <ion-row  *ngIf="merchantScript.merchant.logo" >
+        <img [src]="merchantScript.merchant.logo" height="80" />
         <ion-button
-          (click)="selectImage(false)"
+        size="small"
+          (click)="removeImg(true)"
           fill="clear"
           shape="round"
           mode="ios"
           expand="block"
-        >
-          <ion-icon slot="start" name="add-circle"></ion-icon>Select
-          Picture</ion-button
-        >
-        <!-- <ion-input label="Add Image" formControlName="picture" type="hidden" [(ngModel)]="merchantScript.merchant.picture" labelPlacement="stacked"></ion-input> -->
+          color="danger">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-row>
+
+      <ion-item>
+        <ion-label>
+          <h3>Add Cover Photo</h3>
+          <ion-button
+            (click)="selectImage(false)"
+            fill="clear"
+            shape="round"
+            mode="ios"
+            expand="block"
+          >
+            <ion-icon slot="start" name="add-circle"></ion-icon>Select
+            Picture</ion-button
+          >
+        </ion-label>
       </ion-item>
       <br />
-      <img [src]="merchantScript.merchant.picture" *ngIf="merchantScript.merchant.picture" />
-      <ion-label
-        *ngIf="invalidThumbnail"
-        class="ion-padding invalid-field"
-        color="danger"
-      >
-        <ion-icon name="alert-circle-outline"></ion-icon>
-        <ion-text> Please add a valid image. </ion-text>
-      </ion-label>
+      <ion-row  *ngIf="merchantScript.merchant.picture" >
+        <img [src]="merchantScript.merchant.picture" height="80" />
+        <ion-button
+        size="small"
+          (click)="removeImg(false)"
+          fill="clear"
+          shape="round"
+          mode="ios"
+          expand="block"
+          color="danger">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-row>
 
       <ion-label> Merchant Type </ion-label>
       <ion-item lines="none">
@@ -122,7 +134,14 @@
       </ion-item>
 
       <ion-row class="btns-row">
-        <div></div>
+        <div>
+          <ion-label *ngIf="invalidImgs" class="ion-padding invalid-field"
+          color="danger">
+          <ion-text>         <ion-icon name="alert-circle-outline"></ion-icon>
+          Please add logo and cover images.</ion-text>
+
+          </ion-label>
+        </div>
         <ion-button
           (click)="validateForm()"
           [disabled]="!step1Form.valid"

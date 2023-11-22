@@ -6,7 +6,6 @@ import {
   ImageCropperComponent,
   ImageTransform,
 } from 'ngx-image-cropper';
-import { Camera, CameraResultType } from '@capacitor/camera';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 
 @Component({
@@ -15,43 +14,36 @@ import { AlertController, LoadingController, ModalController } from '@ionic/angu
   styleUrls: ['./image-crop.page.scss'],
 })
 export class ImageCropPage implements OnInit {
-
-  @ViewChild('cropper') cropper: ImageCropperComponent | undefined;
+  @ViewChild('cropper') cropper!: ImageCropperComponent;
   @Input() image: string = '';
   @Input() isLogo: boolean = false;
+  imageChangedEvent: any = '';
   croppedImage: any = '';
   transform: ImageTransform = {};
   isMobile = Capacitor.getPlatform() !== 'web';
  
   constructor(private loadingCtrl: LoadingController, private modalCtrl: ModalController, private alert: AlertController) {}
- 
-  async selectImage() {
-    const image = await Camera.getPhoto({
-      quality: 85,
-      allowEditing: true,
-      resultType: CameraResultType.Base64,
-    });
-    const loading = await this.loadingCtrl.create();
-    await loading.present();
- 
-    this.image = `data:image/jpeg;base64,${image.base64String}`;
-    this.croppedImage = '';
-  }
 
     // Called when cropper is ready
     imageLoaded() {
+      console.log('Image loaded');
       this.loadingCtrl.dismiss();
     }
   
-    // Called when we finished editing (because autoCrop is set to false)
+    // Called after image is cropped
     imageCropped(event: ImageCroppedEvent) {
-      this.croppedImage = event.base64;
-      console.log(this.croppedImage)
+      const fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        this.croppedImage = e.target?.result as string;
+      };
+      if (event.blob) {
+        fileReader.readAsDataURL(event.blob);
+      }
+      console.log('Image cropped', this.croppedImage);
     }
   
     // We encountered a problem while loading the image
     async loadImageFailed() {
-
         const alert = await this.alert.create({
           message: 'Please try again.',
           header: 'Something went wrong',
@@ -66,15 +58,16 @@ export class ImageCropPage implements OnInit {
   
     // Manually trigger the crop
     cropImage() {
-      this.cropper?.crop();
-      this.image = '';
-      this.dismiss(this.croppedImage);
+        console.log("FROM MODAL");
+        this.dismiss(this.croppedImage);
+
     }
   
     // Discard all changes
     discardChanges() {
       this.image = '';
       this.croppedImage = null;
+      this.dismiss();
     }
   
     // Edit the image

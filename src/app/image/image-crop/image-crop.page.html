@@ -1,24 +1,20 @@
 <ion-header>
   <ion-toolbar>
     <ion-title> Image Crop </ion-title>
-    
-    <ion-buttons slot="start" (click)="dismiss()">
-      <ion-icon name="arrow-back" size="large"></ion-icon>
-    </ion-buttons>
-
 
     <ion-buttons slot="end">
-      <ion-button (click)="cropImage()" *ngIf="image">
-        <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+      <ion-button (click)="discardChanges()" *ngIf="image">
+        <ion-icon color="tertiary" slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
+
+<!-- <ion-button (click)="cropImage()" *ngIf="image"> -->
 <ion-content>
 
-
-  <image-cropper
+  <image-cropper *ngIf="!isLogo"
     #cropper
     [imageBase64]="image"
     [maintainAspectRatio]="true"
@@ -28,35 +24,51 @@
     [cropperMinHeight]="900"
     [hideResizeSquares]="isMobile"
     [transform]="transform"
-    [autoCrop]="false"
+    [autoCrop]="true"
     (imageCropped)="imageCropped($event)"
+    [imageChangedEvent]="imageChangedEvent"
     (loadImageFailed)="loadImageFailed()"
     (imageLoaded)="imageLoaded()"
   ></image-cropper>
 
-  <img [src]="croppedImage" *ngIf="croppedImage" />
+  <image-cropper *ngIf="isLogo"
+    #cropper
+    [imageBase64]="image"
+    [maintainAspectRatio]="true"
+    [aspectRatio]="1 / 1"
+    format="png"
+    [cropperMinWidth]="1000"
+    [cropperMinHeight]="1000"
+    [hideResizeSquares]="isMobile"
+    [transform]="transform"
+    [autoCrop]="true"
+    (imageCropped)="imageCropped($event)"
+    [imageChangedEvent]="imageChangedEvent"
+    (loadImageFailed)="loadImageFailed()"
+    (imageLoaded)="imageLoaded()"
+  ></image-cropper>
 
-
-
+  <img [src]="croppedImage" *ngIf="croppedImage"  />
 
 </ion-content>
 
 
 <ion-footer>
   <ion-row *ngIf="image">
-    <ion-col size="3" class="ion-text-center">
-      <ion-button fill="outline" (click)="rotate()">
+    <ion-col class="ion-text-center">
+      <ion-button color="tertiary" mode="ios" fill="clear" (click)="rotate()">
         <ion-icon name="refresh" slot="start"></ion-icon> Rotate
       </ion-button>
     </ion-col>
-    <ion-col size="3" class="ion-text-center">
-      <ion-button fill="outline" (click)="flipHorizontal()"> Flip X </ion-button>
+    <ion-col class="ion-text-center">
+      <ion-button color="tertiary" mode="ios" fill="clear" (click)="flipHorizontal()">
+        <ion-icon  slot="start" name="arrow-forward"></ion-icon> Flip </ion-button>
     </ion-col>
-    <ion-col size="3" class="ion-text-center">
-      <ion-button fill="outline" (click)="flipVertical()"> Flip Y </ion-button>
+    <ion-col class="ion-text-center">
+      <ion-button color="tertiary" mode="ios" fill="clear" (click)="flipVertical()"> <ion-icon  slot="start" name="arrow-down"></ion-icon> Flip </ion-button>
     </ion-col>
-    <ion-col size="3" class="ion-text-center">
-      <ion-button fill="outline" (click)="discardChanges()"> Discard </ion-button>
+    <ion-col class="ion-text-center">
+      <ion-button shape="round" mode="ios" (click)="cropImage()"> Upload Image </ion-button>
     </ion-col>
   </ion-row>
 </ion-footer>
