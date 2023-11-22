@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Image Crop </ion-title>
+    
+    <ion-buttons slot="start" (click)="dismiss()">
+      <ion-icon name="arrow-back" size="large"></ion-icon>
+    </ion-buttons>
+
+
+    <ion-buttons slot="end">
+      <ion-button (click)="cropImage()" *ngIf="image">
+        <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <image-cropper
+    #cropper
+    [imageBase64]="image"
+    [maintainAspectRatio]="true"
+    [aspectRatio]="16 / 9"
+    format="png"
+    [cropperMinWidth]="1600"
+    [cropperMinHeight]="900"
+    [hideResizeSquares]="isMobile"
+    [transform]="transform"
+    [autoCrop]="false"
+    (imageCropped)="imageCropped($event)"
+    (loadImageFailed)="loadImageFailed()"
+    (imageLoaded)="imageLoaded()"
+  ></image-cropper>
+
+  <img [src]="croppedImage" *ngIf="croppedImage" />
+
+
+
+
+</ion-content>
+
+
+<ion-footer>
+  <ion-row *ngIf="image">
+    <ion-col size="3" class="ion-text-center">
+      <ion-button fill="outline" (click)="rotate()">
+        <ion-icon name="refresh" slot="start"></ion-icon> Rotate
+      </ion-button>
+    </ion-col>
+    <ion-col size="3" class="ion-text-center">
+      <ion-button fill="outline" (click)="flipHorizontal()"> Flip X </ion-button>
+    </ion-col>
+    <ion-col size="3" class="ion-text-center">
+      <ion-button fill="outline" (click)="flipVertical()"> Flip Y </ion-button>
+    </ion-col>
+    <ion-col size="3" class="ion-text-center">
+      <ion-button fill="outline" (click)="discardChanges()"> Discard </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

@@ -136,3 +136,9 @@ export interface Favorites {
     userId: number,
     merchantId: number,
 }
+
+export interface LocalFile {
+    name: string,
+    path: string;
+    data: string;
+}
