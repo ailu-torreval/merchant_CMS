@@ -8,7 +8,7 @@ export class MerchantScript {
 
   errors: string[] = ["required", "minlength", "email", "pattern", "custom", "min", "max", "maxlength"];
 
-  step: number = 7;
+  step: number = 1;
 
   merchant: Merchant = {
     id: "24",

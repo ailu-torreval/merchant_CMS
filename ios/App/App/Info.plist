@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+ <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -46,12 +46,20 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 
-		<key>NSLocationAlwaysUsageDescription</key>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>We want to track you </string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We want your current position</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>To show your location</string>
+
+	<key>NSCameraUsageDescription</key>
+	<string>To capture images</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>To add images</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To store images</string>
+
 	
 </dict>
 </plist>

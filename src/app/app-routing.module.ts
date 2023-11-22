@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'image-crop',
+    loadChildren: () => import('./image/image-crop/image-crop.module').then( m => m.ImageCropPageModule)
+  }
 ];
 
 @NgModule({

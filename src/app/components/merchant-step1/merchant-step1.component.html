@@ -4,57 +4,126 @@
     <ion-card-subtitle>Add data about your company.</ion-card-subtitle>
   </ion-card-header>
 
-
   <ion-card-content>
     <form action="" [formGroup]="step1Form">
       <ion-item>
-        <ion-input label="Company Name" labelPlacement="stacked" type="text" placeholder="Enter your company name..."
-          formControlName="name"></ion-input>
+        <ion-input
+          label="Company Name"
+          labelPlacement="stacked"
+          type="text"
+          placeholder="Enter your company name..."
+          formControlName="name"
+        ></ion-input>
       </ion-item>
       <ng-container *ngFor="let er of merchantScript.errors">
         <ion-label
-          *ngIf="step1Form.get('name')?.hasError(er) && (step1Form.get('name')?.touched || step1Form.get('name')?.dirty)"
-          class="ion-padding invalid-field" color="danger">
+          *ngIf="
+            step1Form.get('name')?.hasError(er) &&
+            (step1Form.get('name')?.touched || step1Form.get('name')?.dirty)
+          "
+          class="ion-padding invalid-field"
+          color="danger"
+        >
           <ion-icon name="alert-circle-outline"></ion-icon>
           <ion-text> Please add a valid name. </ion-text>
         </ion-label>
       </ng-container>
 
       <ion-item lines="none">
-        <ion-textarea label="Bio" labelPlacement="stacked" type="text"
-          placeholder="Add a short description of your company..." [counter]="true" maxlength="250"
-          formControlName="bio"></ion-textarea>
+        <ion-textarea
+          label="Bio"
+          labelPlacement="stacked"
+          type="text"
+          placeholder="Add a short description of your company..."
+          [counter]="true"
+          maxlength="250"
+          formControlName="bio"
+        ></ion-textarea>
       </ion-item>
       <ion-label
-        *ngIf="step1Form.get('bio')?.hasError('required') && (step1Form.get('bio')?.touched || step1Form.get('bio')?.dirty)"
-        class="ion-padding invalid-field" color="danger">
+        *ngIf="
+          step1Form.get('bio')?.hasError('required') &&
+          (step1Form.get('bio')?.touched || step1Form.get('bio')?.dirty)
+        "
+        class="ion-padding invalid-field"
+        color="danger"
+      >
         <ion-icon name="alert-circle-outline"></ion-icon>
         <ion-text> Please add a bio. </ion-text>
       </ion-label>
 
       <!-- ADD IMAGE AND LOGO -->
-      <ion-item>
-        <ion-input label="Add Logo" labelPlacement="stacked"></ion-input>
-      </ion-item>
-      <ion-label *ngIf="invalidLogo" class="ion-padding invalid-field" color="danger">
-        <ion-icon name="alert-circle-outline"></ion-icon>
-        <ion-text> Please add a valid image. </ion-text>
-      </ion-label>
 
 
       <ion-item>
-        <ion-input label="Add Merchant Thumbnail" labelPlacement="stacked"></ion-input>
+        <ion-label>
+          <h3>Add Logo</h3>
+          <ion-button
+            (click)="selectImage(true)"
+            fill="clear"
+            shape="round"
+            mode="ios"
+            expand="block"
+          >
+            <ion-icon slot="start" name="add-circle"></ion-icon>Select
+            Logo</ion-button
+          >
+        </ion-label>
+        <!-- <ion-input label="Add Logo" formControlName="logo" type="hidden" [(ngModel)]="merchantScript.merchant.logo" labelPlacement="stacked"></ion-input> -->
       </ion-item>
-      <ion-label *ngIf="invalidThumbnail" class="ion-padding invalid-field" color="danger">
-        <ion-icon name="alert-circle-outline"></ion-icon>
-        <ion-text> Please add a valid image. </ion-text>
-      </ion-label>
+      <br />
+      <ion-row  *ngIf="merchantScript.merchant.logo" >
+        <img [src]="merchantScript.merchant.logo" height="80" />
+        <ion-button
+        size="small"
+          (click)="removeImg(true)"
+          fill="clear"
+          shape="round"
+          mode="ios"
+          expand="block"
+          color="danger">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-row>
 
-
+      <ion-item>
+        <ion-label>
+          <h3>Add Cover Photo</h3>
+          <ion-button
+            (click)="selectImage(false)"
+            fill="clear"
+            shape="round"
+            mode="ios"
+            expand="block"
+          >
+            <ion-icon slot="start" name="add-circle"></ion-icon>Select
+            Picture</ion-button
+          >
+        </ion-label>
+      </ion-item>
+      <br />
+      <ion-row  *ngIf="merchantScript.merchant.picture" >
+        <img [src]="merchantScript.merchant.picture" height="80" />
+        <ion-button
+        size="small"
+          (click)="removeImg(false)"
+          fill="clear"
+          shape="round"
+          mode="ios"
+          expand="block"
+          color="danger">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-row>
 
       <ion-label> Merchant Type </ion-label>
       <ion-item lines="none">
-        <ion-segment mode="ios" formControlName="merchantType" (ionChange)="manageMerchantType($event)" [value]="1">
+        <ion-segment
+          mode="ios"
+          formControlName="merchantType"
+          (ionChange)="manageMerchantType($event)"
+          [value]="1"
+        >
           <ion-segment-button [value]="1">
             <ion-label>Restaurant</ion-label>
           </ion-segment-button>
@@ -64,10 +133,22 @@
         </ion-segment>
       </ion-item>
 
-
       <ion-row class="btns-row">
-        <div></div>
-        <ion-button (click)="validateForm()" [disabled]="!step1Form.valid" shape="round" mode="ios">Next</ion-button>
+        <div>
+          <ion-label *ngIf="invalidImgs" class="ion-padding invalid-field"
+          color="danger">
+          <ion-text>         <ion-icon name="alert-circle-outline"></ion-icon>
+          Please add logo and cover images.</ion-text>
+
+          </ion-label>
+        </div>
+        <ion-button
+          (click)="validateForm()"
+          [disabled]="!step1Form.valid"
+          shape="round"
+          mode="ios"
+          >Next</ion-button
+        >
       </ion-row>
     </form>
   </ion-card-content>
