@@ -20,7 +20,13 @@ export class MerchantStep6Component implements OnInit {
 
 
 
-  constructor(public merchantScript: MerchantScript) {}
+  constructor(public merchantScript: MerchantScript) {
+
+    if(this.merchantScript.merchant.menuCategories){
+      this.categories = this.merchantScript.merchant.menuCategories;
+      this.categories.sort((a, b) => a.sortOrder - b.sortOrder);
+    }
+  }
 
   ngOnInit() {}
 

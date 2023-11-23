@@ -21,7 +21,7 @@ export interface DietaryOptions {
 export interface Merchant {
     [key: string]: any;
     id?: string,
-    dietaryOptionsIds: object, // list of dietryOptions ids
+    dietaryOptionsIds: string[], // list of dietryOptions ids
     date: string,
     name: string,
     bio: string,
@@ -59,7 +59,7 @@ export interface Merchant {
     phone: string,
     feeRate: number, // for future use as percentage
     priceRange: number, // 0=cheap, 1=okay, 2=expensive
-    mainCategoryIds: object, // reference to a list of MainCategories
+    mainCategoryIds: string[], // reference to a list of MainCategories
     menuCategories: MenuCategories[] | undefined, // reference to a list of MenuCategories
     // mainCategories: MainCategories, // reference to a list of MainCategories
     vat: string,
@@ -78,7 +78,7 @@ export interface Ratings {
 }
 
 export interface MenuCategories {
-    id: string,
+    id?: string,
     merchantId?: string,
     name: string,
     description: string,

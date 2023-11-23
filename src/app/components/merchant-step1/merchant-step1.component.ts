@@ -44,9 +44,9 @@ export class MerchantStep1Component implements OnInit {
       this.step1Form.get('bio')?.setValue(this.merchantScript.merchant.bio);
 
       //this one doesnt work idk why
-      this.step1Form
-        .get('merchantType')
-        ?.setValue(this.merchantScript.merchant.merchantType);
+      // this.step1Form
+      //   .get('merchantType')
+      //   ?.setValue(this.merchantScript.merchant.merchantType);
     }
 
     if(this.merchantScript.merchant.logo) {
@@ -62,6 +62,7 @@ export class MerchantStep1Component implements OnInit {
 
   importData() {
     console.log('import data');
+    console.log(this.merchantScript.merchant);
     
   }
 

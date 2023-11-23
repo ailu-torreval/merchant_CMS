@@ -25,6 +25,18 @@ export class OpeningHoursInputComponent implements OnInit {
   ngOnInit() {
     this.trimmedDay = this.day?.substring(0, 3);
     this.openingString = "openingHours" + this.trimmedDay;
+
+    // populate with data from script
+    if(this.merchantScript.merchant[this.openingString] !== undefined){
+    if(this.merchantScript.merchant[this.openingString] == "Closed"){
+      this.isClosedForTheDay = true;
+    } else {
+      this.isClosedForTheDay = false;
+      let times = this.merchantScript.merchant[this.openingString]?.split("-");
+      this.openingTime = times?.[0];
+      this.closingTime = times?.[1];
+    }
+  }
   }
 
   handleOpening(ev: any) {

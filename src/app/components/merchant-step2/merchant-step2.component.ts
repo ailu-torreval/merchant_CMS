@@ -26,6 +26,7 @@ export class MerchantStep2Component  implements OnInit {
 
   ngOnInit() {
     if(this.merchantScript.merchant.email){
+      console.log('populate form')
       this.step2Form.get('email')?.setValue(this.merchantScript.merchant.email);
       this.step2Form.get('phone')?.setValue(this.merchantScript.merchant.phone);
       this.step2Form.get('address1')?.setValue(this.merchantScript.merchant.address1);

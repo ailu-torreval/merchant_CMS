@@ -15,7 +15,26 @@ export class MerchantStep5Component implements OnInit {
 
   constructor(public merchantScript: MerchantScript) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    // if the merchant object has main categories and dietary options, check them in the UI
+    if (this.merchantScript.merchant.mainCategoryIds.length > 0) {
+      this.mainCategories.forEach((cat) => {
+        if (this.merchantScript.merchant.mainCategoryIds.includes(cat.id)) {
+          cat.checked = true;
+        }
+      });
+    }
+
+    if (this.merchantScript.merchant.dietaryOptionsIds.length > 0) {
+      this.dietOptions.forEach((opt) => {
+        if (this.merchantScript.merchant.dietaryOptionsIds.includes(opt.id)) {
+          opt.checked = true;
+        }
+      });
+    }
+
+  }
 
   nextStep() {
     // get checked categories and diet options and add them to the merchant object

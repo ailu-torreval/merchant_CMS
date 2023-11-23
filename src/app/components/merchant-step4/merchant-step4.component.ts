@@ -15,13 +15,24 @@ export class MerchantStep4Component implements OnInit {
     defaultPickupTime: new FormControl(15, [Validators.required, Validators.min(0)]),
     minOrderValue : new FormControl(0, [Validators.required, Validators.min(0)]),
     distanceLimit : new FormControl(0, [Validators.required, Validators.min(1.5)]),
-    deliveryPrice: new FormControl('', [Validators.required, Validators.min(0)])
+    deliveryPrice: new FormControl(0, [Validators.required, Validators.min(0)])
   })
 
 
   constructor(public merchantScript: MerchantScript) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+
+    if(this.merchantScript.merchant.minOrderValue) {
+      console.log(this.merchantScript.merchant.deliveryOptions);
+      this.step4Form.get('deliveryOptions')?.setValue(this.merchantScript.merchant.deliveryOptions);
+      this.step4Form.get('defaultPickupTime')?.setValue(this.merchantScript.merchant.defaultPickupTime);
+      this.step4Form.get('minOrderValue')?.setValue(this.merchantScript.merchant.minOrderValue);
+      this.step4Form.get('distanceLimit')?.setValue(this.merchantScript.merchant.distanceLimit);
+      this.step4Form.get('deliveryPrice')?.setValue(this.merchantScript.merchant.deliveryPrice);
+    }
+
+   }
 
   manageDeliveryOptions(ev: any) {
     console.log(ev.detail.value);
