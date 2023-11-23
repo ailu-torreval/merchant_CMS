@@ -48,6 +48,21 @@ export class MerchantStep1Component implements OnInit {
         .get('merchantType')
         ?.setValue(this.merchantScript.merchant.merchantType);
     }
+
+    if(this.merchantScript.merchant.logo) {
+      this.croppedLogo = this.merchantScript.merchant.logo;
+      this.isValidLogo = true;
+    }
+    if(this.merchantScript.merchant.picture) {
+      this.croppedImg = this.merchantScript.merchant.picture;
+      this.isValidThumbnail = true;
+    }
+
+  }
+
+  importData() {
+    console.log('import data');
+    
   }
 
   manageMerchantType(ev: any) {
