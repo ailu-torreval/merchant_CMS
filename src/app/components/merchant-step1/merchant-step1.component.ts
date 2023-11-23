@@ -3,7 +3,6 @@ import { MerchantScript } from 'src/app/myScripts/MerchantScript';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Merchant } from '../../myScripts/Interfaces';
 import { Capacitor } from '@capacitor/core';
-import { PhotoService } from 'src/app/services/photo.service';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { ImageCropPage } from 'src/app/image/image-crop/image-crop.page';
@@ -37,7 +36,7 @@ export class MerchantStep1Component implements OnInit {
   isValidLogo: boolean = false;
   isValidThumbnail: boolean = false;
 
-  constructor(public merchantScript: MerchantScript, public photoService: PhotoService, private loadingCtrl: LoadingController, private modalCtrl: ModalController) {}
+  constructor(public merchantScript: MerchantScript, private loadingCtrl: LoadingController, private modalCtrl: ModalController) {}
 
   ngOnInit() {
     if (this.merchantScript.merchant.name) {
