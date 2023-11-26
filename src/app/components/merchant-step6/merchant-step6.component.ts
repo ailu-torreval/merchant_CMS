@@ -61,6 +61,7 @@ export class MerchantStep6Component implements OnInit {
 
   nextStep() {
 
+    // add sort order to each category
       this.categories.forEach((category, index) => {
         category.sortOrder = index;
       });
@@ -71,7 +72,6 @@ export class MerchantStep6Component implements OnInit {
 
     
 
-    // add sort order to each category
 
     //merchant script shouldnt have menucategories obj inside, but only ids, so first post each menu category, then get the ids, then post merchant with ids
 

@@ -32,7 +32,7 @@ export class OpeningHoursInputComponent implements OnInit {
       this.isClosedForTheDay = true;
     } else {
       this.isClosedForTheDay = false;
-      let times = this.merchantScript.merchant[this.openingString]?.split("-");
+      let times = this.merchantScript.merchant[this.openingString]?.split(" - ");
       this.openingTime = times?.[0];
       this.closingTime = times?.[1];
     }
