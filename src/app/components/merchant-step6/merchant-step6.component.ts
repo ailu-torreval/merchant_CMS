@@ -33,7 +33,7 @@ export class MerchantStep6Component implements OnInit {
   addCategory() {
     const categoryToAdd: MenuCategories = {
       id: '0',
-      merchantId: this.merchantScript.merchant.id,
+      merchants_id: this.merchantScript.merchant.id,
       name: this.newCatForm.get('newCatName')?.value || '',
       description: this.newCatForm.get('newCatDesc')?.value || '',
       sortOrder: this.categories.length,

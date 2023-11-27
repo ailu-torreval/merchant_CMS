@@ -12,6 +12,7 @@ import { MerchantInfoComfirmComponent } from './merchant-info-comfirm/merchant-i
 import { OpeningHoursInputComponent } from './opening-hours-input/opening-hours-input.component';
 import { MerchantScript } from '../myScripts/MerchantScript';
 import { LocationService } from '../services/location.service';
+import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
 
 
 
@@ -23,7 +24,8 @@ export const components = [
     MerchantStep5Component,
     MerchantStep6Component,
     MerchantInfoComfirmComponent,
-    OpeningHoursInputComponent
+    OpeningHoursInputComponent,
+    LoadingScreenComponent
 ]
 
 @NgModule({

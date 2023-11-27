@@ -150,7 +150,11 @@ export class MerchantStep1Component implements OnInit {
       this.merchantScript.populateMerchantPartially(
         this.step1Form.value as Partial<Merchant>
       );
-      this.merchantScript.changeToStep(2);
+      if(this.merchantScript.enableEdit) {
+        this.merchantScript.changeToStep(7);
+      } else {
+        this.merchantScript.changeToStep(2);
+      }
     } else {
       this.invalidImgs = true;
     } 

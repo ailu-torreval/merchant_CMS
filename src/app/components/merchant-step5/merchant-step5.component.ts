@@ -12,6 +12,8 @@ import categoriesJson from 'src/assets/dummy-data/categories.json';
 export class MerchantStep5Component implements OnInit {
   dietOptions: DietaryOptions[] = dietOptJson;
   mainCategories: MainCategories[] = categoriesJson;
+  tags: string[] = [];
+  newTag: string = '';
 
   constructor(public merchantScript: MerchantScript) {}
 
@@ -36,12 +38,24 @@ export class MerchantStep5Component implements OnInit {
 
   }
 
+  addTag() {
+    this.tags.push(this.newTag);
+    this.newTag = '';
+  }
+
+  removeTag(tag: string) {
+    const index = this.tags.findIndex((t) => t === tag);
+    this.tags.splice(index, 1);
+  }
+
   nextStep() {
     // get checked categories and diet options and add them to the merchant object
     const checkedCatIds: string[] = this.mainCategories
       .filter((cat) => cat.checked)
       .map((cat) => cat.id);
     this.merchantScript.merchant.mainCategoryIds = checkedCatIds;
+
+    this.merchantScript.merchant.tags = this.tags;
 
     const checkedDietIds: string[] = this.dietOptions
       .filter((opt) => opt.checked)

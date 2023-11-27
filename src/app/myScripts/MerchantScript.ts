@@ -16,9 +16,10 @@ export class MerchantScript {
   ];
 
   step: number = 7;
+  enableEdit: boolean = false;
 
   merchant: Merchant = {
-    id: '24',
+    // id: '24',
     dietaryOptionsIds: ['1', '3'], // list of dietryOptions ids
     date: new Date().toString(),
     name: 'pizzeria house',
@@ -33,9 +34,9 @@ export class MerchantScript {
     openingHoursFri: '11:30 - 16:30',
     openingHoursSat: '11:30 - 16:30',
     openingHoursSun: 'Closed',
-    tags: 'pizza, pasta, grill', // searchable tags, food they sell. Format: pizza,pasta,grill
+    tags: ["pizza", "pasta", "grill"], // searchable tags, food they sell. Format: pizza,pasta,grill
     rating: 0, // overall rating
-    merchantType: 0, //for determining if it's a restaurant, kiosk etc.
+    merchantType: 1, //for determining if it's a restaurant, kiosk etc.
     defaultPickupTime: 15, // minutes
     minOrderValue: 90,
     address1: 'kagsaa kollegiet 165',
@@ -60,7 +61,7 @@ export class MerchantScript {
     menuCategories: [
       {
         id: 'string',
-        merchantId: '24',
+        merchants_id: '24',
         name: 'deals',
         description: 'get more for your money',
         sortOrder: 2, //rækkefølge or sorting
@@ -68,7 +69,7 @@ export class MerchantScript {
       },
       {
         id: 'string',
-        merchantId: '24',
+        merchants_id: '24',
         name: 'dips',
         description: '',
         sortOrder: 3, //rækkefølge or sorting
@@ -76,7 +77,7 @@ export class MerchantScript {
       },
       {
         id: 'string',
-        merchantId: '24',
+        merchants_id: '24',
         name: 'combos',
         description: 'all combos come with fries and soda',
         sortOrder: 1, //rækkefølge or sorting

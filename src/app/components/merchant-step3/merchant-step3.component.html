@@ -15,7 +15,7 @@
       <p><ion-icon name="alert-circle-outline"></ion-icon> Please add a valid timeslot for <span *ngFor="let day of errorMsg">{{day}}, </span>. </p>
     </ion-label>
     <ion-row class="btns-row">
-      <ion-button (click)="merchantScript.changeToStep(2)" shape="round" mode="ios">Previous</ion-button>
+      <ion-button (click)="merchantScript.changeToStep(2)" fill="outline" shape="round" mode="ios">Previous</ion-button>
       <ion-button (click)="validateForm()" shape="round" mode="ios">Next</ion-button>
     </ion-row>
   </ion-card-content>

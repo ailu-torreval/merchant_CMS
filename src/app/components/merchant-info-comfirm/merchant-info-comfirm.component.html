@@ -1,472 +1,537 @@
 <ion-card class="ion-padding">
-  <ion-card-header>
-    <ion-card-title>Review Information</ion-card-title>
-  </ion-card-header>
-
-  <!-- step 1  -->
-  <ion-card-content>
-    <ion-grid class="info-container">
-      <ion-row class="ion-justify-content-end">
-        <ion-button size="default" color="secondary" fill="clear"
-          >Change <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
-        ></ion-button>
-      </ion-row>
-
-      <ion-item color="light">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Company Name</ion-col>
-            <ion-col size="8">
-              <ion-text class="ion-text-capitalize">
-                <strong> {{ merchantScript.merchant.name }}</strong></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-
-      <ion-item color="light">
-        <ion-label class="ion-text-wrap">
-          <ion-row class="ion-no-padding ion-align-items-center">
-            <ion-col class="ion-no-padding" size="4">Bio</ion-col>
-            <ion-col class="bio-text">
-              <ion-text>"{{ merchantScript.merchant.bio }}"</ion-text>
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-
-      <ion-item color="light">
-        <ion-label class="ion-text-wrap images-container">
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="6">
-              <ion-text>Logo</ion-text>
-              <img
-                [src]="merchantScript.merchant.logo"
-                alt="logo"
-                height="120"
-                width="120"
-              />
-            </ion-col>
-            <ion-col size="6">
-              <ion-text>Cover Image</ion-text>
-              <img
-                [src]="merchantScript.merchant.picture"
-                alt="thumbnail-picture"
-                height="120"
-              />
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-
-      <ion-item lines="none" color="light">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Merchant Type</ion-col>
-            <ion-col size="8">
-              <ion-text class="ion-text-capitalize">
-                <strong>
-                  {{
-                    merchantScript.merchant.merchantType === 0
-                      ? "Restaurant"
-                      : "Kiosk"
-                  }}</strong
-                ></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-    </ion-grid>
-    <br />
-
-    <!-- step 2  -->
-    <ion-grid class="info-container">
-      <ion-row class="ion-justify-content-end">
-        <ion-button size="default" color="secondary" fill="clear"
-          >Change <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
-        ></ion-button>
-      </ion-row>
-
-      <ion-item color="light">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Company Email</ion-col>
-            <ion-col size="8">
-              <ion-text>
-                <strong> {{ merchantScript.merchant.email }}</strong></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-
-      <ion-item color="light">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Address</ion-col>
-            <ion-col size="8">
-              <ion-text class="ion-text-capitalize">
-                <strong>
-                  {{ merchantScript.merchant.address1 }}
-                  {{
-                    merchantScript.merchant.address2
-                      ? ", " + merchantScript.merchant.address2
-                      : ""
-                  }}, {{ merchantScript.merchant.zip }},
-                  {{ merchantScript.merchant.city }}
-                </strong></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-
-      <ion-item lines="none" color="light">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Phone Number</ion-col>
-            <ion-col size="8">
-              <ion-text>
-                <strong> {{ merchantScript.merchant.phone }}</strong></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-    </ion-grid>
-    <br />
-
-    <!-- step 3  -->
-    <ion-grid class="info-container">
-      <ion-row class="ion-align-items-center ion-justify-content-between">
-        <ion-col>Opening Hours</ion-col>
-        <ion-col>
-          <ion-row class="ion-justify-content-end">
-            <ion-button size="default" color="secondary" fill="clear"
-              >Change
-              <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
-            ></ion-button>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-
-      <ion-item color="light">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Monday</ion-col>
-            <ion-col size="8">
-              <ion-text>
-                <strong>
-                  {{ merchantScript.merchant.openingHoursMon }}</strong
-                ></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-
-      <ion-item color="light">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Tuesday</ion-col>
-            <ion-col size="8">
-              <ion-text>
-                <strong>
-                  {{ merchantScript.merchant.openingHoursTue }}</strong
-                ></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-
-      <ion-item color="light">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Wednesday</ion-col>
-            <ion-col size="8">
-              <ion-text>
-                <strong>
-                  {{ merchantScript.merchant.openingHoursWed }}</strong
-                ></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-
-      <ion-item color="light">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Thursday</ion-col>
-            <ion-col size="8">
-              <ion-text>
-                <strong>
-                  {{ merchantScript.merchant.openingHoursThu }}</strong
-                ></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-
-      <ion-item color="light">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Friday</ion-col>
-            <ion-col size="8">
-              <ion-text>
-                <strong>
-                  {{ merchantScript.merchant.openingHoursFri }}</strong
-                ></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-
-      <ion-item color="light">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Saturday</ion-col>
-            <ion-col size="8">
-              <ion-text>
-                <strong>
-                  {{ merchantScript.merchant.openingHoursSat }}</strong
-                ></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-
-      <ion-item lines="none" color="light">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Sunday</ion-col>
-            <ion-col size="8">
-              <ion-text>
-                <strong>
-                  {{ merchantScript.merchant.openingHoursSun }}</strong
-                ></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-    </ion-grid>
-    <br />
-
-    <!-- step 4  -->
-    <ion-grid class="info-container">
-      <ion-row class="ion-justify-content-end">
-        <ion-button size="default" color="secondary" fill="clear"
-          >Change <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
-        ></ion-button>
-      </ion-row>
-
-      <ion-item color="light">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Delivery Options</ion-col>
-            <ion-col size="8">
-              <ion-text *ngIf="merchantScript.merchant.deliveryOptions === 0">
-                <strong> Only Pickup</strong></ion-text>
-                <ion-text *ngIf="merchantScript.merchant.deliveryOptions === 1">
-                  <strong>Only Delivery</strong></ion-text>
-                  <ion-text *ngIf="merchantScript.merchant.deliveryOptions === 2">
-                    <strong> Delivery and Pickup</strong></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-
-      <ion-item color="light">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Preparation Time </ion-col>
-            <ion-col size="8">
-              <ion-text>
-                <strong> {{ merchantScript.merchant.defaultPickupTime }} min.</strong></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-
-      <ion-item color="light">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Mnimal Order Value</ion-col>
-            <ion-col size="8">
-              <ion-text>
-                <strong> {{ merchantScript.merchant.minOrderValue }} kr.</strong></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-
-      <ion-item color="light" *ngIf="merchantScript.merchant.deliveryOptions === 2  || merchantScript.merchant.deliveryOptions === 1">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Delivery Price</ion-col>
-            <ion-col size="8">
-              <ion-text>
-                <strong> {{ merchantScript.merchant.deliveryPrice }} kr.</strong></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-
-      <ion-item lines="none" color="light" *ngIf="merchantScript.merchant.deliveryOptions === 2  || merchantScript.merchant.deliveryOptions === 1">
-        <ion-label>
-          <ion-row
-            class="ion-no-padding ion-align-items-center ion-justify-content-between"
-          >
-            <ion-col class="ion-no-padding" size="4">Distance Limit</ion-col>
-            <ion-col size="8">
-              <ion-text>
-                <strong> {{ merchantScript.merchant.distanceLimit }} km.</strong></ion-text
-              >
-            </ion-col>
-          </ion-row>
-        </ion-label>
-      </ion-item>
-    </ion-grid>
-    <br />
-
-    <!-- step 5  -->
-    <ion-grid class="info-container">
-  <ion-row class="ion-justify-content-end">
-    <ion-button size="default" color="secondary" fill="clear"
-      >Change <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
-    ></ion-button>
-  </ion-row>
-
-
-  <ion-row>
-    <ion-text>Dietary Options</ion-text>
-  </ion-row>
-  <br>
-
-  <ion-item color="light">
-
-    <ion-list>
-      <ion-item lines="none" class="item" *ngFor="let opt of dietOptions" >
-            <img [src]="createImgSrc(opt.icon)" width="20">
-            <ion-text>{{opt.name}}</ion-text>   
-    </ion-item>
-    </ion-list>
-  </ion-item>
-
-<br>
-  <ion-row>
-    <ion-text>Main Categories</ion-text>
-  </ion-row>
-  <br>
-  <ion-item color="light">
-    <ion-list>
-    <ion-item lines="none" class="item" *ngFor="let cat of mainCategories" >
-          <img [src]="createImgSrc(cat.icon)" width="20">
-          <ion-text>{{cat.name}}</ion-text>   
-  </ion-item>
-  </ion-list>
-</ion-item>
-
-<br>
-
-
-  <ion-item lines="none" color="light">
-    <ion-label>
-      <ion-row
-        class="ion-no-padding ion-align-items-center ion-justify-content-between"
-      >
-        <ion-col class="ion-no-padding" size="4">Tags</ion-col>
-        <ion-col size="8">
-          <ion-text>
-            <strong> (add tags here :/)</strong></ion-text
-          >
-        </ion-col>
-      </ion-row>
-    </ion-label>
-  </ion-item>
-
-</ion-grid>
-<br />
-
-    <!-- step 6  -->
-    <ion-grid class="info-container">
-      <ion-row class="ion-justify-content-end">
-        <ion-button size="default" color="secondary" fill="clear"
-          >Change <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
-        ></ion-button>
-      </ion-row>
-
-
-      <ion-row>
-        <ion-text>Menu Categories</ion-text>
-      </ion-row>
-      <br>
-      <ion-list>
-        <ion-item *ngFor="let cat of merchantScript.merchant.menuCategories">
-          <ion-label  class="ion-text-capitalize">
-            <h2 >{{ cat.name }}</h2>
-            <p>{{ cat.description }}</p>
+  
+  <ng-container *ngIf="!isLoading">
+    <ion-card-header>
+      <ion-card-title>Review Information before Uploading</ion-card-title>
+    </ion-card-header>
+  
+    <!-- step 1  -->
+    <ion-card-content>
+      <ion-grid class="info-container">
+        <ion-row class="ion-justify-content-end">
+          <ion-button
+            size="default"
+            color="secondary"
+            fill="clear"
+            (click)="editStep(1)"
+            >Change <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+          ></ion-button>
+        </ion-row>
+  
+        <ion-item color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Company Name</ion-col>
+              <ion-col size="8">
+                <ion-text class="ion-text-capitalize">
+                  <strong> {{ merchantScript.merchant.name }}</strong></ion-text
+                >
+              </ion-col>
+            </ion-row>
           </ion-label>
         </ion-item>
-      </ion-list>
+  
+        <ion-item color="light">
+          <ion-label class="ion-text-wrap">
+            <ion-row class="ion-no-padding ion-align-items-center">
+              <ion-col class="ion-no-padding" size="4">Bio</ion-col>
+              <ion-col class="bio-text">
+                <ion-text>"{{ merchantScript.merchant.bio }}"</ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item color="light">
+          <ion-label class="ion-text-wrap images-container">
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="6">
+                <ion-text>Logo</ion-text>
+                <img
+                  [src]="merchantScript.merchant.logo"
+                  alt="logo"
+                  height="120"
+                  width="120"
+                />
+              </ion-col>
+              <ion-col size="6">
+                <ion-text>Cover Image</ion-text>
+                <img
+                  [src]="merchantScript.merchant.picture"
+                  alt="thumbnail-picture"
+                  height="120"
+                />
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item lines="none" color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Merchant Type</ion-col>
+              <ion-col size="8">
+                <ion-text class="ion-text-capitalize">
+                  <strong>
+                    {{
+                      merchantScript.merchant.merchantType === 1
+                        ? "Restaurant"
+                        : "Kiosk"
+                    }}</strong
+                  ></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+      </ion-grid>
+      <br />
+  
+      <!-- step 2  -->
+      <ion-grid class="info-container">
+        <ion-row class="ion-justify-content-end">
+          <ion-button
+            size="default"
+            color="secondary"
+            fill="clear"
+            (click)="editStep(2)"
+            >Change <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+          ></ion-button>
+        </ion-row>
+  
+        <ion-item color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Company Email</ion-col>
+              <ion-col size="8">
+                <ion-text>
+                  <strong> {{ merchantScript.merchant.email }}</strong></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Address</ion-col>
+              <ion-col size="8">
+                <ion-text class="ion-text-capitalize">
+                  <strong>
+                    {{ merchantScript.merchant.address1 }}
+                    {{
+                      merchantScript.merchant.address2
+                        ? ", " + merchantScript.merchant.address2
+                        : ""
+                    }}, {{ merchantScript.merchant.zip }},
+                    {{ merchantScript.merchant.city }}
+                  </strong></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item lines="none" color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Phone Number</ion-col>
+              <ion-col size="8">
+                <ion-text>
+                  <strong> {{ merchantScript.merchant.phone }}</strong></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+      </ion-grid>
+      <br />
+  
+      <!-- step 3  -->
+      <ion-grid class="info-container">
+        <ion-row class="ion-align-items-center ion-justify-content-between">
+          <ion-col>Opening Hours</ion-col>
+          <ion-col>
+            <ion-row class="ion-justify-content-end">
+              <ion-button
+                size="default"
+                color="secondary"
+                fill="clear"
+                (click)="editStep(3)"
+                >Change
+                <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+              ></ion-button>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+  
+        <ion-item color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Monday</ion-col>
+              <ion-col size="8">
+                <ion-text>
+                  <strong>
+                    {{ merchantScript.merchant.openingHoursMon }}</strong
+                  ></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Tuesday</ion-col>
+              <ion-col size="8">
+                <ion-text>
+                  <strong>
+                    {{ merchantScript.merchant.openingHoursTue }}</strong
+                  ></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Wednesday</ion-col>
+              <ion-col size="8">
+                <ion-text>
+                  <strong>
+                    {{ merchantScript.merchant.openingHoursWed }}</strong
+                  ></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Thursday</ion-col>
+              <ion-col size="8">
+                <ion-text>
+                  <strong>
+                    {{ merchantScript.merchant.openingHoursThu }}</strong
+                  ></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Friday</ion-col>
+              <ion-col size="8">
+                <ion-text>
+                  <strong>
+                    {{ merchantScript.merchant.openingHoursFri }}</strong
+                  ></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Saturday</ion-col>
+              <ion-col size="8">
+                <ion-text>
+                  <strong>
+                    {{ merchantScript.merchant.openingHoursSat }}</strong
+                  ></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item lines="none" color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Sunday</ion-col>
+              <ion-col size="8">
+                <ion-text>
+                  <strong>
+                    {{ merchantScript.merchant.openingHoursSun }}</strong
+                  ></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+      </ion-grid>
+      <br />
+  
+      <!-- step 4  -->
+      <ion-grid class="info-container">
+        <ion-row class="ion-justify-content-end">
+          <ion-button
+            size="default"
+            color="secondary"
+            fill="clear"
+            (click)="editStep(4)"
+            >Change <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+          ></ion-button>
+        </ion-row>
+  
+        <ion-item color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Delivery Options</ion-col>
+              <ion-col size="8">
+                <ion-text *ngIf="merchantScript.merchant.deliveryOptions === 0">
+                  <strong> Only Pickup</strong></ion-text
+                >
+                <ion-text *ngIf="merchantScript.merchant.deliveryOptions === 1">
+                  <strong>Only Delivery</strong></ion-text
+                >
+                <ion-text *ngIf="merchantScript.merchant.deliveryOptions === 2">
+                  <strong> Delivery and Pickup</strong></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Preparation Time </ion-col>
+              <ion-col size="8">
+                <ion-text>
+                  <strong>
+                    {{ merchantScript.merchant.defaultPickupTime }} min.</strong
+                  ></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4"
+                >Mnimal Order Value</ion-col
+              >
+              <ion-col size="8">
+                <ion-text>
+                  <strong>
+                    {{ merchantScript.merchant.minOrderValue }} kr.</strong
+                  ></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item
+          color="light"
+          *ngIf="
+            merchantScript.merchant.deliveryOptions === 2 ||
+            merchantScript.merchant.deliveryOptions === 1
+          "
+        >
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Delivery Price</ion-col>
+              <ion-col size="8">
+                <ion-text>
+                  <strong>
+                    {{ merchantScript.merchant.deliveryPrice }} kr.</strong
+                  ></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item
+          lines="none"
+          color="light"
+          *ngIf="
+            merchantScript.merchant.deliveryOptions === 2 ||
+            merchantScript.merchant.deliveryOptions === 1
+          "
+        >
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Distance Limit</ion-col>
+              <ion-col size="8">
+                <ion-text>
+                  <strong>
+                    {{ merchantScript.merchant.distanceLimit }} km.</strong
+                  ></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+      </ion-grid>
+      <br />
+  
+      <!-- step 5  -->
+      <ion-grid class="info-container">
+        <ion-row class="ion-justify-content-end">
+          <ion-button
+            size="default"
+            color="secondary"
+            fill="clear"
+            (click)="editStep(5)"
+            >Change <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+          ></ion-button>
+        </ion-row>
+  
+        <ion-row>
+          <ion-text>Dietary Options</ion-text>
+        </ion-row>
+        <br />
+  
+        <ion-item color="light">
+          <ion-list class="cat-container">
+            <ion-item lines="none" class="item" *ngFor="let opt of dietOptions">
+              <img [src]="createImgSrc(opt.icon)" width="20" />
+              <ion-text>{{ opt.name }}</ion-text>
+            </ion-item>
+          </ion-list>
+        </ion-item>
+  
+        <br />
+        <ion-row>
+          <ion-text>Main Categories</ion-text>
+        </ion-row>
+        <br />
+        <ion-item color="light">
+          <ion-list class="cat-container">
+            <ion-item
+              lines="none"
+              class="item"
+              *ngFor="let cat of mainCategories"
+            >
+              <img [src]="createImgSrc(cat.icon)" width="20" />
+              <ion-text>{{ cat.name }}</ion-text>
+            </ion-item>
+          </ion-list>
+        </ion-item>
+  
+        <br />
+  
+        <ion-item lines="none" color="light">
+          <ion-label>
+            <ion-row
+              class="ion-no-padding ion-align-items-center ion-justify-content-between"
+            >
+              <ion-col class="ion-no-padding" size="4">Tags</ion-col>
+              <ion-col size="8">
+                <ion-text
+                  [ngStyle]="{ 'font-style': 'italic' }"
+                  class="ion-text-capitalize"
+                >
+                  <strong
+                    >"<span
+                      *ngFor="
+                        let tag of merchantScript.merchant.tags;
+                        let i = index
+                      "
+                      >{{ i === 0 ? "" : " - " }}{{ tag }}</span
+                    >"</strong
+                  ></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+      </ion-grid>
+      <br />
+  
+      <!-- step 6  -->
+      <ion-grid class="info-container">
+        <ion-row class="ion-justify-content-end">
+          <ion-button
+            size="default"
+            color="secondary"
+            fill="clear"
+            (click)="editStep(6)"
+            >Change <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+          ></ion-button>
+        </ion-row>
+  
+        <ion-row>
+          <ion-text>Menu Categories</ion-text>
+        </ion-row>
+        <br />
+        <ion-list>
+          <ion-item *ngFor="let cat of merchantScript.merchant.menuCategories">
+            <ion-label class="ion-text-capitalize">
+              <h2>{{ cat.name }}</h2>
+              <p>{{ cat.description }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-grid>
+      <br />
+    </ion-card-content>
+    <ion-row class="btns-row">
+      <ion-button
+        (click)="merchantScript.changeToStep(6)"
+        fill="outline"
+        shape="round"
+        mode="ios"
+        >Previous</ion-button
+      >
+      <ion-button (click)="confirmData()" shape="round" mode="ios"
+        >Save</ion-button
+      >
+    </ion-row>
 
-    </ion-grid>
-    <br />
-  </ion-card-content>
-  <ion-row class="btns-row">
-    <ion-button
-      (click)="merchantScript.changeToStep(6)"
-      shape="round"
-      mode="ios"
-      >Previous</ion-button
-    >
-    <ion-button (click)="confirmData()" shape="round" mode="ios"
-      >Save</ion-button
-    >
-  </ion-row>
+  </ng-container>
+
+  <app-loading-screen *ngIf="isLoading"></app-loading-screen>
 </ion-card>

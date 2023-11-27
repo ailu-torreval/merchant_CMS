@@ -34,7 +34,7 @@ export interface Merchant {
     openingHoursFri: string,
     openingHoursSat: string,
     openingHoursSun: string,
-    tags: string, // searchable tags, food they sell. Format: pizza,pasta,grill
+    tags: string[], // searchable tags, food they sell. Format: pizza,pasta,grill
     rating: number, // overall rating
     merchantType: number, //for determining if it's a restaurant, kiosk etc.
     defaultPickupTime: number, // minutes
@@ -60,7 +60,7 @@ export interface Merchant {
     feeRate: number, // for future use as percentage
     priceRange: number, // 0=cheap, 1=okay, 2=expensive
     mainCategoryIds: string[], // reference to a list of MainCategories
-    menuCategories: MenuCategories[] | undefined, // reference to a list of MenuCategories
+    menuCategories?: MenuCategories[] | undefined, // reference to a list of MenuCategories
     // mainCategories: MainCategories, // reference to a list of MainCategories
     vat: string,
     isOpen: boolean | undefined,
@@ -79,7 +79,7 @@ export interface Ratings {
 
 export interface MenuCategories {
     id?: string,
-    merchantId?: string,
+    merchants_id?: string,
     name: string,
     description: string,
     sortOrder: number, //rækkefølge or sorting
