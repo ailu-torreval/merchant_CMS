@@ -1,0 +1,15 @@
+ion-content {
+    --background: linear-gradient(
+      to bottom,
+      var(--ion-color-secondary) 50%,
+      var(--ion-color-medium) 50%
+    );
+  }
+  
+  ion-row {
+    display: block;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+  }

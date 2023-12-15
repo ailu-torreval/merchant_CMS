@@ -14,6 +14,18 @@ const routes: Routes = [
   {
     path: 'image-crop',
     loadChildren: () => import('./image/image-crop/image-crop.module').then( m => m.ImageCropPageModule)
+  },
+  {
+    path: 'merchant-profile',
+    loadChildren: () => import('./pages/merchant-profile/merchant-profile.module').then( m => m.MerchantProfilePageModule)
+  },
+  {
+    path: 'products',
+    loadChildren: () => import('./pages/products/products.module').then( m => m.ProductsPageModule)
+  },
+  {
+    path: 'create-merchant',
+    loadChildren: () => import('./pages/create-merchant/create-merchant.module').then( m => m.CreateMerchantPageModule)
   }
 ];
 

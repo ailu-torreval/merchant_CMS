@@ -20,7 +20,7 @@ export interface DietaryOptions {
 
 export interface Merchant {
     [key: string]: any;
-    id?: string,
+    id?: string, // number
     dietaryOptionsIds: string[], // list of dietryOptions ids
     date: string,
     name: string,
@@ -65,6 +65,7 @@ export interface Merchant {
     vat: string,
     isOpen: boolean | undefined,
     forcedClosed: boolean,
+    // skMerchID:string, // sk merchant id from sk table
 }
 
 
@@ -142,3 +143,14 @@ export interface LocalFile {
     path: string;
     data: string;
 }
+
+export interface SKClientData {
+    categories: any[];
+    client: any;
+    lister: any[];
+    products: any[];
+  }
+  
+export interface SkResponseData {
+    success: SKClientData;
+  }

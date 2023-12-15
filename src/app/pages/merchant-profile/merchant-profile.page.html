@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{skScript.skData.client.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-row>
+    You haven't create the company's profile for the App yet.
+
+    <ion-button
+    (click)="importData()"
+    fill="clear"
+    shape="round"
+    mode="ios"
+    color="primary"
+  >
+  <ion-icon slot="start" name="cloud-upload"></ion-icon>
+  Import Data
+  </ion-button>
+  </ion-row>
+
+
+
+</ion-content>

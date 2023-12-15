@@ -1,29 +1,33 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Merchant CMS </ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-title> Merchant CMS </ion-title> -->
+    <!-- <ion-buttons>
+      <ion-button slot="end">Log In</ion-button>
+    </ion-buttons> -->
+  <!-- </ion-toolbar>
+</ion-header> -->
 
-<ion-content [fullscreen]="true">
-  <ion-row *ngIf="merchantScript.step === 1" class="merchant-info1">
-<app-merchant-step1></app-merchant-step1>
+<ion-content [fullscreen]="true" class="ion-padding-top">
+  <ion-row *ngIf="userIsLoggedIn">
+    <ion-title color="light">HI {{skScript.skData.client.name}}! </ion-title>
   </ion-row>
-  <ion-row *ngIf="merchantScript.step === 2" class="merchant-info2">
-    <app-merchant-step2></app-merchant-step2>
+
+  <ion-row class="ion-justify-content-between">
+    <ion-col>
+      <ion-card (click)="goToPage('merchant-profile')" class="ion-activatable ripple-parent">
+        <ion-ripple-effect></ion-ripple-effect>
+        <ion-card-title>Merchant Profile</ion-card-title>
+        <ion-card-subtitle
+          >Manage your company's profile on the app</ion-card-subtitle
+        >
+      </ion-card>
+    </ion-col>
+    <ion-col>
+      <ion-card (click)="goToPage('products')" class="ion-activatable ripple-parent">
+        <ion-ripple-effect></ion-ripple-effect>
+        <ion-card-title>Products</ion-card-title>
+      </ion-card>
+    </ion-col>
   </ion-row>
-  <ion-row *ngIf="merchantScript.step === 3" class="opening-hours">
-    <app-merchant-step3></app-merchant-step3>
-  </ion-row>
-  <ion-row *ngIf="merchantScript.step === 4" class="delivery-info">
-    <app-merchant-step4></app-merchant-step4>
-  </ion-row>
-  <ion-row *ngIf="merchantScript.step === 5" class="menu-info1">
-    <app-merchant-step5></app-merchant-step5>
-  </ion-row>
-  <ion-row *ngIf="merchantScript.step === 6" class="menu-info2">
-    <app-merchant-step6></app-merchant-step6>
-  </ion-row>
-  <ion-row *ngIf="merchantScript.step === 7">
-    <app-merchant-info-comfirm></app-merchant-info-comfirm>
-  </ion-row>
+
 </ion-content>

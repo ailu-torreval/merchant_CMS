@@ -17,7 +17,7 @@ import { MerchantScript } from '../myScripts/MerchantScript';
     ReactiveFormsModule,
     IonicModule,
     HomePageRoutingModule,
-    ComponentsModule,
+    ComponentsModule
   ],
   providers: [MerchantScript, LocationService],
   declarations: [HomePage]
