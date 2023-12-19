@@ -80,7 +80,7 @@
   </ion-card-content>
   <ion-row class="btns-row">
     <ion-button (click)="merchantScript.changeToStep(4)" fill="outline" shape="round" mode="ios">Previous</ion-button>
-    <ion-button (click)="nextStep()" shape="round" mode="ios">Next</ion-button>
+    <ion-button (click)="nextStep()" shape="round" mode="ios">{{merchantScript.enableEdit ? 'Accept Changes' : 'Next'}}</ion-button>
   </ion-row>
   
 </ion-card>
