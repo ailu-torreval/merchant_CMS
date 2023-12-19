@@ -21,7 +21,11 @@ export class MerchantStep3Component  implements OnInit {
     // check the merchant script looking for errors in opening hours
     this.validateDays();
     if(this.errorMsg.length === 0) {
-      this.merchantScript.changeToStep(4);
+      if(this.merchantScript.enableEdit) {
+        this.merchantScript.changeToStep(7);
+      } else {
+        this.merchantScript.changeToStep(4);
+      }
     }
     
     // if there are errors, display them

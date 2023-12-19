@@ -4,6 +4,7 @@ import { SkScript } from '../myScripts/SkScript';
 import { HttpClient } from '@angular/common/http';
 import { SkResponseData } from '../myScripts/Interfaces';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ export class HomePage implements OnInit {
   constructor(
     public skScript: SkScript,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    alertCtrl: AlertController
   ) {}
 
   async ngOnInit() {
@@ -39,8 +41,10 @@ export class HomePage implements OnInit {
   }
 
   goToPage(endpoint: string) {
-    this.router.navigate([endpoint])
+    if (endpoint === 'merchant-profile') {
+      
+    } else {
+    }
+    this.router.navigate([endpoint]);
   }
-
-
 }

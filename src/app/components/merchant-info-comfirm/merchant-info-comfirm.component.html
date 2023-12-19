@@ -316,8 +316,8 @@
             <ion-row
               class="ion-no-padding ion-align-items-center ion-justify-content-between"
             >
-              <ion-col class="ion-no-padding" size="4">Delivery Options</ion-col>
-              <ion-col size="8">
+              <ion-col class="ion-no-padding" size="5">Delivery Options</ion-col>
+              <ion-col size="7">
                 <ion-text *ngIf="merchantScript.merchant.deliveryOptions === 0">
                   <strong> Only Pickup</strong></ion-text
                 >
@@ -337,8 +337,8 @@
             <ion-row
               class="ion-no-padding ion-align-items-center ion-justify-content-between"
             >
-              <ion-col class="ion-no-padding" size="4">Preparation Time </ion-col>
-              <ion-col size="8">
+              <ion-col class="ion-no-padding" size="5">Preparation Time </ion-col>
+              <ion-col size="7">
                 <ion-text>
                   <strong>
                     {{ merchantScript.merchant.defaultPickupTime }} min.</strong
@@ -354,10 +354,10 @@
             <ion-row
               class="ion-no-padding ion-align-items-center ion-justify-content-between"
             >
-              <ion-col class="ion-no-padding" size="4"
+              <ion-col class="ion-no-padding" size="5"
                 >Mnimal Order Value</ion-col
               >
-              <ion-col size="8">
+              <ion-col size="7">
                 <ion-text>
                   <strong>
                     {{ merchantScript.merchant.minOrderValue }} kr.</strong
@@ -379,8 +379,8 @@
             <ion-row
               class="ion-no-padding ion-align-items-center ion-justify-content-between"
             >
-              <ion-col class="ion-no-padding" size="4">Delivery Price</ion-col>
-              <ion-col size="8">
+              <ion-col class="ion-no-padding" size="5">Delivery Price</ion-col>
+              <ion-col size="7">
                 <ion-text>
                   <strong>
                     {{ merchantScript.merchant.deliveryPrice }} kr.</strong
@@ -403,8 +403,8 @@
             <ion-row
               class="ion-no-padding ion-align-items-center ion-justify-content-between"
             >
-              <ion-col class="ion-no-padding" size="4">Distance Limit</ion-col>
-              <ion-col size="8">
+              <ion-col class="ion-no-padding" size="5">Distance Limit</ion-col>
+              <ion-col size="7">
                 <ion-text>
                   <strong>
                     {{ merchantScript.merchant.distanceLimit }} km.</strong
@@ -508,7 +508,7 @@
         </ion-row>
         <br />
         <ion-list>
-          <ion-item *ngFor="let cat of merchantScript.merchant.menuCategories">
+          <ion-item *ngFor="let cat of merchantScript.menuCategoriesObject">
             <ion-label class="ion-text-capitalize">
               <h2>{{ cat.name }}</h2>
               <p>{{ cat.description }}</p>

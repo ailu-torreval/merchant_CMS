@@ -10,20 +10,19 @@ import { MerchantScript } from 'src/app/myScripts/MerchantScript';
   styleUrls: ['./merchant-step6.component.scss'],
 })
 export class MerchantStep6Component implements OnInit {
-
   newCatForm = new FormGroup({
-    newCatName:  new FormControl('', [Validators.required, Validators.minLength(2)]),
-    newCatDesc:  new FormControl(''),
+    newCatName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+    ]),
+    newCatDesc: new FormControl(''),
   });
 
   categories: MenuCategories[] = [];
 
-
-
   constructor(public merchantScript: MerchantScript) {
-
-    if(this.merchantScript.merchant.menuCategories){
-      this.categories = this.merchantScript.merchant.menuCategories;
+    if (this.merchantScript.menuCategoriesObject) {
+      this.categories = this.merchantScript.menuCategoriesObject;
       this.categories.sort((a, b) => a.sortOrder - b.sortOrder);
     }
   }
@@ -32,7 +31,6 @@ export class MerchantStep6Component implements OnInit {
 
   addCategory() {
     const categoryToAdd: MenuCategories = {
-      id: '0',
       merchants_id: this.merchantScript.merchant.id,
       name: this.newCatForm.get('newCatName')?.value || '',
       description: this.newCatForm.get('newCatDesc')?.value || '',
@@ -42,7 +40,6 @@ export class MerchantStep6Component implements OnInit {
     this.categories.push(categoryToAdd);
     console.log(this.categories);
     this.newCatForm.reset();
-    
   }
 
   handleReorder(ev: CustomEvent<ItemReorderEventDetail>) {
@@ -60,23 +57,18 @@ export class MerchantStep6Component implements OnInit {
   }
 
   nextStep() {
-
     // add sort order to each category
-      this.categories.forEach((category, index) => {
-        category.sortOrder = index;
-      });
-  
-      this.merchantScript.merchant.menuCategories = this.categories;
+    this.categories.forEach((category, index) => {
+      category.sortOrder = index;
+    });
 
-      this.merchantScript.changeToStep(7);
+    this.merchantScript.menuCategoriesObject = this.categories;
 
-    
-
+    this.merchantScript.changeToStep(7);
 
     //merchant script shouldnt have menucategories obj inside, but only ids, so first post each menu category, then get the ids, then post merchant with ids
 
-    // this.merchantScript.merchant.menuCategories = this.categories;  
+    // this.merchantScript.merchant.menuCategories = this.categories;
     console.log('finish', this.categories);
   }
 }
-

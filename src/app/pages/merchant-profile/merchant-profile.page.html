@@ -6,20 +6,47 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-row>
-    You haven't create the company's profile for the App yet.
+  <ion-row *ngIf="!isProfileCreated">
 
-    <ion-button
-    (click)="importData()"
-    fill="clear"
-    shape="round"
-    mode="ios"
-    color="primary"
-  >
-  <ion-icon slot="start" name="cloud-upload"></ion-icon>
-  Import Data
-  </ion-button>
+    <ion-row>
+      You haven't create the company's profile for the App yet.
+  
+      <ion-button
+      (click)="importData()"
+      fill="clear"
+      shape="round"
+      mode="ios"
+      color="primary"
+    >
+    <ion-icon slot="start" name="cloud-upload"></ion-icon>
+    Import Data
+    </ion-button>
+    </ion-row>
   </ion-row>
+
+  <div *ngIf="isProfileCreated">
+    <ion-row *ngIf="merchantScript.step === 1" class="merchant-info1">
+      <app-merchant-step1></app-merchant-step1>
+        </ion-row>
+        <ion-row *ngIf="merchantScript.step === 2" class="merchant-info2">
+          <app-merchant-step2></app-merchant-step2>
+        </ion-row>
+        <ion-row *ngIf="merchantScript.step === 3" class="opening-hours">
+          <app-merchant-step3></app-merchant-step3>
+        </ion-row>
+        <ion-row *ngIf="merchantScript.step === 4" class="delivery-info">
+          <app-merchant-step4></app-merchant-step4>
+        </ion-row>
+        <ion-row *ngIf="merchantScript.step === 5" class="menu-info1">
+          <app-merchant-step5></app-merchant-step5>
+        </ion-row>
+        <ion-row *ngIf="merchantScript.step === 6" class="menu-info2">
+          <app-merchant-step6></app-merchant-step6>
+        </ion-row>
+        <ion-row *ngIf="merchantScript.step === 7">
+          <app-merchant-info-comfirm></app-merchant-info-comfirm>
+        </ion-row>
+  </div>
 
 
 

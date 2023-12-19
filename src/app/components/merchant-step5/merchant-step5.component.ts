@@ -63,7 +63,11 @@ export class MerchantStep5Component implements OnInit {
 
     this.merchantScript.merchant.dietaryOptionsIds = checkedDietIds;
     console.log('merchant: ', this.merchantScript.merchant);
-    this.merchantScript.changeToStep(6);
+    if(this.merchantScript.enableEdit) {
+      this.merchantScript.changeToStep(7);
+    } else {
+      this.merchantScript.changeToStep(6);
+    }
   }
 
   createImgSrc(name: string) {

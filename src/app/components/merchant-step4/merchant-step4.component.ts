@@ -46,7 +46,11 @@ export class MerchantStep4Component implements OnInit {
 
   validateForm() {
     this.merchantScript.populateMerchantPartially(this.step4Form.value as Partial<Merchant>);
-    this.merchantScript.changeToStep(5);
+    if(this.merchantScript.enableEdit) {
+      this.merchantScript.changeToStep(7);
+    } else {
+      this.merchantScript.changeToStep(5);
+    }
   }
 
 }

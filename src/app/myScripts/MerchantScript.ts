@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Merchant } from './Interfaces';
-import { MenuCategories } from 'src/assets/Interfaces';
+import { MenuCategories, Merchant } from './Interfaces';
 
 @Injectable()
 export class MerchantScript {
@@ -72,11 +71,28 @@ export class MerchantScript {
   populateMerchantPartially(data: Partial<Merchant>) {
     for (const controlName of Object.keys(this.merchant)) {
       if (data.hasOwnProperty(controlName)) {
-        (this.merchant as any)[controlName] =
-          data[controlName as keyof Merchant];
+        let value = data[controlName as keyof Merchant];
+        if (typeof value === 'string') {
+          value = value.toLowerCase();
+        }
+        (this.merchant as any)[controlName] = value;
       }
     }
     console.log(this.merchant);
+  }
+
+  populateCategories(data: any[]) {
+    for(let i = 0; i < data.length; i++) {
+      const cat = data[i];
+      const categoryToAdd: MenuCategories = {
+        merchants_id: '0',
+        name: cat.name.toLowerCase(),
+        description: '',
+        sortOrder: i,
+        picture: '',
+      };
+      this.menuCategoriesObject.push(categoryToAdd);
+    }
   }
 
   changeToStep(step: number) {

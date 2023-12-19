@@ -22,10 +22,6 @@ const routes: Routes = [
   {
     path: 'products',
     loadChildren: () => import('./pages/products/products.module').then( m => m.ProductsPageModule)
-  },
-  {
-    path: 'create-merchant',
-    loadChildren: () => import('./pages/create-merchant/create-merchant.module').then( m => m.CreateMerchantPageModule)
   }
 ];
 

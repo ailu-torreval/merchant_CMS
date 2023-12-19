@@ -58,7 +58,12 @@ export class MerchantStep2Component  implements OnInit {
      
          console.log(this.merchantScript.merchant);
          
-         this.merchantScript.changeToStep(3);
+         if(this.merchantScript.enableEdit) {
+          this.merchantScript.changeToStep(7);
+        } else {
+          this.merchantScript.changeToStep(3);
+        }
+
     }
     catch (err) {
       window.alert('Address not found, please verify it');
