@@ -1,0 +1,261 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Product Info</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-label>
+    <h1>Product Info</h1>
+    <p>Add information about the product.</p>
+  </ion-label>
+  <form action="" [formGroup]="productForm">
+    <ion-item>
+      <ion-input
+        label="Product Name"
+        labelPlacement="stacked"
+        type="text"
+        placeholder="Enter product name..."
+        formControlName="title"
+      ></ion-input>
+    </ion-item>
+    <ng-container *ngFor="let er of prodScript.errors">
+      <ion-label
+        *ngIf="
+          productForm.get('title')?.hasError(er) &&
+          (productForm.get('title')?.touched || productForm.get('title')?.dirty)
+        "
+        class="ion-padding invalid-field"
+        color="danger"
+      >
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        <ion-text> Please add a valid name. </ion-text>
+      </ion-label>
+    </ng-container>
+
+    <ion-item lines="none">
+      <ion-textarea
+        label="Description"
+        labelPlacement="stacked"
+        type="text"
+        placeholder="Add a short description of your company..."
+        [counter]="true"
+        maxlength="150"
+        formControlName="description"
+      ></ion-textarea>
+    </ion-item>
+    <ion-label
+      *ngIf="
+        productForm.get('description')?.hasError('required') &&
+        (productForm.get('description')?.touched ||
+          productForm.get('description')?.dirty)
+      "
+      class="ion-padding invalid-field"
+      color="danger"
+    >
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <ion-text> Please add a description. </ion-text>
+    </ion-label>
+
+    <!-- ADD IMAGE -->
+
+    <ion-item>
+      <ion-label>
+        <h3>Add Product Picture</h3>
+        <ion-button
+          (click)="selectImage(false)"
+          fill="clear"
+          shape="round"
+          mode="ios"
+          expand="block"
+        >
+          <ion-icon slot="start" name="add-circle"></ion-icon>Select
+          Picture</ion-button
+        >
+      </ion-label>
+    </ion-item>
+    <br />
+    <ion-row  *ngIf="prodScript.selectedProduct.picture" >
+      <img [src]="prodScript.selectedProduct.picture" height="80" />
+      <ion-button
+      size="small"
+        (click)="removeImg()"
+        fill="clear"
+        shape="round"
+        mode="ios"
+        expand="block"
+        color="danger">
+      <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-row>
+
+    <ion-item>
+    <ion-input
+      label="Price"
+      labelPlacement="stacked"
+      type="text"
+      placeholder="Enter product price..."
+      formControlName="price"
+      readonly="true"
+    ></ion-input> kr.
+  </ion-item>
+  <ng-container *ngFor="let er of prodScript.errors">
+    <ion-label
+      *ngIf="
+        productForm.get('price')?.hasError(er) &&
+        (productForm.get('price')?.touched || productForm.get('price')?.dirty)
+      "
+      class="ion-padding invalid-field"
+      color="danger"
+    >
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <ion-text> Please add a valid price. </ion-text>
+    </ion-label>
+  </ng-container>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-input
+          label="Offer Price"
+          labelPlacement="stacked"
+          type="text"
+          placeholder="Enter offer price..."
+          formControlName="offerPrice"
+        ></ion-input> kr.
+      </ion-item>
+      <ng-container *ngFor="let er of prodScript.errors">
+        <ion-label
+          *ngIf="
+            productForm.get('offerPrice')?.hasError(er) &&
+            (productForm.get('offerPrice')?.touched || productForm.get('offerPrice')?.dirty)
+          "
+          class="ion-padding invalid-field"
+          color="danger"
+        >
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <ion-text> Please add a valid price. </ion-text>
+        </ion-label>
+      </ng-container>
+    </ion-col>
+    <ion-col>
+      <ion-item lines="none">
+        <ion-label>Activate Offer </ion-label>
+        <ion-toggle (ionChange)="handleOfferToggle($event)" aria-label="Activate offer" slot="end" formControlName="isOfferActivated"></ion-toggle>      </ion-item>
+    </ion-col>
+  </ion-row>
+</form>
+  <ion-label>
+    <h1>Dietary Restrictions</h1>
+    <p>Choose if the product is an available option for it.</p>
+  </ion-label>
+
+  <ion-row>
+    <ion-list class="grid">
+      <ion-item lines="none" class="item" *ngFor="let option of dietOptions" >
+              <ion-checkbox [(ngModel)]="option.checked" labelPlacement="end" alignment="center">
+                <div class="ion-no-padding">
+                  <img [src]="createImgSrc(option.icon)" width="40">
+                  <ion-text>{{option.name}}</ion-text>   
+                </div>
+              </ion-checkbox>
+      </ion-item>
+
+    </ion-list>
+  </ion-row>
+
+  <ion-item lines="none">
+    <ion-label>
+      <h1>Product Options</h1>
+      <p>Add options if your product offer variables, or if the product has addons.</p>
+    </ion-label>
+  </ion-item>
+
+  <form #listerForm="ngForm" class="option">
+    <ion-item>
+      <ion-label position="stacked">Title</ion-label>
+      <ion-input type="text" [(ngModel)]="currentLister.title" name="title" placeholder="Enter title..."></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label position="stacked">Description</ion-label>
+      <ion-input type="text" [(ngModel)]="currentLister.description" name="description" placeholder="Enter description..."></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Check if the user can choose ONLY ONE option</ion-label>
+      <ion-checkbox [(ngModel)]="currentLister.radioButton" name="radioButton"></ion-checkbox>
+    </ion-item>
+
+    <ion-row>
+      <ion-col size="4">
+        <ion-label position="stacked">Option Name</ion-label>
+        <ion-input type="text" [(ngModel)]="optName" name="option name" placeholder="Enter option name..."></ion-input>  
+      </ion-col>
+      <ion-col size="4">
+        <ion-label position="stacked">Price</ion-label>
+        <ion-input type="number" [(ngModel)]="optPrice" name="option price"></ion-input>  
+      </ion-col>
+      <ion-col size="4">
+        <ion-button expand="full" (click)="addOption()" fill="clear" shape="round" mode="ios" >  <ion-icon slot="start" name="add-circle"></ion-icon>Add</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="currentOptions.length > 0">
+      <ion-item *ngFor="let opt of currentOptions; let i = index;">
+        <ion-checkbox *ngIf="!currentLister.radioButton" disabled></ion-checkbox>
+        <ion-radio *ngIf="currentLister.radioButton" disabled></ion-radio>
+        <ion-label>{{opt.name}} - {{opt.price}}</ion-label>
+        <ion-button  (click)="deleteOption(i)" color="danger" fill="clear" shape="round" mode="ios" >  <ion-icon slot="icon-only" name="trash"></ion-icon></ion-button>
+      </ion-item>
+
+    </ion-row>
+
+    <!-- <ion-item>
+      <ion-label position="stacked">price</ion-label>
+      <ion-input type="number" [(ngModel)]="currentLister.total" name="total" placeholder="Enter total..."></ion-input>
+    </ion-item> -->
+  
+    <!-- Add fields for options here if needed -->
+
+    <ion-button expand="full" (click)="addLister()" fill="clear" shape="round" mode="ios" expand="block">  <ion-icon slot="start" name="add-circle"></ion-icon> Create Liste</ion-button>
+  </form>
+
+
+<ion-list *ngFor="let liste of lister; let i = index">
+  <ion-item>
+    <ion-label>
+      <h2>{{ liste.title }}</h2>
+      <p>{{ liste.description }}</p>
+      <!-- Display options here if needed -->
+    </ion-label>
+  </ion-item>
+  <ion-item *ngFor="let opt of liste.options" lines="none">
+    <ion-checkbox *ngIf="!liste.radioButton" disabled></ion-checkbox>
+    <ion-radio *ngIf="liste.radioButton" disabled></ion-radio>
+    <ion-label>{{opt.name}} - {{opt.price}}</ion-label>
+  </ion-item>
+  <ion-button expand="full" color="danger" (click)="deleteListerForm(i)"  fill="clear" shape="round" mode="ios" expand="block">  <ion-icon slot="start" name="trash"></ion-icon>Delete </ion-button>
+</ion-list>
+
+  <!-- <ion-item>
+
+
+
+
+  title description productImage price
+   offerPrice isOffer dietaryOptions LISTER
+  show as suggestion (only show if the prod doesnt have lister) -->
+
+
+</ion-content>
+<ion-footer>
+  <ion-button
+    (click)="validateForm()"
+    [disabled]="!productForm.valid"
+    shape="round"
+    mode="ios"
+    >Upload Product</ion-button
+  >
+</ion-footer>

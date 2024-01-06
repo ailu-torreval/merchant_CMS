@@ -41,10 +41,12 @@ export class MerchantInfoComfirmComponent implements OnInit {
     let { menuCategories, ...merchantWithoutMenuCategories } =
       this.merchantScript.merchant;
       try {
+        console.log('from try')
         const createdMerchant: any = await this.http.request('createMerchant', 'POST', merchantWithoutMenuCategories);
         console.log('createdMerchant', createdMerchant);
-
+        
       } catch(error) {
+        console.log('from catch')
         console.log('error', error);
         this.isLoading = false;
         this.http.showErrorAlert();

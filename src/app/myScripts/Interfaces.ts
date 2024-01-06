@@ -88,7 +88,8 @@ export interface MenuCategories {
 }
 
 export interface Product {
-    id: number,
+    id?: number,
+    skId?: number,
     merchantId: number,
     menuCategoryId: number, //reference to main category
     dietryOptionsIds: object, // list of dietry options ids
@@ -109,27 +110,27 @@ export interface Product {
     mainHighlightIcon: string, // icon for highlight
     showAsSuggestion: boolean,
     isOffer: boolean,
-    lister: Lister, // comes from lister object
+    lister?: Liste[] | undefined, // comes from lister object
 }
 
 
-export interface Lister {
-    id: number,
-    productId: number,
+export interface Liste {
+    id?: number,
+    productId?: number,
     title: string,
-    options: any, // reference to liste options, changed to JSON**
-    order: number, // change the order of the lister
+    options?: Option[], // reference to liste options, changed to JSON**
+    order?: number, // change the order of the lister
     description: string,
     radioButton: boolean,
     total: number, // total price of all the options connected to this liste
 }
 
-export interface Options {
-    id: number,
-    listeId: number,
+export interface Option {
+    id?: number,
+    listeId?: number,
     name: string,
-    description: string,
-    price: number,
+    description?: string,
+    price?: number,
 }
 
 export interface Favorites {

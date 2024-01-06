@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./products.page.scss'],
 })
 export class ProductsPage implements OnInit {
+  activePage: 'import' | 'productsList';
 
-  constructor() { }
+  constructor() { 
+    this.activePage = 'import';
+    // this.activePage = 'productsList';
+  }
 
   ngOnInit() {
+  }
+
+  changeSection(selectedSection: 'import' | 'productsList') {
+    this.activePage = selectedSection;
   }
 
 }

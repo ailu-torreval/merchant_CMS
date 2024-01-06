@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MerchantScript } from 'src/app/myScripts/MerchantScript';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Merchant } from '../../myScripts/Interfaces';
+import { Merchant } from '../../../myScripts/Interfaces';
 import { Capacitor } from '@capacitor/core';
-import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import {
+  Camera,
+  CameraResultType,
+  CameraSource,
+  Photo,
+} from '@capacitor/camera';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { ImageCropPage } from 'src/app/image/image-crop/image-crop.page';
-
-
 
 @Component({
   selector: 'app-merchant-step1',
@@ -15,19 +18,18 @@ import { ImageCropPage } from 'src/app/image/image-crop/image-crop.page';
   styleUrls: ['./merchant-step1.component.scss'],
 })
 export class MerchantStep1Component implements OnInit {
-
   rawImg: string = '';
   rawLogo: string = '';
   croppedImg: any = '';
   croppedLogo: any = '';
-  invalidImgs:boolean = false;
+  invalidImgs: boolean = false;
 
   isMobile = Capacitor.getPlatform() !== 'web';
 
   step1Form = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     bio: new FormControl('', Validators.required),
-    merchantType: new FormControl(1, Validators.required)
+    merchantType: new FormControl(1, Validators.required),
   });
 
   logo: any;
@@ -36,7 +38,11 @@ export class MerchantStep1Component implements OnInit {
   isValidLogo: boolean = false;
   isValidThumbnail: boolean = false;
 
-  constructor(public merchantScript: MerchantScript, private loadingCtrl: LoadingController, private modalCtrl: ModalController) {}
+  constructor(
+    public merchantScript: MerchantScript,
+    private loadingCtrl: LoadingController,
+    private modalCtrl: ModalController
+  ) {}
 
   ngOnInit() {
     if (this.merchantScript.merchant.name) {
@@ -49,21 +55,19 @@ export class MerchantStep1Component implements OnInit {
       //   ?.setValue(this.merchantScript.merchant.merchantType);
     }
 
-    if(this.merchantScript.merchant.logo) {
+    if (this.merchantScript.merchant.logo) {
       this.croppedLogo = this.merchantScript.merchant.logo;
       this.isValidLogo = true;
     }
-    if(this.merchantScript.merchant.picture) {
+    if (this.merchantScript.merchant.picture) {
       this.croppedImg = this.merchantScript.merchant.picture;
       this.isValidThumbnail = true;
     }
-
   }
 
   importData() {
     console.log('import data');
     console.log(this.merchantScript.merchant);
-    
   }
 
   manageMerchantType(ev: any) {
@@ -80,7 +84,7 @@ export class MerchantStep1Component implements OnInit {
       quality: 90,
       allowEditing: true,
       resultType: CameraResultType.Base64,
-      source: CameraSource.Photos
+      source: CameraSource.Photos,
     });
 
     const loading = await this.loadingCtrl.create();
@@ -88,8 +92,8 @@ export class MerchantStep1Component implements OnInit {
 
     console.log(image);
 
-    if(image) {
-      if(isLogo) {
+    if (image) {
+      if (isLogo) {
         this.rawLogo = `data:image/jpeg;base64,${image.base64String}`;
         this.croppedLogo = null;
         this.openCropModal(this.rawLogo, isLogo);
@@ -99,31 +103,29 @@ export class MerchantStep1Component implements OnInit {
         this.openCropModal(this.rawImg, isLogo);
       }
     }
-    
   }
 
-  async openCropModal(image:string | undefined , isLogo: boolean) {
+  async openCropModal(image: string | undefined, isLogo: boolean) {
     const modal = await this.modalCtrl.create({
       component: ImageCropPage,
       componentProps: {
         image: image,
-        isLogo: isLogo
-      }
+        isLogo: isLogo,
+      },
     });
     await modal.present();
 
-
     const { data } = await modal.onWillDismiss();
     console.log(data);
-    if (data && "refresh" in data && data.refresh) {
-      if(isLogo) {
+    if (data && 'refresh' in data && data.refresh) {
+      if (isLogo) {
         this.croppedLogo = data.refresh;
         this.merchantScript.merchant.logo = this.croppedLogo;
         this.isValidLogo = true;
       } else {
         this.croppedImg = data.refresh;
         console.log(this.croppedImg);
-        
+
         this.merchantScript.merchant.picture = this.croppedImg;
         this.isValidThumbnail = true;
       }
@@ -131,7 +133,7 @@ export class MerchantStep1Component implements OnInit {
   }
 
   removeImg(isLogo: boolean) {
-    if(isLogo) {
+    if (isLogo) {
       this.merchantScript.merchant.logo = '';
       this.croppedLogo = null;
       this.isValidLogo = false;
@@ -142,7 +144,6 @@ export class MerchantStep1Component implements OnInit {
     }
   }
 
-
   validateForm() {
     // check img and logo
     if (this.isValidLogo && this.isValidThumbnail) {
@@ -150,13 +151,13 @@ export class MerchantStep1Component implements OnInit {
       this.merchantScript.populateMerchantPartially(
         this.step1Form.value as Partial<Merchant>
       );
-      if(this.merchantScript.enableEdit) {
+      if (this.merchantScript.enableEdit) {
         this.merchantScript.changeToStep(7);
       } else {
         this.merchantScript.changeToStep(2);
       }
     } else {
       this.invalidImgs = true;
-    } 
+    }
   }
 }

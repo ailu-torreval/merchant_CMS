@@ -1,13 +1,24 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>products</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Products</ion-title>
   </ion-toolbar>
 </ion-header>
-
+    
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">products</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-grid>
+  <ion-row>
+    <ion-col class="menu" size="3">
+      <ion-item [class]="activePage === 'import' ? 'selected' : ''" (click)="changeSection('import')">Import Data</ion-item>
+      <ion-item [class]="activePage === 'productsList' ? 'selected' : ''" (click)="changeSection('productsList')" >Products List</ion-item>
+    </ion-col>
+    <ion-col class="content" size="9">
+      <app-products-list *ngIf="activePage === 'productsList'"></app-products-list>
+      <app-products-import *ngIf="activePage === 'import'"></app-products-import>
+
+    </ion-col>
+  </ion-row>
+</ion-grid>
 </ion-content>
