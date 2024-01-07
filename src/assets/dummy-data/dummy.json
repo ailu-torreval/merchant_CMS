@@ -1,0 +1,85 @@
+{
+  "description": "beef burger with brioche bun, tomato lettuce and pickled onions. TRYING TO ADD",
+  "dietaryOptionsIds": [1, 2, 3],
+  "dietaryOptions_id": "null",
+  "highLightIcon": "null",
+  "highlightColor": "null",
+  "highlightTag": "null",
+  "isOffer": 1,
+  "lister": [
+    {
+      "description": "choose protein",
+      "id": 1,
+      "options": [
+        {
+          "description": "premium kobye beef",
+          "id": 1,
+          "listeId": 1,
+          "name": "beef pattie",
+          "price": 0
+        },
+        {
+          "description": "11-spices tempura",
+          "id": 2,
+          "listeId": 1,
+          "name": "fried chicken",
+          "price": 20
+        },
+        {
+          "description": "soy based burger pattie",
+          "id": 3,
+          "listeId": 1,
+          "name": "veggie pattie",
+          "price": 15
+        }
+      ],
+      "radioButton": true,
+      "title": "protein",
+      "total": 0
+    },
+    {
+      "description": "add ingredients to your burger",
+      "id": 2,
+      "options": [
+        {
+          "description": "fried bacon",
+          "id": 1,
+          "listeId": 2,
+          "name": "bacon",
+          "price": 25
+        },
+        {
+          "description": "",
+          "id": 2,
+          "listeId": 2,
+          "name": "fried egg",
+          "price": 20
+        },
+        {
+          "description": "",
+          "id": 3,
+          "listeId": 2,
+          "name": "cheddar cheese",
+          "price": 15
+        }
+      ],
+      "radioButton": false,
+      "title": "extras",
+      "total": 0
+    }
+  ],
+  "mainCategories_id": 1,
+  "mainHighlightColor": "null",
+  "mainHighlightIcon": "null",
+  "mainHighlightTag": "null",
+  "menuCategories_id": 6,
+  "merchants_id": 12,
+  "offerDate": "null",
+  "offerPrice": 110,
+  "picture": "https://magmadesign.dk/rest-card.jpeg",
+  "price": 143.0,
+  "price2": "null",
+  "showAsSuggestion": 1,
+  "similarProductId": "null",
+  "title": "Serdegna Burger 1"
+}

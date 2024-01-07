@@ -53,8 +53,8 @@ export interface Merchant {
     highlightColor: string, // background color of the highlight
     highlightIcon: string, // icon for highlight
     putOnTop: boolean, // puts the seller on the slider, top of the page with the rest new ones
-    deliveryPrice: number,
-    distanceLimit: number,
+    deliveryPrice: number, // we will not use it
+    distanceLimit: number, // should be a list of lists [[distance, price],[etc]] [[5,15], [10,35]]
     deliveryOptions: number, // whether the merchant does deliver or not
     phone: string,
     feeRate: number, // for future use as percentage
