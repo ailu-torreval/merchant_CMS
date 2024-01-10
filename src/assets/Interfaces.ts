@@ -55,7 +55,7 @@ export interface Merchant {
     phone: string,
     feeRate: number, // for future use as percentage
     priceRange: number, // 0=cheap, 1=okay, 2=expensive
-    mainCategoryIds: object, // reference to a list of MainCategories
+    mainCategoriesIds: MainCategories | string[], // reference to a list of MainCategories
     menuCategories: MenuCategories, // reference to a list of MenuCategories
     // mainCategories: MainCategories, // reference to a list of MainCategories
     vat: string,

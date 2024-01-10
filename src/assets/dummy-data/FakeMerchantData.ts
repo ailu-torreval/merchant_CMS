@@ -37,7 +37,7 @@ merchant: Merchant = {
     phone: '67849307',
     feeRate: 0, // for future use as percentage
     priceRange: 0, // 0=cheap, 1=okay, 2=expensive
-    mainCategoryIds: ['20', '15', '12', '4'], // reference to a list of MainCategories
+    mainCategoriesIds: ['20', '15', '12', '4'], // reference to a list of MainCategories
     menuCategories: [
       {
         id: 'string',

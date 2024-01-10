@@ -48,8 +48,8 @@ export class MerchantStep2Component  implements OnInit {
          const results = await this.locationService.getCoords(this.step2Form.get('address1')?.value || '', this.step2Form.get('address2')?.value || '', this.step2Form.get('zip')?.value || '', this.step2Form.get('city')?.value || '');
          console.log(results);
          const locationData = {
-           mapsLocationLat:  results.geometry.location.lat,
-           mapsLocationLon:  results.geometry.location.lng,
+           mapsLocationLat:  results.geometry.location.lat.toString(),
+           mapsLocationLon:  results.geometry.location.lng.toString(),
            mapsToken: results.place_id
          }
      

@@ -20,9 +20,9 @@ export class MerchantStep5Component implements OnInit {
   ngOnInit() {
 
     // if the merchant object has main categories and dietary options, check them in the UI
-    if (this.merchantScript.merchant.mainCategoryIds.length > 0) {
+    if (this.merchantScript.merchant.mainCategoriesIds.length > 0) {
       this.mainCategories.forEach((cat) => {
-        if (this.merchantScript.merchant.mainCategoryIds.includes(cat.id)) {
+        if (this.merchantScript.merchant.mainCategoriesIds.includes(cat.id)) {
           cat.checked = true;
         }
       });
@@ -53,7 +53,7 @@ export class MerchantStep5Component implements OnInit {
     const checkedCatIds: string[] = this.mainCategories
       .filter((cat) => cat.checked)
       .map((cat) => cat.id);
-    this.merchantScript.merchant.mainCategoryIds = checkedCatIds;
+    this.merchantScript.merchant.mainCategoriesIds = checkedCatIds;
 
     this.merchantScript.merchant.tags = this.tags;
 

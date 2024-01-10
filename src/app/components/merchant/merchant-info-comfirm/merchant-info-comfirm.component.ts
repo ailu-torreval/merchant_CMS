@@ -19,7 +19,7 @@ export class MerchantInfoComfirmComponent implements OnInit {
   ngOnInit() {
     console.log('MERCHANT INFO', this.merchantScript.merchant);
 
-    for (let catId of this.merchantScript.merchant.mainCategoryIds) {
+    for (let catId of this.merchantScript.merchant.mainCategoriesIds) {
       this.mainCategories.push(categoriesJson.find((cat) => cat.id == catId));
     }
     for (let optId of this.merchantScript.merchant.dietaryOptionsIds) {
@@ -44,6 +44,10 @@ export class MerchantInfoComfirmComponent implements OnInit {
         console.log('from try')
         const createdMerchant: any = await this.http.request('createMerchant', 'POST', merchantWithoutMenuCategories);
         console.log('createdMerchant', createdMerchant);
+        this.isLoading = false;
+        if(createdMerchant) {
+          this.merchantScript.merchant.id = createdMerchant.id;
+        }
         
       } catch(error) {
         console.log('from catch')
@@ -54,4 +58,5 @@ export class MerchantInfoComfirmComponent implements OnInit {
 
     console.log('confirmData', merchantWithoutMenuCategories, menuCategories);
   }
+
 }

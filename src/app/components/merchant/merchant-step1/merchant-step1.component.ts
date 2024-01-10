@@ -35,8 +35,11 @@ export class MerchantStep1Component implements OnInit {
   logo: any;
   picture: any;
 
-  isValidLogo: boolean = false;
-  isValidThumbnail: boolean = false;
+  // for production ONLY
+  isValidLogo: boolean = true;
+  isValidThumbnail: boolean = true;
+  // isValidLogo: boolean = false;
+  // isValidThumbnail: boolean = false;
 
   constructor(
     public merchantScript: MerchantScript,

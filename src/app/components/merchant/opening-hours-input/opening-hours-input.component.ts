@@ -73,6 +73,15 @@ export class OpeningHoursInputComponent implements OnInit {
     this.trimmedDay = this.day?.substring(0, 3);
     this.openingString = 'openingHours' + this.trimmedDay;
 
+    // for production only
+    this.merchantScript.merchant.openingHoursFri = "00:30 - 23:30";
+    this.merchantScript.merchant.openingHoursMon = "00:30 - 23:30";
+    this.merchantScript.merchant.openingHoursTue = "00:30 - 23:30";
+    this.merchantScript.merchant.openingHoursWed = "00:30 - 23:30";
+    this.merchantScript.merchant.openingHoursThu = "00:30 - 23:30";
+    this.merchantScript.merchant.openingHoursSat = "00:30 - 23:30";
+    this.merchantScript.merchant.openingHoursSun = "00:30 - 23:30";
+
     // populate with data from script
     if (this.merchantScript.merchant[this.openingString] !== undefined) {
       if (this.merchantScript.merchant[this.openingString] == 'Closed') {

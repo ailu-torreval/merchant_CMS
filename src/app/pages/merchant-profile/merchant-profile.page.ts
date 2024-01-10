@@ -36,6 +36,7 @@ export class MerchantProfilePage implements OnInit {
   async importData() {
     console.log("import data");
     this.merchantScript.populateMerchantPartially(this.skScript.skData.client);
+    this.merchantScript.merchant.skMerchID = this.skScript.skData.client.id;
     this.merchantScript.merchant.vat = this.skScript.skData.client.vatNumber;
     this.merchantScript.merchant.address1 = this.skScript.skData.client.address.toLowerCase();
     this.merchantScript.populateCategories(this.skScript.skData.categories);

@@ -18,12 +18,13 @@ export class MerchantScript {
   enableEdit: boolean = false;
 
   merchant: Merchant = {
+    skMerchID: "",
     dietaryOptionsIds: [], // list of dietryOptions ids
     date: "",
     name: "",
     bio: "",
-    logo: "", // to be processed
-    picture: "", // to be processed
+    logo: "https://magmadesign.dk/restaurant.png", // to be processed
+    picture: "https://magmadesign.dk/rest-card.jpeg", // to be processed
     openingHoursMon: "", // format example: 11:30-16:30
     openingHoursTue: "",
     openingHoursWed: "",
@@ -54,13 +55,14 @@ export class MerchantScript {
     phone: "",
     feeRate: 0, // for future use as percentage
     priceRange: 0, // 0=cheap, 1=okay, 2=expensive
-    mainCategoryIds: [], // reference to a list of MainCategories
+    mainCategoriesIds: [], // reference to a list of MainCategories
     menuCategories: undefined, // reference to a list of MenuCategories
     // mainCategories: MainCategories, // reference to a list of MainCategories
     vat: "",
     isOpen: undefined,
     forcedClosed: false,
     email: "",
+    isActive: true,
     distanceLimit: 0
   }
 

@@ -20,6 +20,7 @@ export interface DietaryOptions {
 
 export interface Merchant {
     [key: string]: any;
+    skMerchID?: string,  // sk merchant id from sk table
     id?: string, // number
     dietaryOptionsIds: string[], // list of dietryOptions ids
     date: string,
@@ -59,13 +60,14 @@ export interface Merchant {
     phone: string,
     feeRate: number, // for future use as percentage
     priceRange: number, // 0=cheap, 1=okay, 2=expensive
-    mainCategoryIds: string[], // reference to a list of MainCategories
+    mainCategoriesIds: string[], // reference to a list of MainCategories
+    // mainCategoryIds: string[], // reference to a list of MainCategories
     menuCategories?: MenuCategories[] | undefined, // reference to a list of MenuCategories
     // mainCategories: MainCategories, // reference to a list of MainCategories
     vat: string,
     isOpen: boolean | undefined,
+    isActive: boolean;
     forcedClosed: boolean,
-    // skMerchID:string, // sk merchant id from sk table
 }
 
 
