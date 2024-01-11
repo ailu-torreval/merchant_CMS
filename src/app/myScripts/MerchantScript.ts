@@ -23,8 +23,8 @@ export class MerchantScript {
     date: "",
     name: "",
     bio: "",
-    logo: "https://magmadesign.dk/restaurant.png", // to be processed
-    picture: "https://magmadesign.dk/rest-card.jpeg", // to be processed
+    logo: "https://magmadesign.dk/restaurant.png", // to be processed -FAKE DATA FOR PRODUCTION REASONS
+    picture: "https://magmadesign.dk/rest-card.jpeg", // to be processed - FAKE DATA FOR PRODUCTIONS REASONS
     openingHoursMon: "", // format example: 11:30-16:30
     openingHoursTue: "",
     openingHoursWed: "",

@@ -1,5 +1,18 @@
 .flex {
-    display: flex; 
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.deliveryRangeGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.deliveryItem {
+  width: 100%;
+}
+
+.deliveryItem col {
+  width: 100%;
 }
