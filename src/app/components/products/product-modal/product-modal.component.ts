@@ -60,6 +60,21 @@ export class ProductModalComponent implements OnInit {
     this.prodScript.selectedProduct.title = this.product.productName;
     this.prodScript.selectedProduct.price = this.product.price;
     this.prodScript.selectedProduct.skId = this.product.id;
+    if (this.product.lister) {
+      this.lister = this.product.lister.map((item: any) => ({
+        id: item.id,
+        title: item.listeName,
+        options: item.options.map((option: any) => ({
+          id: option.id,
+          name: option.name,
+          price: option.price,
+        })),
+        description: '',
+        radioButton: item.isMultiple === 1 ? false : true,
+        total: 0,
+        order: 0,
+      }));
+    }
     if (this.prodScript.selectedProduct.title) {
       this.productForm.controls.title.setValue(
         this.prodScript.selectedProduct.title
@@ -77,6 +92,7 @@ export class ProductModalComponent implements OnInit {
         this.prodScript.selectedProduct.isOffer
       );
     }
+
     console.log(this.product, 'modal');
   }
 

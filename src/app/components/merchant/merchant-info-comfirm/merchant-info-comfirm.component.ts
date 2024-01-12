@@ -40,6 +40,8 @@ export class MerchantInfoComfirmComponent implements OnInit {
     this.isLoading = true;
     let { menuCategories, ...merchantWithoutMenuCategories } =
       this.merchantScript.merchant;
+      this.merchantScript.merchant.picture = " ";
+      this.merchantScript.merchant.logo = " ";
       try {
         console.log('from try')
         const createdMerchant: any = await this.http.request('createMerchant', 'POST', merchantWithoutMenuCategories);
@@ -58,5 +60,6 @@ export class MerchantInfoComfirmComponent implements OnInit {
 
     console.log('confirmData', merchantWithoutMenuCategories, menuCategories);
   }
+
 
 }

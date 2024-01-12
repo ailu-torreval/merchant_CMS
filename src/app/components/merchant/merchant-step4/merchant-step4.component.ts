@@ -19,9 +19,12 @@ export class MerchantStep4Component implements OnInit {
       Validators.min(0),
     ]),
     minOrderValue: new FormControl(0, [Validators.required, Validators.min(0)]),
-    distanceLimit: new FormControl(0, [Validators.required, Validators.min(1)]),
-    deliveryPrice: new FormControl(0, [Validators.required, Validators.min(0)]),
   });
+
+  distanceForm = new FormGroup({
+    distanceLimit: new FormControl(0, [Validators.required, Validators.min(1), Validators.pattern(/^\d+$/)]),
+    deliveryPrice: new FormControl(0, [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]),
+  })
 
   constructor(public merchantScript: MerchantScript) {}
 
@@ -50,14 +53,15 @@ export class MerchantStep4Component implements OnInit {
   }
 
   addDelivery() {
-    const distanceLimit = Number(this.step4Form.get('distanceLimit')?.value);
-    const deliveryPrice = Number(this.step4Form.get('deliveryPrice')?.value);
+    console.log("DELIVWERY")
+    const distanceLimit = Number(this.distanceForm.get('distanceLimit')?.value);
+    const deliveryPrice = Number(this.distanceForm.get('deliveryPrice')?.value);
 
     this.deliveryPriceObject.push([distanceLimit, deliveryPrice]);
     this.lastDistanceLimit = distanceLimit + 1;
 
-    this.step4Form.get('distanceLimit')?.reset();
-    this.step4Form.get('deliveryPrice')?.reset();
+    this.distanceForm.get('distanceLimit')?.reset();
+    this.distanceForm.get('deliveryPrice')?.reset();
   }
 
   deleteDeliveryRange(index: number) {
@@ -65,6 +69,10 @@ export class MerchantStep4Component implements OnInit {
   }
 
   validateForm() {
+    if(this.step4Form.get('deliveryOptions')?.value !== 0) {
+      this.deliveryPriceObject.sort((a, b) => a[0] - b[0]);
+      this.merchantScript.merchant.distanceLimit = this.deliveryPriceObject
+    }
     this.merchantScript.populateMerchantPartially(
       this.step4Form.value as Partial<Merchant>
     );

@@ -107,45 +107,43 @@
             <p>Add different delivery prices depending on the distance.</p>
           </ion-label>
         </ion-item>
-        <ion-row>
-          <ion-item class="deliveryItem">
-            <ion-col size="4">
-              <span>Until</span>
-              <ion-input
-                mode="ios"
-                formControlName="distanceLimit"
-                placeholder="in meters"
-              ></ion-input>
-              <span> mts.</span>
-            </ion-col>
-            <ion-col size="4">
-              <span>Costs</span>
-              <ion-input
-                mode="ios"
-                type="text"
-                label="Delivery Price"
-                labelPlacement="stacked"
-                formControlName="deliveryPrice"
-              ></ion-input>
-              <span> kr.</span>
-            </ion-col>
-            <ion-col size="4">
-              <ion-button
-                [disabled]="
-                  !step4Form.get('distanceLimit')?.valid ||
-                  !step4Form.get('deliveryPrice')?.valid
-                "
-                (click)="addDelivery()"
-                fill="clear"
-                shape="round"
-                mode="ios"
-                expand="block"
-              >
-                <ion-icon slot="start" name="add-circle"></ion-icon> Add
-              </ion-button>
-            </ion-col>
-          </ion-item>
-        </ion-row>
+
+        <form [formGroup]="distanceForm" (ngSubmit)="addDelivery()">
+          <ion-row>
+            <ion-item class="deliveryItem">
+              <ion-col size="4">
+                <span>Until</span>
+                <ion-input
+                  mode="ios"
+                  formControlName="distanceLimit"
+                  placeholder="in meters"
+                ></ion-input>
+                <span> mts.</span>
+              </ion-col>
+              <ion-col size="4">
+                <span>Costs</span>
+                <ion-input
+                  mode="ios"
+                  type="text"
+                  formControlName="deliveryPrice"
+                ></ion-input>
+                <span> kr.</span>
+              </ion-col>
+              <ion-col size="4">
+                <ion-button
+                type="submit"
+                  [disabled]="!distanceForm.valid"
+                  fill="clear"
+                  shape="round"
+                  mode="ios"
+                  expand="block"
+                >
+                  <ion-icon slot="start" name="add-circle"></ion-icon> Add
+                </ion-button>
+              </ion-col>
+            </ion-item>
+          </ion-row>
+        </form>
 
         <ion-row class="deliveryRangeGrid">
           <ion-item
@@ -184,7 +182,7 @@
         >
         <ion-button
           (click)="validateForm()"
-          [disabled]="!step4Form.valid"
+          [disabled]="this.step4Form.get('deliveryOptions')?.value !== 0 ? !(step4Form.valid && deliveryPriceObject.length > 0) : !step4Form.valid"
           shape="round"
           mode="ios"
           >{{

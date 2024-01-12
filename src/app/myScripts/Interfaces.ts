@@ -55,7 +55,7 @@ export interface Merchant {
     highlightIcon: string, // icon for highlight
     putOnTop: boolean, // puts the seller on the slider, top of the page with the rest new ones
     deliveryPrice: number, // we will not use it
-    distanceLimit: number, // should be a list of lists [[distance, price],[etc]] [[5,15], [10,35]]
+    distanceLimit: number[][], // should be a list of lists [[distance, price],[etc]] [[5,15], [10,35]]
     deliveryOptions: number, // whether the merchant does deliver or not
     phone: string,
     feeRate: number, // for future use as percentage
@@ -65,7 +65,6 @@ export interface Merchant {
     menuCategories?: MenuCategories[] | undefined, // reference to a list of MenuCategories
     // mainCategories: MainCategories, // reference to a list of MainCategories
     vat: string,
-    isOpen: boolean | undefined,
     isActive: boolean;
     forcedClosed: boolean,
 }

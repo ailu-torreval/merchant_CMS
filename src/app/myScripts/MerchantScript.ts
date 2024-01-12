@@ -22,9 +22,9 @@ export class MerchantScript {
     dietaryOptionsIds: [], // list of dietryOptions ids
     date: "",
     name: "",
-    bio: "",
-    logo: "https://magmadesign.dk/restaurant.png", // to be processed -FAKE DATA FOR PRODUCTION REASONS
-    picture: "https://magmadesign.dk/rest-card.jpeg", // to be processed - FAKE DATA FOR PRODUCTIONS REASONS
+    bio: "description here",
+    logo: "", // to be processed -FAKE DATA FOR PRODUCTION REASONS
+    picture: "", // to be processed - FAKE DATA FOR PRODUCTIONS REASONS
     openingHoursMon: "", // format example: 11:30-16:30
     openingHoursTue: "",
     openingHoursWed: "",
@@ -59,11 +59,10 @@ export class MerchantScript {
     menuCategories: undefined, // reference to a list of MenuCategories
     // mainCategories: MainCategories, // reference to a list of MainCategories
     vat: "",
-    isOpen: undefined,
     forcedClosed: false,
     email: "",
     isActive: true,
-    distanceLimit: 0
+    distanceLimit: []
   }
 
   menuCategoriesObject: MenuCategories[] = [];
