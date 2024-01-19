@@ -116,9 +116,9 @@
                 <ion-input
                   mode="ios"
                   formControlName="distanceLimit"
-                  placeholder="in meters"
+                  placeholder="in km."
                 ></ion-input>
-                <span> mts.</span>
+                <span> km.</span>
               </ion-col>
               <ion-col size="4">
                 <span>Costs</span>
@@ -150,7 +150,7 @@
             color="light"
             *ngFor="let range of deliveryPriceObject; let i = index"
           >
-            <ion-text> Until {{ range[0] }} costs {{ range[1] }} kr. </ion-text>
+            <ion-text> Until {{ range[0] }} km. costs {{ range[1] }} kr. </ion-text>
             <ion-button
               (click)="deleteDeliveryRange(i)"
               fill="clear"

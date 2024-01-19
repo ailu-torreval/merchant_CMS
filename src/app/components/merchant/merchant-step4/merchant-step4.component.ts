@@ -22,8 +22,8 @@ export class MerchantStep4Component implements OnInit {
   });
 
   distanceForm = new FormGroup({
-    distanceLimit: new FormControl(0, [Validators.required, Validators.min(1), Validators.pattern(/^\d+$/)]),
-    deliveryPrice: new FormControl(0, [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]),
+    distanceLimit: new FormControl("", [Validators.required, Validators.min(1), Validators.pattern(/^\d+(\.\d+)?$/)]),
+    deliveryPrice: new FormControl("", [Validators.required, Validators.min(0), Validators.pattern(/^\d+(\.\d+)?$/)]),
   })
 
   constructor(public merchantScript: MerchantScript) {}

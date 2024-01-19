@@ -1,10 +1,9 @@
 <ion-card class="ion-padding">
-  
   <ng-container *ngIf="!isLoading">
     <ion-card-header>
       <ion-card-title>Review Information before Uploading</ion-card-title>
     </ion-card-header>
-  
+
     <!-- step 1  -->
     <ion-card-content>
       <ion-grid class="info-container">
@@ -14,10 +13,11 @@
             color="secondary"
             fill="clear"
             (click)="editStep(1)"
-            >Change <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+            >Change
+            <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
           ></ion-button>
         </ion-row>
-  
+
         <ion-item color="light">
           <ion-label>
             <ion-row
@@ -32,7 +32,7 @@
             </ion-row>
           </ion-label>
         </ion-item>
-  
+
         <ion-item color="light">
           <ion-label class="ion-text-wrap">
             <ion-row class="ion-no-padding ion-align-items-center">
@@ -43,7 +43,7 @@
             </ion-row>
           </ion-label>
         </ion-item>
-  
+
         <ion-item color="light">
           <ion-label class="ion-text-wrap images-container">
             <ion-row
@@ -69,7 +69,7 @@
             </ion-row>
           </ion-label>
         </ion-item>
-  
+
         <ion-item lines="none" color="light">
           <ion-label>
             <ion-row
@@ -92,7 +92,7 @@
         </ion-item>
       </ion-grid>
       <br />
-  
+
       <!-- step 2  -->
       <ion-grid class="info-container">
         <ion-row class="ion-justify-content-end">
@@ -101,10 +101,11 @@
             color="secondary"
             fill="clear"
             (click)="editStep(2)"
-            >Change <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+            >Change
+            <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
           ></ion-button>
         </ion-row>
-  
+
         <ion-item color="light">
           <ion-label>
             <ion-row
@@ -113,13 +114,15 @@
               <ion-col class="ion-no-padding" size="4">Company Email</ion-col>
               <ion-col size="8">
                 <ion-text>
-                  <strong> {{ merchantScript.merchant.email }}</strong></ion-text
+                  <strong>
+                    {{ merchantScript.merchant.email }}</strong
+                  ></ion-text
                 >
               </ion-col>
             </ion-row>
           </ion-label>
         </ion-item>
-  
+
         <ion-item color="light">
           <ion-label>
             <ion-row
@@ -142,7 +145,7 @@
             </ion-row>
           </ion-label>
         </ion-item>
-  
+
         <ion-item lines="none" color="light">
           <ion-label>
             <ion-row
@@ -151,7 +154,9 @@
               <ion-col class="ion-no-padding" size="4">Phone Number</ion-col>
               <ion-col size="8">
                 <ion-text>
-                  <strong> {{ merchantScript.merchant.phone }}</strong></ion-text
+                  <strong>
+                    {{ merchantScript.merchant.phone }}</strong
+                  ></ion-text
                 >
               </ion-col>
             </ion-row>
@@ -159,7 +164,7 @@
         </ion-item>
       </ion-grid>
       <br />
-  
+
       <!-- step 3  -->
       <ion-grid class="info-container">
         <ion-row class="ion-align-items-center ion-justify-content-between">
@@ -177,7 +182,7 @@
             </ion-row>
           </ion-col>
         </ion-row>
-  
+
         <ion-item color="light">
           <ion-label>
             <ion-row
@@ -194,7 +199,7 @@
             </ion-row>
           </ion-label>
         </ion-item>
-  
+
         <ion-item color="light">
           <ion-label>
             <ion-row
@@ -211,7 +216,7 @@
             </ion-row>
           </ion-label>
         </ion-item>
-  
+
         <ion-item color="light">
           <ion-label>
             <ion-row
@@ -228,7 +233,7 @@
             </ion-row>
           </ion-label>
         </ion-item>
-  
+
         <ion-item color="light">
           <ion-label>
             <ion-row
@@ -245,7 +250,7 @@
             </ion-row>
           </ion-label>
         </ion-item>
-  
+
         <ion-item color="light">
           <ion-label>
             <ion-row
@@ -262,7 +267,7 @@
             </ion-row>
           </ion-label>
         </ion-item>
-  
+
         <ion-item color="light">
           <ion-label>
             <ion-row
@@ -279,7 +284,7 @@
             </ion-row>
           </ion-label>
         </ion-item>
-  
+
         <ion-item lines="none" color="light">
           <ion-label>
             <ion-row
@@ -298,7 +303,7 @@
         </ion-item>
       </ion-grid>
       <br />
-  
+
       <!-- step 4  -->
       <ion-grid class="info-container">
         <ion-row class="ion-justify-content-end">
@@ -307,16 +312,19 @@
             color="secondary"
             fill="clear"
             (click)="editStep(4)"
-            >Change <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+            >Change
+            <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
           ></ion-button>
         </ion-row>
-  
+
         <ion-item color="light">
           <ion-label>
             <ion-row
               class="ion-no-padding ion-align-items-center ion-justify-content-between"
             >
-              <ion-col class="ion-no-padding" size="5">Delivery Options</ion-col>
+              <ion-col class="ion-no-padding" size="5"
+                >Delivery Options</ion-col
+              >
               <ion-col size="7">
                 <ion-text *ngIf="merchantScript.merchant.deliveryOptions === 0">
                   <strong> Only Pickup</strong></ion-text
@@ -331,13 +339,15 @@
             </ion-row>
           </ion-label>
         </ion-item>
-  
+
         <ion-item color="light">
           <ion-label>
             <ion-row
               class="ion-no-padding ion-align-items-center ion-justify-content-between"
             >
-              <ion-col class="ion-no-padding" size="5">Preparation Time </ion-col>
+              <ion-col class="ion-no-padding" size="5"
+                >Preparation Time
+              </ion-col>
               <ion-col size="7">
                 <ion-text>
                   <strong>
@@ -348,7 +358,7 @@
             </ion-row>
           </ion-label>
         </ion-item>
-  
+
         <ion-item color="light">
           <ion-label>
             <ion-row
@@ -367,7 +377,7 @@
             </ion-row>
           </ion-label>
         </ion-item>
-  
+
         <ion-item
           color="light"
           *ngIf="
@@ -390,7 +400,7 @@
             </ion-row>
           </ion-label>
         </ion-item>
-  
+
         <ion-item
           lines="none"
           color="light"
@@ -405,18 +415,22 @@
             >
               <ion-col class="ion-no-padding" size="5">Distance Limit</ion-col>
               <ion-col size="7">
-                <ion-text>
-                  <strong>
-                    {{ merchantScript.merchant.distanceLimit }} km.</strong
-                  ></ion-text
-                >
+                <ng-container  *ngFor="let range of merchantScript.merchant.distanceLimit; let i = index">
+
+                  <ion-text>
+                    <strong>
+                      Until {{ range[0] }} km. costs {{ range[1] }} kr.
+                    </strong>
+                  </ion-text>
+                  <br>
+                </ng-container>
               </ion-col>
             </ion-row>
           </ion-label>
         </ion-item>
       </ion-grid>
       <br />
-  
+
       <!-- step 5  -->
       <ion-grid class="info-container">
         <ion-row class="ion-justify-content-end">
@@ -425,15 +439,16 @@
             color="secondary"
             fill="clear"
             (click)="editStep(5)"
-            >Change <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+            >Change
+            <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
           ></ion-button>
         </ion-row>
-  
+
         <ion-row>
           <ion-text>Dietary Options</ion-text>
         </ion-row>
         <br />
-  
+
         <ion-item color="light">
           <ion-list class="cat-container">
             <ion-item lines="none" class="item" *ngFor="let opt of dietOptions">
@@ -442,7 +457,7 @@
             </ion-item>
           </ion-list>
         </ion-item>
-  
+
         <br />
         <ion-row>
           <ion-text>Main Categories</ion-text>
@@ -460,9 +475,9 @@
             </ion-item>
           </ion-list>
         </ion-item>
-  
+
         <br />
-  
+
         <ion-item lines="none" color="light">
           <ion-label>
             <ion-row
@@ -490,7 +505,7 @@
         </ion-item>
       </ion-grid>
       <br />
-  
+
       <!-- step 6  -->
       <ion-grid class="info-container">
         <ion-row class="ion-justify-content-end">
@@ -499,10 +514,11 @@
             color="secondary"
             fill="clear"
             (click)="editStep(6)"
-            >Change <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+            >Change
+            <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
           ></ion-button>
         </ion-row>
-  
+
         <ion-row>
           <ion-text>Menu Categories</ion-text>
         </ion-row>
@@ -530,7 +546,6 @@
         >Save</ion-button
       >
     </ion-row>
-
   </ng-container>
 
   <app-loading-screen *ngIf="isLoading"></app-loading-screen>
