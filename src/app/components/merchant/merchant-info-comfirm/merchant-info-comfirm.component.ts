@@ -13,6 +13,11 @@ export class MerchantInfoComfirmComponent implements OnInit {
   mainCategories: any[] = [];
   dietOptions: any[] = [];
   isLoading: boolean = false;
+  loadingStatus: number = 0; // status index: 0=not-loading, 1=creating merchant 2=creating menu categories 3=uploading images
+  STATUS_CREATING_MERCHANT = 1;
+  STATUS_ADDING_CATEGORIES = 2;
+  STATUS_UPLOADING_IMAGES = 3;
+  STATUS_DONE = 4;
 
   constructor(public merchantScript: MerchantScript, private http: Http) {}
 
@@ -38,28 +43,141 @@ export class MerchantInfoComfirmComponent implements OnInit {
 
   async confirmData() {
     this.isLoading = true;
-    let { menuCategories, ...merchantWithoutMenuCategories } =
-      this.merchantScript.merchant;
-      this.merchantScript.merchant.picture = " ";
-      this.merchantScript.merchant.logo = " ";
-      try {
-        console.log('from try')
-        const createdMerchant: any = await this.http.request('createMerchant', 'POST', merchantWithoutMenuCategories);
-        console.log('createdMerchant', createdMerchant);
-        this.isLoading = false;
-        if(createdMerchant) {
-          this.merchantScript.merchant.id = createdMerchant.id;
-        }
-        
-      } catch(error) {
-        console.log('from catch')
-        console.log('error', error);
-        this.isLoading = false;
-        this.http.showErrorAlert();
-      }
+    // save svg strings
+    const logo = this.merchantScript.merchant.logo.replace(
+      'data:image/png;base64,',
+      ''
+    );
+    const cover = this.merchantScript.merchant.picture.replace(
+      'data:image/png;base64,',
+      ''
+    );
+    // delete img strings
+    this.merchantScript.merchant.picture = ' ';
+    this.merchantScript.merchant.logo = ' ';
 
-    console.log('confirmData', merchantWithoutMenuCategories, menuCategories);
+    try {
+      this.loadingStatus = this.STATUS_CREATING_MERCHANT;
+      await this.createMerchant();
+
+      this.loadingStatus = this.STATUS_ADDING_CATEGORIES;
+      await this.addMenuCategories();
+
+      this.loadingStatus = this.STATUS_UPLOADING_IMAGES;
+      await this.addImages(logo, cover);
+
+      this.loadingStatus = this.STATUS_DONE;
+    } catch (error) {
+      console.log('error', error);
+      this.loadingStatus = 0;
+      this.http.showErrorAlert();
+    } finally {
+      this.isLoading = false;
+    }
+
+    console.log('confirmData', this.merchantScript.menuCategoriesObject);
+    console.log('confirmData', this.merchantScript.merchant);
   }
 
 
+  async createMerchant() {
+    try {
+      console.log('from try');
+      const createdMerchant: any = await this.http.request(
+        'createMerchant',
+        'POST',
+        this.merchantScript.merchant
+      );
+      console.log('createdMerchant', createdMerchant);
+      if (createdMerchant) {
+        this.merchantScript.merchant.id = createdMerchant.id;
+        this.loadingStatus = 2;
+      }
+    } catch (error) {
+      console.log('from catch');
+      console.log('error', error);
+      this.loadingStatus = 0;
+      this.http.showErrorAlert();
+    }
+  }
+
+  async addMenuCategories() {
+    try {
+      // Create an array of promises
+      const promises = this.merchantScript.menuCategoriesObject.map(
+        (category) => {
+          category.merchants_id = this.merchantScript.merchant.id;
+          this.http.request('createCategory', 'POST', category)
+        }
+        
+      );
+
+      // Wait for all promises to resolve
+      const createdCategories = await Promise.all(promises);
+
+      if (createdCategories) {
+        this.loadingStatus = 3;
+      }
+      console.log('createdCategories', createdCategories);
+    } catch (error) {
+      console.log('from catch');
+      console.log('error', error);
+      this.loadingStatus = 0;
+      this.http.showErrorAlert();
+    }
+  }
+
+  async addImages(logo: string, cover: string) {
+    const coverObjForUpload = {
+      imageBase64: cover,
+      name: 'cover',
+      type: 'MERCHANT_IMAGE',
+      merchantID: this.merchantScript.merchant.skMerchID,
+    };
+    const logoObjForUpload = {
+      imageBase64: logo,
+      name: 'logo',
+      type: 'MERCHANT_LOGO',
+      merchantID: this.merchantScript.merchant.skMerchID,
+    };
+
+    console.log(logoObjForUpload);
+    console.log(coverObjForUpload);
+
+    // uploadImages
+    try {
+      const [logoUploaded, coverUploaded] = await Promise.all([
+        this.uploadImage(logoObjForUpload),
+        this.uploadImage(coverObjForUpload),
+      ]);
+
+      if (logoUploaded && coverUploaded) {
+        this.loadingStatus = 4;
+      }
+    } catch (error) {
+      console.log('from catch');
+      console.log('error', error);
+      this.loadingStatus = 0;
+      this.http.showErrorAlert();
+    }
+  }
+
+  async uploadImage(imageObjForUpload: any): Promise<boolean> {
+    try {
+      console.log('from try');
+      const imageUploaded: any = await this.http.request(
+        'uploadImage',
+        'POST',
+        imageObjForUpload
+      );
+      console.log(`${imageObjForUpload.name}Uploaded`, imageUploaded);
+      return !!imageUploaded;
+    } catch (error) {
+      console.log('from catch');
+      console.log('error', error);
+      this.loadingStatus = 0;
+      this.http.showErrorAlert();
+      return false;
+    }
+  }
 }
