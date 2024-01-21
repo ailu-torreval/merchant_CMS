@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { SkResponseData } from '../myScripts/Interfaces';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Http } from '../myScripts/Http';
 
 @Component({
   selector: 'app-home',
@@ -17,14 +18,15 @@ export class HomePage implements OnInit {
 
   constructor(
     public skScript: SkScript,
-    private http: HttpClient,
+    private httpClient: HttpClient,
+    private http: Http,
     private router: Router,
-    alertCtrl: AlertController
+    private merchantScript: MerchantScript
   ) {}
 
   async ngOnInit() {
     try {
-      this.http
+      this.httpClient
         .request<SkResponseData>(
           'POST',
           'https://salgskernen.dk/sk_sync_foodapp',
@@ -36,8 +38,12 @@ export class HomePage implements OnInit {
           console.log(response.success);
         });
     } catch (error) {
+      this.http.showErrorAlert();
       console.log(error);
     }
+    // i should check if the skUser is already indexed to foodApp db
+    
+
   }
 
   goToPage(endpoint: string) {
