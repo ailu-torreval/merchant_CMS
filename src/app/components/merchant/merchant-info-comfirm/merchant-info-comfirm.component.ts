@@ -82,7 +82,7 @@ export class MerchantInfoComfirmComponent implements OnInit {
 
   async createMerchant() {
     try {
-      console.log('from try');
+      console.log('from merchant try');
       const createdMerchant: any = await this.http.request(
         'createMerchant',
         'POST',
@@ -107,9 +107,8 @@ export class MerchantInfoComfirmComponent implements OnInit {
       const promises = this.merchantScript.menuCategoriesObject.map(
         (category) => {
           category.merchants_id = this.merchantScript.merchant.id;
-          this.http.request('createCategory', 'POST', category)
+          this.http.request('createMenuCategory', 'POST', category)
         }
-        
       );
 
       // Wait for all promises to resolve
@@ -120,7 +119,7 @@ export class MerchantInfoComfirmComponent implements OnInit {
       }
       console.log('createdCategories', createdCategories);
     } catch (error) {
-      console.log('from catch');
+      console.log('from category error catch');
       console.log('error', error);
       this.loadingStatus = 0;
       this.http.showErrorAlert();
@@ -164,7 +163,7 @@ export class MerchantInfoComfirmComponent implements OnInit {
 
   async uploadImage(imageObjForUpload: any): Promise<boolean> {
     try {
-      console.log('from try');
+      console.log('from img try');
       const imageUploaded: any = await this.http.request(
         'uploadImage',
         'POST',
