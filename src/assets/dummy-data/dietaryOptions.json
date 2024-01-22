@@ -1,27 +1,27 @@
 [
   {
-    "id": "1",
+    "id": 1,
     "name": "Vegan",
     "icon": "vegan.png",
     "description": "",
     "sortOrder": 3
   },
   {
-    "id": "2",
+    "id": 2,
     "name": "Halal",
     "icon": "halal.png",
     "description": "",
     "sortOrder": 4
   },
   {
-    "id": "3",
+    "id": 3,
     "name": "Glutenfri",
     "icon": "gluten-free.png",
     "description": "",
     "sortOrder": 2
   },
   {
-    "id": "4",
+    "id": 4,
     "name": "Kosher",
     "icon": "kosher.png",
     "description": "",

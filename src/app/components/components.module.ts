@@ -17,6 +17,7 @@ import { ProductsImportComponent } from './products/products-import/products-imp
 import { ProductsListComponent } from './products/products-list/products-list.component';
 import { ProductModalComponent } from './products/product-modal/product-modal.component';
 import { ProductScript } from '../myScripts/ProductScript';
+import { Http } from '../myScripts/Http';
 
 export const components = [
   MerchantStep1Component,
@@ -36,7 +37,7 @@ export const components = [
 @NgModule({
   declarations: [components],
   imports: [CommonModule, IonicModule, FormsModule, ReactiveFormsModule],
-  providers: [MerchantScript, LocationService, ProductScript],
+  providers: [MerchantScript, LocationService, ProductScript, Http],
   exports: components,
 })
 export class ComponentsModule {}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Liste, Product } from './Interfaces';
+import { Product } from './Interfaces';
 
 @Injectable()
 export class ProductScript {
@@ -16,10 +16,11 @@ export class ProductScript {
 
   selectedProduct: Product = {
     skId: 0,
-    merchantId: 12,
-    menuCategoryId: 5, //reference to menu category
-    dietryOptionsIds: [], // list of dietry options ids
-    mainCategoryId: 0, //reference to main category
+    merchants_id: 0,
+    menuCategories_id: 0, //reference to menu category
+    dietaryOptionsIds: [],
+    dietaryOptions_id: 1, // list of dietry options ids
+    mainCategories_id: 0, //reference to main category
     similarProductId: 0,
     title: '',
     description: '',
@@ -30,12 +31,25 @@ export class ProductScript {
     offerDate: '',
     highlightTag: '', // offer, popular, special of the week etc.
     highlightColor: '', // background color of the highlight
-    highlightIcon: '', // icon for highlight
+    highLightIcon: '', // icon for highlight
     mainHighlightTag: '', // offer, popular, special of the week etc.
     mainHighlightColor: '', // background color of the highlight
     mainHighlightIcon: '', // icon for highlight
     showAsSuggestion: false,
     isOffer: false,
-    lister: undefined, // comes from lister object
+    lister: [], // comes from lister object
   };
+
+  populateProductPartially(data: Partial<Product>) {
+    for (const controlName of Object.keys(this.selectedProduct)) {
+      if (data.hasOwnProperty(controlName)) {
+        let value = data[controlName as keyof Product];
+        if (typeof value === 'string') {
+          value = value.toLowerCase();
+        }
+        (this.selectedProduct as any)[controlName] = value;
+      }
+    }
+    console.log(this.selectedProduct);
+  }
 }

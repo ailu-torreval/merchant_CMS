@@ -19,6 +19,7 @@ export class MerchantScript {
   merchantAlreadyIndexed: boolean = false;
 
   merchant: Merchant = {
+    id: 0,
     skMerchID: '',
     dietaryOptionsIds: [], // list of dietryOptions ids
     date: '',
@@ -87,7 +88,7 @@ export class MerchantScript {
     for (let i = 0; i < data.length; i++) {
       const cat = data[i];
       const categoryToAdd: MenuCategories = {
-        merchants_id: '0',
+        merchants_id: 0,
         name: cat.name.toLowerCase(),
         description: '',
         sortOrder: i,

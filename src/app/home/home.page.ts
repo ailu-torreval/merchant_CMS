@@ -42,13 +42,22 @@ export class HomePage implements OnInit {
       console.log(error);
     }
     // i should check if the skUser is already indexed to foodApp db
-    
 
+    // fake for production
+
+    // try {
+    //   const FAMerchant: any = await this.http.request('merchantData/48');
+    //   console.log(FAMerchant);
+    //   this.merchantScript.merchant = FAMerchant.merchants;
+    //   this.merchantScript.menuCategoriesObject = FAMerchant.menuCategories;
+    //   this.merchantScript.merchantAlreadyIndexed = true;
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
   goToPage(endpoint: string) {
     if (endpoint === 'merchant-profile') {
-      
     } else {
     }
     this.router.navigate([endpoint]);

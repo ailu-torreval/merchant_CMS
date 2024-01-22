@@ -1,7 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, ModalController } from '@ionic/angular';
-import { DietaryOptions, Liste, Option } from 'src/app/myScripts/Interfaces';
+import {
+  DietaryOptions,
+  Liste,
+  Option,
+  Product,
+} from 'src/app/myScripts/Interfaces';
 import { ProductScript } from 'src/app/myScripts/ProductScript';
 import dietOptJson from 'src/assets/dummy-data/dietaryOptions.json';
 import { Capacitor } from '@capacitor/core';
@@ -12,6 +17,8 @@ import {
   Photo,
 } from '@capacitor/camera';
 import { ImageCropPage } from 'src/app/image/image-crop/image-crop.page';
+import { MerchantScript } from 'src/app/myScripts/MerchantScript';
+import { Http } from 'src/app/myScripts/Http';
 
 @Component({
   selector: 'app-product-modal',
@@ -22,10 +29,12 @@ export class ProductModalComponent implements OnInit {
   @Input() product: any;
   rawImg: string = '';
   croppedImg: any = '';
-  isOfferActivated: boolean = false;
+  // isOffer: boolean = false;
   dietOptions: DietaryOptions[] = dietOptJson;
+  selectedDiet: number[] = [];
   optName: string = '';
   optPrice: number = 0;
+  showSuggestion: boolean = false;
 
   currentLister: Liste = {
     title: '',
@@ -47,19 +56,25 @@ export class ProductModalComponent implements OnInit {
     ]),
     price: new FormControl('', [Validators.required, Validators.min(0)]),
     offerPrice: new FormControl('', [Validators.min(0)]),
-    isOfferActivated: new FormControl(false),
+    isOffer: new FormControl(false),
+    menuCategories_id: new FormControl('', [Validators.required]),
   });
 
   constructor(
     public prodScript: ProductScript,
     private modalCtrl: ModalController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    public merchantScript: MerchantScript,
+    private http: Http
   ) {}
 
   ngOnInit() {
     this.prodScript.selectedProduct.title = this.product.productName;
     this.prodScript.selectedProduct.price = this.product.price;
     this.prodScript.selectedProduct.skId = this.product.id;
+    this.prodScript.selectedProduct.merchants_id = this.merchantScript.merchant[0].id
+      ? this.merchantScript.merchant[0].id
+      : 0;
     if (this.product.lister) {
       this.lister = this.product.lister.map((item: any) => ({
         id: item.id,
@@ -88,28 +103,39 @@ export class ProductModalComponent implements OnInit {
       this.productForm.controls.offerPrice.setValue(
         this.prodScript.selectedProduct.offerPrice.toString()
       );
-      this.productForm.controls.isOfferActivated.setValue(
+      this.productForm.controls.isOffer.setValue(
         this.prodScript.selectedProduct.isOffer
       );
     }
 
     console.log(this.product, 'modal');
+    console.log(this.prodScript.selectedProduct);
   }
 
   closeModal() {
     this.modalCtrl.dismiss();
   }
 
-  validateForm() {
-    console.log('validate form');
+  createImgSrc(name: string) {
+    return 'assets/icons/' + name;
   }
 
   handleOfferToggle(ev: any) {
     console.log(ev);
   }
 
-  createImgSrc(name: string) {
-    return 'assets/icons/' + name;
+  handleMenuCategorySelection(event: any) {
+    this.prodScript.selectedProduct.menuCategories_id = event.detail.value;
+  }
+
+  updateSelectedDiet(option: DietaryOptions) {
+    if (option.checked) {
+      // If the option is checked, add its id to the selectedDiet array
+      this.selectedDiet.push(option?.id);
+    } else {
+      // If the option is unchecked, remove its id from the selectedDiet array
+      this.selectedDiet = this.selectedDiet.filter((id) => id !== option.id);
+    }
   }
 
   addLister() {
@@ -124,6 +150,7 @@ export class ProductModalComponent implements OnInit {
     const opt = {
       name: this.optName,
       price: this.optPrice,
+      desc: '',
     };
     this.currentOptions.push(opt);
     console.log(opt);
@@ -184,12 +211,75 @@ export class ProductModalComponent implements OnInit {
     if (data && 'refresh' in data && data.refresh) {
       this.croppedImg = data.refresh;
       console.log(this.croppedImg);
-      this.prodScript.selectedProduct.picture = this.croppedImg;
     }
   }
 
   removeImg() {
-    this.prodScript.selectedProduct.picture = '';
     this.croppedImg = null;
   }
+
+  async validateForm() {
+    console.log(this.dietOptions);
+    // this.prepareProductObject();
+    // fill prod object
+    if(this.prodScript.selectedProduct.merchants_id !== 0) {
+      this.prodScript.populateProductPartially(
+        this.productForm.value as Partial<Product>
+      );
+      this.prodScript.selectedProduct.showAsSuggestion =
+        this.lister.length === 0 ? this.showSuggestion : false;
+      this.prodScript.selectedProduct.dietaryOptionsIds = this.selectedDiet;
+
+    }
+
+    // upload product
+    try {
+      const createdProduct = await this.http.request('createProduct', 'POST', this.prodScript.selectedProduct);
+      if(createdProduct) {
+        console.log(createdProduct);
+        this.prodScript.selectedProduct = createdProduct as Product;
+        this.uploadImage();
+      }
+
+    } catch(error) {
+      console.log(error)
+    }
+
+
+
+    // upload image with prod id
+    // upload lister with prod id
+    console.log('validate form', this.prodScript.selectedProduct);
+  }
+
+  async uploadImage() {
+    // clean img string
+    const imageObjectForUpload =  {
+      imageBase64: this.croppedImg.replace(
+        'data:image/png;base64,',
+        ''
+      ),
+      name: this.prodScript.selectedProduct.id?.toString(),
+      type: 'PRODUCT_IMAGE',
+      merchantID: this.merchantScript.merchant.skMerchID,
+    };
+
+    try {
+      const imageUploaded: any = await this.http.request(
+        'uploadImage',
+        'POST',
+        imageObjectForUpload
+      );
+      console.log(`${imageObjectForUpload.name}Uploaded`, imageUploaded);
+
+
+    } catch(error) {
+      console.log(error);
+    }
+
+  }
+
+  // prepareProductObject() {
+
+  // }
 }

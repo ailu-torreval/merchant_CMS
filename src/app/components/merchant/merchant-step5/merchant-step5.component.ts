@@ -57,7 +57,7 @@ export class MerchantStep5Component implements OnInit {
 
     this.merchantScript.merchant.tags = this.tags;
 
-    const checkedDietIds: string[] = this.dietOptions
+    const checkedDietIds: number[] = this.dietOptions
       .filter((opt) => opt.checked)
       .map((cat) => cat.id);
 

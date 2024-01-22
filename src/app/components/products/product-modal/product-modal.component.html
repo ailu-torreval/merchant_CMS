@@ -77,8 +77,8 @@
       </ion-label>
     </ion-item>
     <br />
-    <ion-row  *ngIf="prodScript.selectedProduct.picture" >
-      <img [src]="prodScript.selectedProduct.picture" height="80" />
+    <ion-row  *ngIf="croppedImg" >
+      <img [src]="croppedImg" height="80" />
       <ion-button
       size="small"
         (click)="removeImg()"
@@ -142,10 +142,32 @@
     <ion-col>
       <ion-item lines="none">
         <ion-label>Activate Offer </ion-label>
-        <ion-toggle (ionChange)="handleOfferToggle($event)" aria-label="Activate offer" slot="end" formControlName="isOfferActivated"></ion-toggle>      </ion-item>
+        <ion-toggle (ionChange)="handleOfferToggle($event)" aria-label="Activate offer" slot="end" formControlName="isOffer"></ion-toggle>      </ion-item>
     </ion-col>
   </ion-row>
+  
+  <ion-row *ngIf="merchantScript.menuCategoriesObject.length > 0">
+    <ion-item>
+      <ion-select aria-label="Menu Category" formControlName="menuCategories_id"  label="Menu Category" interface="popover" placeholder="Select Category" (ionChange)="handleMenuCategorySelection($event)">
+        <ion-select-option *ngFor="let cat of merchantScript.menuCategoriesObject" [value]="cat.id">{{cat.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-row>
+  <ng-container *ngFor="let er of prodScript.errors">
+    <ion-label
+      *ngIf="
+        productForm.get('menuCategoryId')?.hasError(er) &&
+        (productForm.get('menuCategoryId')?.touched || productForm.get('menuCategoryId')?.dirty)
+      "
+      class="ion-padding invalid-field"
+      color="danger"
+    >
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <ion-text> Please choose a category. </ion-text>
+    </ion-label>
+  </ng-container>
 </form>
+
   <ion-label>
     <h1>Dietary Restrictions</h1>
     <p>Choose if the product is an available option for it.</p>
@@ -154,7 +176,7 @@
   <ion-row>
     <ion-list class="grid">
       <ion-item lines="none" class="item" *ngFor="let option of dietOptions" >
-              <ion-checkbox [(ngModel)]="option.checked" labelPlacement="end" alignment="center">
+              <ion-checkbox [(ngModel)]="option.checked" (ionChange)="updateSelectedDiet(option)" labelPlacement="end" alignment="center">
                 <div class="ion-no-padding">
                   <img [src]="createImgSrc(option.icon)" width="40">
                   <ion-text>{{option.name}}</ion-text>   
@@ -163,6 +185,12 @@
       </ion-item>
 
     </ion-list>
+  </ion-row>
+
+  <ion-row *ngIf="lister.length === 0">
+    <ion-item>
+      <ion-toggle [(ngModel)]="showSuggestion" justify="space-between">Show as suggestion at checkout (Only works for products without options) </ion-toggle>
+    </ion-item>
   </ion-row>
 
   <ion-item lines="none">
