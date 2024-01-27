@@ -20,7 +20,7 @@ export class ProductScript {
     menuCategories_id: 0, //reference to menu category
     dietaryOptionsIds: [],
     dietaryOptions_id: 1, // list of dietry options ids
-    mainCategories_id: 0, //reference to main category
+    mainCategories_id: 1, //reference to main category
     similarProductId: 0,
     title: '',
     description: '',

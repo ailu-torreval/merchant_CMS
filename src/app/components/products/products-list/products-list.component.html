@@ -1,3 +1,22 @@
-<p>
-  products-list works!
-</p>
+<ion-grid class="grid">
+  <ion-row>
+    <ion-title>Indexed Products</ion-title>
+    <ion-text
+      >This items are indexed. Select the product if you want to edit it.</ion-text
+    >
+  </ion-row>
+  <ion-row *ngIf="merchantScript.indexedProducts.length > 10">
+    <ion-button (click)="page = page - 1" [disabled]="page === 1"
+      >Previous</ion-button
+    >
+    <ion-button (click)="page = page + 1"> Next </ion-button>
+  </ion-row>
+  <ion-row
+    *ngFor="
+      let prod of merchantScript.indexedProducts
+        | slice : (page - 1) * pageSize : page * pageSize
+    "
+  >
+    <ion-item (click)="openProductModal(prod)" >{{ prod.title }}</ion-item>
+  </ion-row>
+</ion-grid>

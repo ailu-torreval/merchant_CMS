@@ -22,17 +22,19 @@ export class ProductsImportComponent implements OnInit {
 
 
     // THIS SHOULDNT BE HERE - JUST FOR PRODUCTION
-    try {
-      const FAMerchant: any = await this.http.request('merchantData/48');
-      console.log(FAMerchant);
-      this.merchantScript.merchant = FAMerchant.merchants;
-      this.merchantScript.menuCategoriesObject = FAMerchant.menuCategories;
-      this.merchantScript.merchantAlreadyIndexed = true;
-      console.log(this.merchantScript.merchant)
-      console.log(this.merchantScript.menuCategoriesObject)
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const FAMerchant: any = await this.http.request('merchantData/48');
+    //   const dietOptions: any = await this.http.request('allDietaryOptions');
+    //   console.log(FAMerchant);
+    //   this.merchantScript.merchant = FAMerchant.merchants;
+    //   this.merchantScript.menuCategoriesObject = FAMerchant.menuCategories;
+    //   this.merchantScript.dietaryOptions = dietOptions;
+    //   this.merchantScript.merchantAlreadyIndexed = true;
+    //   console.log(this.merchantScript.merchant)
+    //   console.log(this.merchantScript.menuCategoriesObject)
+    // } catch (error) {
+    //   console.log(error);
+    // }
 
   //
   }
@@ -44,7 +46,7 @@ export class ProductsImportComponent implements OnInit {
     //open prod modal
     const modal = await this.modalCtrl.create({
       component: ProductModalComponent,
-      componentProps: { product: product },
+      componentProps:{ product: product, isAlreadyIndexed: false },
     });
     modal.present();
 

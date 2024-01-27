@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MenuCategories, Merchant } from './Interfaces';
+import { DietaryOptions, MenuCategories, Merchant, Product } from './Interfaces';
+import { SkScript } from './SkScript';
 
 @Injectable()
 export class MerchantScript {
@@ -69,7 +70,13 @@ export class MerchantScript {
 
   menuCategoriesObject: MenuCategories[] = [];
 
-  constructor() {}
+  dietaryOptions: DietaryOptions[] = [];
+
+  indexedProducts: Product[] = [];
+
+  notIndexedProducts:any = [];
+
+  constructor(private skScript: SkScript) {}
 
   populateMerchantPartially(data: Partial<Merchant>) {
     for (const controlName of Object.keys(this.merchant)) {
@@ -96,6 +103,15 @@ export class MerchantScript {
       };
       this.menuCategoriesObject.push(categoryToAdd);
     }
+  }
+
+  filterNotIndexedProducts() {
+    this.notIndexedProducts = this.skScript.skData.products.filter(
+      skProduct => !this.indexedProducts.find(
+        indexedProduct => indexedProduct.skId === skProduct.id
+      ));
+      console.log("INDEXED:", this.indexedProducts)
+      console.log("NOT INDEXED:", this.notIndexedProducts)
   }
 
   changeToStep(step: number) {

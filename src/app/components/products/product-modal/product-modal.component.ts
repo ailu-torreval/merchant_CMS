@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import {
   DietaryOptions,
   Liste,
@@ -8,13 +8,10 @@ import {
   Product,
 } from 'src/app/myScripts/Interfaces';
 import { ProductScript } from 'src/app/myScripts/ProductScript';
-import dietOptJson from 'src/assets/dummy-data/dietaryOptions.json';
-import { Capacitor } from '@capacitor/core';
 import {
   Camera,
   CameraResultType,
   CameraSource,
-  Photo,
 } from '@capacitor/camera';
 import { ImageCropPage } from 'src/app/image/image-crop/image-crop.page';
 import { MerchantScript } from 'src/app/myScripts/MerchantScript';
@@ -25,12 +22,14 @@ import { Http } from 'src/app/myScripts/Http';
   templateUrl: './product-modal.component.html',
   styleUrls: ['./product-modal.component.scss'],
 })
+
 export class ProductModalComponent implements OnInit {
   @Input() product: any;
+  @Input() isAlreadyIndexed!: boolean;
   rawImg: string = '';
   croppedImg: any = '';
   // isOffer: boolean = false;
-  dietOptions: DietaryOptions[] = dietOptJson;
+  // dietOptions: DietaryOptions[] = dietOptJson;
   selectedDiet: number[] = [];
   optName: string = '';
   optPrice: number = 0;
@@ -54,8 +53,8 @@ export class ProductModalComponent implements OnInit {
       Validators.required,
       Validators.minLength(5),
     ]),
-    price: new FormControl('', [Validators.required, Validators.min(0)]),
-    offerPrice: new FormControl('', [Validators.min(0)]),
+    price: new FormControl(0, [Validators.required, Validators.min(0)]),
+    offerPrice: new FormControl(0, [Validators.min(0)]),
     isOffer: new FormControl(false),
     menuCategories_id: new FormControl('', [Validators.required]),
   });
@@ -65,30 +64,45 @@ export class ProductModalComponent implements OnInit {
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
     public merchantScript: MerchantScript,
-    private http: Http
+    private http: Http,
+    private alert: AlertController
   ) {}
 
   ngOnInit() {
-    this.prodScript.selectedProduct.title = this.product.productName;
-    this.prodScript.selectedProduct.price = this.product.price;
-    this.prodScript.selectedProduct.skId = this.product.id;
-    this.prodScript.selectedProduct.merchants_id = this.merchantScript.merchant[0].id
-      ? this.merchantScript.merchant[0].id
-      : 0;
-    if (this.product.lister) {
-      this.lister = this.product.lister.map((item: any) => ({
-        id: item.id,
-        title: item.listeName,
-        options: item.options.map((option: any) => ({
-          id: option.id,
-          name: option.name,
-          price: option.price,
-        })),
-        description: '',
-        radioButton: item.isMultiple === 1 ? false : true,
-        total: 0,
-        order: 0,
-      }));
+    if(this.isAlreadyIndexed) {
+      this.prodScript.selectedProduct = this.product;
+      if(this.product.lister.length > 0 ) {
+        this.lister = this.product.lister;
+      }
+      this.showSuggestion = this.product.showAsSuggestion;
+
+      // preselect the menu category
+
+      // preselect the dietary options
+
+    } else {
+      this.prodScript.selectedProduct.title = this.product.productName;
+      this.prodScript.selectedProduct.price = this.product.price;
+      this.prodScript.selectedProduct.skId = this.product.id;
+      this.prodScript.selectedProduct.merchants_id = this.merchantScript
+        .merchant[0].id
+        ? this.merchantScript.merchant[0].id
+        : 0;
+      if (this.product.lister) {
+        this.lister = this.product.lister.map((item: any) => ({
+          id: item.id,
+          title: item.listeName,
+          options: item.options.map((option: any) => ({
+            id: option.id,
+            name: option.name,
+            price: option.price,
+          })),
+          description: '',
+          radioButton: item.isMultiple === 1 ? false : true,
+          total: 0,
+          order: 0,
+        }));
+      }
     }
     if (this.prodScript.selectedProduct.title) {
       this.productForm.controls.title.setValue(
@@ -98,10 +112,10 @@ export class ProductModalComponent implements OnInit {
         this.prodScript.selectedProduct.description
       );
       this.productForm.controls.price.setValue(
-        this.prodScript.selectedProduct.price.toString()
+        this.prodScript.selectedProduct.price
       );
       this.productForm.controls.offerPrice.setValue(
-        this.prodScript.selectedProduct.offerPrice.toString()
+        this.prodScript.selectedProduct.offerPrice
       );
       this.productForm.controls.isOffer.setValue(
         this.prodScript.selectedProduct.isOffer
@@ -132,6 +146,7 @@ export class ProductModalComponent implements OnInit {
     if (option.checked) {
       // If the option is checked, add its id to the selectedDiet array
       this.selectedDiet.push(option?.id);
+      this.prodScript.selectedProduct.dietaryOptions_id = option?.id;
     } else {
       // If the option is unchecked, remove its id from the selectedDiet array
       this.selectedDiet = this.selectedDiet.filter((id) => id !== option.id);
@@ -218,68 +233,86 @@ export class ProductModalComponent implements OnInit {
     this.croppedImg = null;
   }
 
+
   async validateForm() {
-    console.log(this.dietOptions);
-    // this.prepareProductObject();
-    // fill prod object
-    if(this.prodScript.selectedProduct.merchants_id !== 0) {
+    try {
+      this.prepareProductObject();
+      await this.uploadProduct();
+      if (this.prodScript.selectedProduct.id !== 0) {
+        await this.uploadImage();
+        if (this.lister.length > 0) {
+          await this.uploadLister();
+        }
+      }
+      this.showSuccessAlert(); 
+    } catch (error) {
+      this.http.showErrorAlert();
+      console.log(error);
+    }
+    console.log('validate form', this.prodScript.selectedProduct);
+  }
+
+  async uploadProduct() {
+    const createdProduct = await this.http.request(
+      'createProduct',
+      'POST',
+      this.prodScript.selectedProduct
+    );
+    if (createdProduct) {
+      console.log(createdProduct);
+      this.prodScript.selectedProduct = createdProduct as Product;
+    } else {
+      throw new Error('Product creation failed');
+    }
+  }
+
+  async uploadImage() {
+    const imageObjectForUpload = {
+      imageBase64: this.croppedImg.replace('data:image/png;base64,', ''),
+      name: this.prodScript.selectedProduct.id?.toString(),
+      type: 'PRODUCT_IMAGE',
+      merchantID: this.merchantScript.merchant.skMerchID,
+    };
+    const imageUploaded: any = await this.http.request(
+      'uploadImage',
+      'POST',
+      imageObjectForUpload
+    );
+    console.log(`${imageObjectForUpload.name}Uploaded`, imageUploaded);
+  }
+
+
+  async uploadLister(){
+    console.log(this.lister)
+  }
+
+  prepareProductObject() {
+    if (this.prodScript.selectedProduct.merchants_id !== 0) {
       this.prodScript.populateProductPartially(
         this.productForm.value as Partial<Product>
       );
       this.prodScript.selectedProduct.showAsSuggestion =
         this.lister.length === 0 ? this.showSuggestion : false;
       this.prodScript.selectedProduct.dietaryOptionsIds = this.selectedDiet;
-
     }
-
-    // upload product
-    try {
-      const createdProduct = await this.http.request('createProduct', 'POST', this.prodScript.selectedProduct);
-      if(createdProduct) {
-        console.log(createdProduct);
-        this.prodScript.selectedProduct = createdProduct as Product;
-        this.uploadImage();
-      }
-
-    } catch(error) {
-      console.log(error)
-    }
-
-
-
-    // upload image with prod id
-    // upload lister with prod id
-    console.log('validate form', this.prodScript.selectedProduct);
+    console.log('OBJECT READY FOR UPLOAD', this.prodScript.selectedProduct);
   }
 
-  async uploadImage() {
-    // clean img string
-    const imageObjectForUpload =  {
-      imageBase64: this.croppedImg.replace(
-        'data:image/png;base64,',
-        ''
-      ),
-      name: this.prodScript.selectedProduct.id?.toString(),
-      type: 'PRODUCT_IMAGE',
-      merchantID: this.merchantScript.merchant.skMerchID,
-    };
+ async showSuccessAlert() {
+    console.log('Success! All requests were made successfully.');
+    const alert = await this.alert.create({
+      header: 'Product Created',
+      buttons: ['Accept'],
+      htmlAttributes: {
+        'aria-label': 'alert dialog',
+      },
+    });
 
-    try {
-      const imageUploaded: any = await this.http.request(
-        'uploadImage',
-        'POST',
-        imageObjectForUpload
-      );
-      console.log(`${imageObjectForUpload.name}Uploaded`, imageUploaded);
+    alert.onDidDismiss().then(() => {
+      this.closeModal();
+    });
 
-
-    } catch(error) {
-      console.log(error);
-    }
-
+    await alert.present();
   }
 
-  // prepareProductObject() {
-
-  // }
 }

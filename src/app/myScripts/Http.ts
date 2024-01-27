@@ -38,12 +38,6 @@ export class Http {
     if(request_params === null)
     request_params = { pagesize: 1000, skippages: 0 };
     return new Promise(async (res, err) => {
-      // await this.storage.set('APP_ID', this.APP_ID);
-
-      // if (!this.ACCESS_ID) {
-      //     this.ACCESS_ID = await this.storage.get('ECONOMIC_ACCESS_ID');
-      // }
-
       const finalUrl = this.mainUrl + url;
 
       const headers = {
@@ -146,7 +140,7 @@ export class Http {
       } else {
         //GET
         this.httpClient
-          .get(finalUrl, { headers })
+          .get(finalUrl, { headers, params:request_params })
           .toPromise()
           .then((ddata) => {
             let data: any = ddata;

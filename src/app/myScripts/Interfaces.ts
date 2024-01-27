@@ -84,7 +84,6 @@ export interface MenuCategories {
 }
 
 export interface Product {
-  [key: string]: any;
   id?: number;
   skId?: number;
   merchants_id: number;

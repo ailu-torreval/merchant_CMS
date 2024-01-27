@@ -175,7 +175,7 @@
 
   <ion-row>
     <ion-list class="grid">
-      <ion-item lines="none" class="item" *ngFor="let option of dietOptions" >
+      <ion-item lines="none" class="item" *ngFor="let option of merchantScript.dietaryOptions" >
               <ion-checkbox [(ngModel)]="option.checked" (ionChange)="updateSelectedDiet(option)" labelPlacement="end" alignment="center">
                 <div class="ion-no-padding">
                   <img [src]="createImgSrc(option.icon)" width="40">
