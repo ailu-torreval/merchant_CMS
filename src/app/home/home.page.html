@@ -22,7 +22,7 @@
         >
       </ion-card>
     </ion-col>
-    <ion-col>
+    <ion-col *ngIf="merchantScript.merchantAlreadyIndexed">
       <ion-card (click)="goToPage('products')" class="ion-activatable ripple-parent">
         <ion-ripple-effect></ion-ripple-effect>
         <ion-card-title>Products</ion-card-title>

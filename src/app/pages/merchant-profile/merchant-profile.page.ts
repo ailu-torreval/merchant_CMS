@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Http } from 'src/app/myScripts/Http';
 import { MerchantScript } from 'src/app/myScripts/MerchantScript';
@@ -13,22 +14,40 @@ export class MerchantProfilePage implements OnInit {
 
   isProfileCreated: boolean = false;
   isEditionEnabled: boolean = true;
-  isFirstTime: boolean = false;
+  isFirstTime: boolean = true;
 
-  constructor(public merchantScript: MerchantScript, public skScript: SkScript, private http: Http, private alertCtrl: AlertController) { }
+  constructor(public merchantScript: MerchantScript, public skScript: SkScript, private http: Http, private alertCtrl: AlertController, private router: Router) { }
 
   ngOnInit() {
+    console.log(this.merchantScript)
 
     // check if the skUser has a merchant profile
     // populate the merchant script wiith data if there is
-    // this.isProfileCreated = true;
-    // this.merchantScript.step = 7
+
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation && navigation.extras && navigation.extras.state) {
+      this.merchantScript.mainCategories = navigation.extras.state['mainCategories'];
+      this.merchantScript.dietaryOptions = navigation.extras.state['dietaryOptions'];
+      this.merchantScript.merchant = navigation.extras.state['merchant'];
+      this.merchantScript.merchantAlreadyIndexed = navigation.extras.state['merchantAlreadyIndexed'];
+      this.merchantScript.menuCategoriesObject = navigation.extras.state['menuCategoriesObject'];
+    }
+
+    console.log(this.merchantScript.merchantAlreadyIndexed)
   
+    if(this.merchantScript.merchantAlreadyIndexed) {
+      console.log(2)
+    this.isProfileCreated = true;
+      this.merchantScript.changeToStep(7);
+    }
 
 
 
     // ONLY FOR PRODUCTION
-    this.skScript.populateClient();
+    // this.skScript.populateClient();
+    // this.isProfileCreated = true;
+    // this.merchantScript.step = 5;
+
 
   }
 

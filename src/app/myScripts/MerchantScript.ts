@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DietaryOptions, MenuCategories, Merchant, Product } from './Interfaces';
+import { DietaryOptions, MainCategories, MenuCategories, Merchant, Product } from './Interfaces';
 import { SkScript } from './SkScript';
 
 @Injectable()
@@ -71,6 +71,8 @@ export class MerchantScript {
   menuCategoriesObject: MenuCategories[] = [];
 
   dietaryOptions: DietaryOptions[] = [];
+
+  mainCategories: MainCategories[] = [];
 
   indexedProducts: Product[] = [];
 

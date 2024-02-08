@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DietaryOptions, MainCategories } from 'src/app/myScripts/Interfaces';
 import { MerchantScript } from 'src/app/myScripts/MerchantScript';
-import dietOptJson from 'src/assets/dummy-data/dietaryOptions.json';
-import categoriesJson from 'src/assets/dummy-data/categories.json';
+// import dietOptJson from 'src/assets/dummy-data/dietaryOptions.json';
+// import categoriesJson from 'src/assets/dummy-data/categories.json';
 
 @Component({
   selector: 'app-merchant-step5',
@@ -10,14 +10,18 @@ import categoriesJson from 'src/assets/dummy-data/categories.json';
   styleUrls: ['./merchant-step5.component.scss'],
 })
 export class MerchantStep5Component implements OnInit {
-  dietOptions: DietaryOptions[] = dietOptJson;
-  mainCategories: MainCategories[] = categoriesJson;
+  dietOptions: DietaryOptions[] = [];
+  mainCategories: MainCategories[] = [];
   tags: string[] = [];
   newTag: string = '';
 
   constructor(public merchantScript: MerchantScript) {}
 
   ngOnInit() {
+    this.dietOptions = this.merchantScript.dietaryOptions;
+    this.mainCategories = this.merchantScript.mainCategories;
+    console.log(this.dietOptions, this.mainCategories);
+    console.log(this.merchantScript.dietaryOptions, this.merchantScript.mainCategories);
 
     // if the merchant object has main categories and dietary options, check them in the UI
     if (this.merchantScript.merchant.mainCategoriesIds.length > 0) {

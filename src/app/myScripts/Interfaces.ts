@@ -148,6 +148,14 @@ export interface SKClientData {
   products: any[];
 }
 
+export interface FAResponseData {
+  dietaryOptions: DietaryOptions[];
+  mainCategories: MainCategories[]; 
+  menuCategories?: MenuCategories[];
+  merchant?: Merchant;
+  products?: Product[];
+}
+
 export interface SkResponseData {
   success: SKClientData;
 }
