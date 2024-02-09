@@ -22,6 +22,7 @@ export class MerchantStep3Component  implements OnInit {
     this.validateDays();
     if(this.errorMsg.length === 0) {
       if(this.merchantScript.enableEdit) {
+        this.merchantScript.enableEdit = false;
         this.merchantScript.changeToStep(7);
       } else {
         this.merchantScript.changeToStep(4);

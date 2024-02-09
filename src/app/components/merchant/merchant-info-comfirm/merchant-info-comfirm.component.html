@@ -1,7 +1,8 @@
 <ion-card class="ion-padding">
   <ng-container *ngIf="!isLoading">
     <ion-card-header>
-      <ion-card-title>Review Information before Uploading</ion-card-title>
+      <ion-card-title *ngIf="!merchantScript.merchantAlreadyIndexed">Review Information before Uploading</ion-card-title>
+      <ion-card-title *ngIf="merchantScript.merchantAlreadyIndexed">View and Edit Profile</ion-card-title>
     </ion-card-header>
 
     <!-- step 1  -->
@@ -51,20 +52,38 @@
             >
               <ion-col class="ion-no-padding" size="6">
                 <ion-text>Logo</ion-text>
+
                 <img
+                *ngIf="!merchantScript.merchantAlreadyIndexed"
                   [src]="merchantScript.merchant.logo"
                   alt="logo"
                   height="120"
                   width="120"
                 />
+                <img
+                *ngIf="merchantScript.merchantAlreadyIndexed"
+                [src]="imgPath + merchantScript.merchant.skMerchID + '/logo.jpg'"
+                alt="logo-picture"
+                height="120"
+                width="120"
+                />
               </ion-col>
               <ion-col size="6">
                 <ion-text>Cover Image</ion-text>
                 <img
-                  [src]="merchantScript.merchant.picture"
-                  alt="thumbnail-picture"
+                *ngIf="!merchantScript.merchantAlreadyIndexed"
+                [src]="merchantScript.merchant.picture"
+                alt="cover-picture"
+                height="120"
+                width="213"
+                />
+                <img
+                *ngIf="merchantScript.merchantAlreadyIndexed"
+                  [src]="imgPath + merchantScript.merchant.skMerchID + '/cover.jpg'"
+                  alt="cover-picture"
                   height="120"
                   width="213"
+         
                 />
               </ion-col>
             </ion-row>
@@ -535,7 +554,7 @@
       </ion-grid>
       <br />
     </ion-card-content>
-    <ion-row class="btns-row">
+    <ion-row *ngIf="merchantScript.merchantAlreadyIndexed" class="btns-row">
       <ion-button
         (click)="merchantScript.changeToStep(6)"
         fill="outline"

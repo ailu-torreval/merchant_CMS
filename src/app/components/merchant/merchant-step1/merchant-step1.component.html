@@ -72,7 +72,7 @@
         <!-- <ion-input label="Add Logo" formControlName="logo" type="hidden" [(ngModel)]="merchantScript.merchant.logo" labelPlacement="stacked"></ion-input> -->
       </ion-item>
       <br />
-      <ion-row  *ngIf="merchantScript.merchant.logo" >
+      <ion-row  *ngIf="merchantScript.merchant.logo && merchantScript.merchant.logo.length > 2" >
         <img [src]="merchantScript.merchant.logo" height="80" />
         <ion-button
         size="small"
@@ -102,7 +102,7 @@
         </ion-label>
       </ion-item>
       <br />
-      <ion-row  *ngIf="merchantScript.merchant.picture" >
+      <ion-row  *ngIf="merchantScript.merchant.picture && merchantScript.merchant.picture.length > 2" >
         <img [src]="merchantScript.merchant.picture" height="80" />
         <ion-button
         size="small"
@@ -152,7 +152,7 @@
           [disabled]="!step1Form.valid"
           shape="round"
           mode="ios"
-          > {{merchantScript.enableEdit ? 'Accept Changes' : 'Next'}}</ion-button
+          > {{merchantScript.enableEdit ? merchantScript.merchantAlreadyIndexed ? 'Save Changes' : 'Accept Changes' : 'Next'}}</ion-button
         >
       </ion-row>
     </form>

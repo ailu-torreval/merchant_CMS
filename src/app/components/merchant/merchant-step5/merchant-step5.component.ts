@@ -68,6 +68,7 @@ export class MerchantStep5Component implements OnInit {
     this.merchantScript.merchant.dietaryOptionsIds = checkedDietIds;
     console.log('merchant: ', this.merchantScript.merchant);
     if(this.merchantScript.enableEdit) {
+      this.merchantScript.enableEdit = false;
       this.merchantScript.changeToStep(7);
     } else {
       this.merchantScript.changeToStep(6);

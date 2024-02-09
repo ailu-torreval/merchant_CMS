@@ -16,10 +16,10 @@ export class Http {
     // private storage: Storage
   ) {}
 
-  async showErrorAlert() {
+  async showErrorAlert(message?:string) {
     const alert = await this.alert.create({
       message: 'Please try again.',
-      header: 'Something went wrong',
+      header: message || 'Something went wrong',
       buttons: ['Accept'],
       htmlAttributes: {
         'aria-label': 'alert dialog',

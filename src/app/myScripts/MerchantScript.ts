@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { DietaryOptions, MainCategories, MenuCategories, Merchant, Product } from './Interfaces';
 import { SkScript } from './SkScript';
+import { Http } from './Http';
+import { AlertController } from '@ionic/angular';
 
 @Injectable()
 export class MerchantScript {
@@ -78,7 +80,7 @@ export class MerchantScript {
 
   notIndexedProducts:any = [];
 
-  constructor(private skScript: SkScript) {}
+  constructor(private skScript: SkScript, private http: Http, private alert: AlertController) {}
 
   populateMerchantPartially(data: Partial<Merchant>) {
     for (const controlName of Object.keys(this.merchant)) {
@@ -114,6 +116,55 @@ export class MerchantScript {
       ));
       console.log("INDEXED:", this.indexedProducts)
       console.log("NOT INDEXED:", this.notIndexedProducts)
+  }
+
+  async uploadImage(imageObjForUpload: any): Promise<boolean> {
+    try {
+      console.log('from img try');
+      const imageUploaded: any = await this.http.request(
+        'uploadImage',
+        'POST',
+        imageObjForUpload
+      );
+      console.log(`${imageObjForUpload.name}Uploaded`, imageUploaded);
+      return !!imageUploaded;
+    } catch (error) {
+      console.log('from catch');
+      console.log('error', error);
+      this.http.showErrorAlert();
+      return false;
+    }
+  }
+
+  async editExistentMerchant() {
+    try {
+      const editedMerchant = await this.http.request(`merchant/${this.merchant.id}`, 'PUT', this.merchant)  as { sucess: string };
+      console.log(editedMerchant); 
+
+      if (editedMerchant.sucess === 'ok') {
+        console.log("from if statement")
+        this.showSuccessAlert();
+      }
+
+    } catch(error) {
+      console.log(error);
+      this.http.showErrorAlert("We couldn't save the changes");
+    }
+  }
+
+  async showSuccessAlert() {
+    console.log("from alert")
+
+    const alert = await this.alert.create({
+      header: 'Great!',
+      message: 'Changes has been saved.',
+      buttons: ['Accept'],
+      htmlAttributes: {
+        'aria-label': 'alert dialog',
+      },
+    });
+    await alert.present();
+
   }
 
   changeToStep(step: number) {

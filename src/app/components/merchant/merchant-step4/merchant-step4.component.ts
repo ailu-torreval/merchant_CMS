@@ -77,6 +77,7 @@ export class MerchantStep4Component implements OnInit {
       this.step4Form.value as Partial<Merchant>
     );
     if (this.merchantScript.enableEdit) {
+      this.merchantScript.enableEdit = false;
       this.merchantScript.changeToStep(7);
     } else {
       this.merchantScript.changeToStep(5);

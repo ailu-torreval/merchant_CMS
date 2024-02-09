@@ -65,6 +65,8 @@ export class MerchantStep6Component implements OnInit {
     this.merchantScript.menuCategoriesObject = this.categories;
 
     this.merchantScript.changeToStep(7);
+    this.merchantScript.enableEdit = false;
+
 
     //merchant script shouldnt have menucategories obj inside, but only ids, so first post each menu category, then get the ids, then post merchant with ids
 

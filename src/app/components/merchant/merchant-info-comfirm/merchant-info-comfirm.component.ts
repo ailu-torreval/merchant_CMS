@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from 'src/app/myScripts/Http';
 import { MerchantScript } from 'src/app/myScripts/MerchantScript';
+import { MerchantProfilePage } from 'src/app/pages/merchant-profile/merchant-profile.page';
 import categoriesJson from 'src/assets/dummy-data/categories.json';
 import dietOptJson from 'src/assets/dummy-data/dietaryOptions.json';
 
@@ -13,6 +14,7 @@ export class MerchantInfoComfirmComponent implements OnInit {
   mainCategories: any[] = [];
   dietOptions: any[] = [];
   isLoading: boolean = false;
+  imgPath: string = '';
   loadingStatus: number = 0; // status index: 0=not-loading, 1=creating merchant 2=creating menu categories 3=uploading images
   STATUS_CREATING_MERCHANT = 1;
   STATUS_ADDING_CATEGORIES = 2;
@@ -23,6 +25,11 @@ export class MerchantInfoComfirmComponent implements OnInit {
 
   ngOnInit() {
     console.log('MERCHANT INFO', this.merchantScript.merchant);
+
+    this.imgPath = `${this.http.mainUrl}/static/images/M/`;
+
+    console.log(this.imgPath + this.merchantScript.merchant.skMerchID + "/logo.jpg", this.merchantScript.merchantAlreadyIndexed)
+
 
     for (let catId of this.merchantScript.merchant.mainCategoriesIds) {
       this.mainCategories.push(categoriesJson.find((cat) => cat.id == catId));
@@ -91,6 +98,7 @@ export class MerchantInfoComfirmComponent implements OnInit {
       console.log('createdMerchant', createdMerchant);
       if (createdMerchant) {
         this.merchantScript.merchant.id = createdMerchant.id;
+        this.merchantScript.merchantAlreadyIndexed = true;
         this.loadingStatus = 2;
       }
     } catch (error) {
@@ -146,8 +154,8 @@ export class MerchantInfoComfirmComponent implements OnInit {
     // uploadImages
     try {
       const [logoUploaded, coverUploaded] = await Promise.all([
-        this.uploadImage(logoObjForUpload),
-        this.uploadImage(coverObjForUpload),
+        this.merchantScript.uploadImage(logoObjForUpload),
+        this.merchantScript.uploadImage(coverObjForUpload),
       ]);
 
       if (logoUploaded && coverUploaded) {
@@ -161,22 +169,4 @@ export class MerchantInfoComfirmComponent implements OnInit {
     }
   }
 
-  async uploadImage(imageObjForUpload: any): Promise<boolean> {
-    try {
-      console.log('from img try');
-      const imageUploaded: any = await this.http.request(
-        'uploadImage',
-        'POST',
-        imageObjForUpload
-      );
-      console.log(`${imageObjForUpload.name}Uploaded`, imageUploaded);
-      return !!imageUploaded;
-    } catch (error) {
-      console.log('from catch');
-      console.log('error', error);
-      this.loadingStatus = 0;
-      this.http.showErrorAlert();
-      return false;
-    }
-  }
 }
