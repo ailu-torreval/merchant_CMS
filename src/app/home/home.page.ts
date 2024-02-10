@@ -46,33 +46,33 @@ export class HomePage implements OnInit {
     }
     // i should check if the skUser is already indexed to foodApp db
 
-    try {
-      const FA_Data = (await this.http.request(
-        // `merchantData/1244443`,
-        `merchantData/${this.skClientID}`,
-        'GET',
-        null,
-        { skMerchId: 'true' }
-      )) as FAResponseData;
+  //   try {
+  //     const FA_Data = (await this.http.request(
+  //       // `merchantData/1244443`,
+  //       `merchantData/${this.skClientID}`,
+  //       'GET',
+  //       null,
+  //       { skMerchId: 'true' }
+  //     )) as FAResponseData;
 
-      this.merchantScript.dietaryOptions = FA_Data.dietaryOptions;
-      this.merchantScript.mainCategories = FA_Data.mainCategories;
-      console.log(this.merchantScript.dietaryOptions);
-      console.log(this.merchantScript.mainCategories);
-      if (FA_Data.merchant) {
-        this.merchantScript.merchant = FA_Data.merchant;
-        this.merchantScript.menuCategoriesObject = FA_Data.menuCategories || [];
-        this.merchantScript.indexedProducts = FA_Data.products || [];
-        this.merchantScript.merchantAlreadyIndexed = true;
-      } else {
-        console.log('not indexed');
-      }
-      console.log(FA_Data);
-    } catch (error) {
-      console.log(error);
-      this.http.showErrorAlert();
-    }
-  }
+  //     this.merchantScript.dietaryOptions = FA_Data.dietaryOptions;
+  //     this.merchantScript.mainCategories = FA_Data.mainCategories;
+  //     console.log(this.merchantScript.dietaryOptions);
+  //     console.log(this.merchantScript.mainCategories);
+  //     if (FA_Data.merchant) {
+  //       this.merchantScript.merchant = FA_Data.merchant;
+  //       this.merchantScript.menuCategoriesObject = FA_Data.menuCategories || [];
+  //       this.merchantScript.indexedProducts = FA_Data.products || [];
+  //       this.merchantScript.merchantAlreadyIndexed = true;
+  //     } else {
+  //       console.log('not indexed');
+  //     }
+  //     console.log(FA_Data);
+  //   } catch (error) {
+  //     console.log(error);
+  //     this.http.showErrorAlert();
+  //   }
+   }
 
   goToPage(endpoint: string) {
     if (this.merchantScript.merchantAlreadyIndexed) {

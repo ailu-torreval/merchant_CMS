@@ -4,30 +4,30 @@
     <ion-card-subtitle>Add data about your menu.</ion-card-subtitle>
   </ion-card-header>
 
-
-
-
   <ion-card-content>
-
     <ion-item lines="none" class="ion-no-padding">
       <ion-label>
         <h2>Dietary Options</h2>
-        <p>Select a dietary option if you offer products for any of this diets.</p>
+        <p>
+          Select a dietary option if you offer products for any of this diets.
+        </p>
       </ion-label>
     </ion-item>
 
     <ion-list class="grid">
-      <ion-item lines="none" class="item" *ngFor="let option of dietOptions" >
-              <ion-checkbox [(ngModel)]="option.checked" labelPlacement="end" alignment="center">
-                <div class="ion-no-padding">
-                  <img [src]="createImgSrc(option.icon)" width="50">
-                  <ion-text>{{option.name}}</ion-text>   
-                </div>
-              </ion-checkbox>
+      <ion-item lines="none" class="item" *ngFor="let option of dietOptions">
+        <ion-checkbox
+          [(ngModel)]="option.checked"
+          labelPlacement="end"
+          alignment="center"
+        >
+          <div class="ion-no-padding">
+            <img [src]="createImgSrc(option.icon)" width="50" />
+            <ion-text>{{ option.name }}</ion-text>
+          </div>
+        </ion-checkbox>
       </ion-item>
-
     </ion-list>
-
 
     <ion-item lines="none" class="ion-no-padding">
       <ion-label>
@@ -37,68 +37,90 @@
     </ion-item>
 
     <ion-list class="grid-long">
-      <ion-item lines="none" class="item" *ngFor="let cat of mainCategories" >
-              <ion-checkbox [(ngModel)]="cat.checked" labelPlacement="end" alignment="center">
-                <div class="ion-no-padding">
-                  <img [src]="createImgSrc(cat.icon)" width="20">
-                  <ion-text>{{cat.name}}</ion-text>   
-                </div>
-              </ion-checkbox>
+      <ion-item lines="none" class="item" *ngFor="let cat of mainCategories">
+        <ion-checkbox
+          [(ngModel)]="cat.checked"
+          labelPlacement="end"
+          alignment="center"
+        >
+          <div class="ion-no-padding">
+            <img [src]="createImgSrc(cat.icon)" width="20" />
+            <ion-text>{{ cat.name }}</ion-text>
+          </div>
+        </ion-checkbox>
       </ion-item>
     </ion-list>
 
     <ion-item lines="none" class="ion-no-padding">
       <ion-label>
         <h2>Tags</h2>
-        <p>Add tags to describe your company. We recommend 3 max. </p>
+        <p>Add tags to describe your company. We recommend 3 max.</p>
       </ion-label>
     </ion-item>
 
     <form (ngSubmit)="addTag()">
       <ion-item class="ion-no-padding">
-          <ion-input mode="ios" [(ngModel)]="newTag" type="text" placeholder="Add tag here..." name="newTag"></ion-input>
-          <ion-button type="submit" [disabled]="!newTag" fill="clear" shape="round" mode="ios" expand="block">
-              <ion-icon slot="start" name="add-circle"></ion-icon> Add
-          </ion-button>
+        <ion-input
+          mode="ios"
+          [(ngModel)]="newTag"
+          type="text"
+          placeholder="Add tag here..."
+          name="newTag"
+        ></ion-input>
+        <ion-button
+          type="submit"
+          [disabled]="!newTag"
+          fill="clear"
+          shape="round"
+          mode="ios"
+          expand="block"
+        >
+          <ion-icon slot="start" name="add-circle"></ion-icon> Add
+        </ion-button>
       </ion-item>
-  </form>
+    </form>
 
     <ion-item lines="none" *ngIf="tags.length > 0" class="ion-no-padding">
       <ion-chip *ngFor="let tag of tags">
-        <ion-label class="ion-text-capitalize">{{tag}}</ion-label>
+        <ion-label class="ion-text-capitalize">{{ tag }}</ion-label>
         <ion-icon name="close-circle" (click)="removeTag(tag)"></ion-icon>
       </ion-chip>
     </ion-item>
 
     <ion-card lines="none" class="card">
       <ion-card-header class="ion-text-capitalize ion-no-padding">
-        <ion-card-title>{{merchantScript.merchant.name}}</ion-card-title>
+        <ion-card-title>{{ merchantScript.merchant.name }}</ion-card-title>
         <ion-card-subtitle>
-          <span *ngFor="let tag of tags; let i = index;"> {{i === 0 ? '' : ' - '}}{{tag}}</span>
+          <span *ngFor="let tag of tags; let i = index">
+            {{ i === 0 ? "" : " - " }}{{ tag }}</span
+          >
         </ion-card-subtitle>
       </ion-card-header>
     </ion-card>
-
-
   </ion-card-content>
   <ion-row class="btns-row">
     <ion-button
-    *ngIf="merchantScript.enableEdit"
-    (click)="merchantScript.changeToStep(7)"
-    fill="outline"
-    shape="round"
-    mode="ios"
-    >Discard Changes</ion-button
-  >
-  <ion-button
-    *ngIf="!merchantScript.enableEdit"
-    (click)="merchantScript.changeToStep(4)"
-    fill="outline"
-    shape="round"
-    mode="ios"
-    >Previous</ion-button
-  >
-    <ion-button (click)="nextStep()" shape="round" mode="ios">{{merchantScript.enableEdit ? 'Accept Changes' : 'Next'}}</ion-button>
+      *ngIf="merchantScript.enableEdit"
+      (click)="merchantScript.changeToStep(7)"
+      fill="outline"
+      shape="round"
+      mode="ios"
+      >Discard Changes</ion-button
+    >
+    <ion-button
+      *ngIf="!merchantScript.enableEdit"
+      (click)="merchantScript.changeToStep(4)"
+      fill="outline"
+      shape="round"
+      mode="ios"
+      >Previous</ion-button
+    >
+    <ion-button (click)="nextStep()" shape="round" mode="ios">{{
+      merchantScript.enableEdit
+        ? merchantScript.merchantAlreadyIndexed
+          ? "Save Changes"
+          : "Accept Changes"
+        : "Next"
+    }}</ion-button>
   </ion-row>
-  
 </ion-card>

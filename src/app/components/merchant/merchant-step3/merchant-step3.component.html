@@ -1,24 +1,46 @@
 <ion-card id="step3-card">
   <ion-card-header>
     <ion-card-title>STEP 3 - Opening Hours</ion-card-title>
-    <ion-card-subtitle>Specify the days and time the Company is open</ion-card-subtitle>
+    <ion-card-subtitle
+      >Specify the days and time the Company is open</ion-card-subtitle
+    >
   </ion-card-header>
-
 
   <ion-card-content>
     <ion-row class="day-slot-container" *ngFor="let day of days">
-
-      <app-opening-hours-input  [day]="day" ></app-opening-hours-input>
+      <app-opening-hours-input [day]="day"></app-opening-hours-input>
     </ion-row>
-    
-    <ion-label  *ngIf="errorMsg.length > 1" class="invalid-field">
-      <p><ion-icon name="alert-circle-outline"></ion-icon> Please add a valid timeslot for <span *ngFor="let day of errorMsg">{{day}}, </span>. </p>
+
+    <ion-label *ngIf="errorMsg.length > 1" class="invalid-field">
+      <p>
+        <ion-icon name="alert-circle-outline"></ion-icon> Please add a valid
+        timeslot for <span *ngFor="let day of errorMsg">{{ day }}, </span>.
+      </p>
     </ion-label>
     <ion-row class="btns-row">
-      <ion-button *ngIf="merchantScript.enableEdit" (click)="merchantScript.changeToStep(7)" fill="outline" shape="round" mode="ios">Discard Changes</ion-button>
-      <ion-button *ngIf="!merchantScript.enableEdit" (click)="merchantScript.changeToStep(2)" fill="outline" shape="round" mode="ios">Previous</ion-button>
-      <ion-button (click)="validateForm()" shape="round" mode="ios">{{merchantScript.enableEdit ? 'Accept Changes' : 'Next'}}</ion-button>
+      <ion-button
+        *ngIf="merchantScript.enableEdit"
+        (click)="merchantScript.changeToStep(7)"
+        fill="outline"
+        shape="round"
+        mode="ios"
+        >Discard Changes</ion-button
+      >
+      <ion-button
+        *ngIf="!merchantScript.enableEdit"
+        (click)="merchantScript.changeToStep(2)"
+        fill="outline"
+        shape="round"
+        mode="ios"
+        >Previous</ion-button
+      >
+      <ion-button (click)="validateForm()" shape="round" mode="ios">{{
+        merchantScript.enableEdit
+          ? merchantScript.merchantAlreadyIndexed
+            ? "Save Changes"
+            : "Accept Changes"
+          : "Next"
+      }}</ion-button>
     </ion-row>
-    
   </ion-card-content>
 </ion-card>

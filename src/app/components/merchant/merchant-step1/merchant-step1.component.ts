@@ -150,24 +150,27 @@ export class MerchantStep1Component implements OnInit {
   }
 
   validateForm() {
-
     // if merchant already exists, it should edit the db. no need of valid imgs
 
-
     // check img and logo
-    if ((this.isValidLogo && this.isValidThumbnail) || this.merchantScript.merchantAlreadyIndexed) {
+    if (
+      (this.isValidLogo && this.isValidThumbnail) ||
+      this.merchantScript.merchantAlreadyIndexed
+    ) {
       console.log(this.step1Form.value);
-      this.merchantScript.populateMerchantPartially(this.step1Form.value as Partial<Merchant>);
-    
+      this.merchantScript.populateMerchantPartially(
+        this.step1Form.value as Partial<Merchant>
+      );
+
       if (this.merchantScript.enableEdit) {
         if (this.merchantScript.merchantAlreadyIndexed) {
-            if(this.merchantScript.merchant.logo.length > 3) {
-              this.uploadImage(true)
-            }
-            if(this.merchantScript.merchant.picture.length > 3) {
-              this.uploadImage(false)
-            }
-          // this.merchantScript.editExistentMerchant();
+          if (this.merchantScript.merchant.logo.length > 3) {
+            this.uploadImage(true);
+          }
+          if (this.merchantScript.merchant.picture.length > 3) {
+            this.uploadImage(false);
+          }
+          this.merchantScript.editExistentMerchant();
         }
         this.merchantScript.enableEdit = false;
         this.merchantScript.changeToStep(7);
@@ -180,14 +183,12 @@ export class MerchantStep1Component implements OnInit {
   }
 
   async uploadImage(isLogo: boolean) {
-
-    const cleanedString =  isLogo ?  this.merchantScript.merchant.logo.replace(
-      'data:image/png;base64,',
-      ''
-    ) : this.merchantScript.merchant.picture.replace(
-      'data:image/png;base64,',
-      ''
-    );
+    const cleanedString = isLogo
+      ? this.merchantScript.merchant.logo.replace('data:image/png;base64,', '')
+      : this.merchantScript.merchant.picture.replace(
+          'data:image/png;base64,',
+          ''
+        );
 
     const imageObjForUpload = {
       imageBase64: cleanedString,
@@ -196,20 +197,23 @@ export class MerchantStep1Component implements OnInit {
       merchantID: this.merchantScript.merchant.skMerchID,
     };
 
-    console.log(imageObjForUpload)
+    console.log(imageObjForUpload);
 
     try {
+      const imageUploaded = await this.merchantScript.uploadImage(
+        imageObjForUpload
+      );
 
-      const imageUploaded = await this.merchantScript.uploadImage(imageObjForUpload);
-
-      if(imageUploaded) {
-        isLogo ? this.merchantScript.merchant.logo = " " : this.merchantScript.merchant.picture = " ";
+      if (imageUploaded) {
+        isLogo
+          ? (this.merchantScript.merchant.logo = ' ')
+          : (this.merchantScript.merchant.picture = ' ');
       }
-
-    } catch(error) {
+    } catch (error) {
       console.log(error);
-      this.http.showErrorAlert(`${ isLogo ? "Logo" : "Cover image"} was not uploaded`)
+      this.http.showErrorAlert(
+        `${isLogo ? 'Logo' : 'Cover image'} was not uploaded`
+      );
     }
-
   }
 }

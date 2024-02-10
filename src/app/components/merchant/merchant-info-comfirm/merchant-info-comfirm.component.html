@@ -554,7 +554,7 @@
       </ion-grid>
       <br />
     </ion-card-content>
-    <ion-row *ngIf="merchantScript.merchantAlreadyIndexed" class="btns-row">
+    <ion-row *ngIf="!merchantScript.merchantAlreadyIndexed" class="btns-row">
       <ion-button
         (click)="merchantScript.changeToStep(6)"
         fill="outline"

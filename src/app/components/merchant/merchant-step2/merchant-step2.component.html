@@ -4,34 +4,55 @@
     <ion-card-subtitle>Add data about your company.</ion-card-subtitle>
   </ion-card-header>
 
-
   <ion-card-content>
     <form action="" [formGroup]="step2Form">
-
       <ion-item>
-        <ion-input label="Contact Email" labelPlacement="stacked" type="mail" placeholder="Enter your company email..."
-          formControlName="email"></ion-input>
+        <ion-input
+          label="Contact Email"
+          labelPlacement="stacked"
+          type="mail"
+          placeholder="Enter your company email..."
+          formControlName="email"
+        ></ion-input>
       </ion-item>
       <ng-container *ngFor="let er of merchantScript.errors">
         <ion-label
-          *ngIf="step2Form.get('email')?.hasError(er) && (step2Form.get('email')?.touched || step2Form.get('email')?.dirty)"
-          class="invalid-field" color="danger">
-          <p> <ion-icon name="alert-circle-outline"></ion-icon>
-            Please add a valid email. </p>
+          *ngIf="
+            step2Form.get('email')?.hasError(er) &&
+            (step2Form.get('email')?.touched || step2Form.get('email')?.dirty)
+          "
+          class="invalid-field"
+          color="danger"
+        >
+          <p>
+            <ion-icon name="alert-circle-outline"></ion-icon> Please add a valid
+            email.
+          </p>
         </ion-label>
       </ng-container>
 
       <ion-item>
-        <ion-input label="Phone Number" labelPlacement="stacked" type="text"
-        placeholder="Only numbers, without prefix"
-          formControlName="phone"></ion-input>
+        <ion-input
+          label="Phone Number"
+          labelPlacement="stacked"
+          type="text"
+          placeholder="Only numbers, without prefix"
+          formControlName="phone"
+        ></ion-input>
       </ion-item>
       <ng-container *ngFor="let er of merchantScript.errors">
         <ion-label
-          *ngIf="step2Form.get('phone')?.hasError(er) && (step2Form.get('phone')?.touched || step2Form.get('phone')?.dirty)"
-          class="invalid-field" color="danger">
-          <p> <ion-icon name="alert-circle-outline"></ion-icon>
-            Please add a valid phone number (min. 8 characters and max. 10). </p>
+          *ngIf="
+            step2Form.get('phone')?.hasError(er) &&
+            (step2Form.get('phone')?.touched || step2Form.get('phone')?.dirty)
+          "
+          class="invalid-field"
+          color="danger"
+        >
+          <p>
+            <ion-icon name="alert-circle-outline"></ion-icon> Please add a valid
+            phone number (min. 8 characters and max. 10).
+          </p>
         </ion-label>
       </ng-container>
 
@@ -39,65 +60,125 @@
         <ion-text>Address Information</ion-text>
       </ion-row>
 
-
       <ion-item>
-        <ion-input label="Street Name and Number" labelPlacement="stacked" type="text"
-          placeholder="Enter street and number..." formControlName="address1"></ion-input>  
+        <ion-input
+          label="Street Name and Number"
+          labelPlacement="stacked"
+          type="text"
+          placeholder="Enter street and number..."
+          formControlName="address1"
+        ></ion-input>
       </ion-item>
       <ng-container *ngFor="let er of merchantScript.errors">
         <ion-label
-          *ngIf="step2Form.get('address1')?.hasError(er) && (step2Form.get('address1')?.touched || step2Form.get('address1')?.dirty)"
-          class="invalid-field" color="danger">
-          <p> <ion-icon name="alert-circle-outline"></ion-icon>
-            Please add a valid address. </p>
+          *ngIf="
+            step2Form.get('address1')?.hasError(er) &&
+            (step2Form.get('address1')?.touched ||
+              step2Form.get('address1')?.dirty)
+          "
+          class="invalid-field"
+          color="danger"
+        >
+          <p>
+            <ion-icon name="alert-circle-outline"></ion-icon> Please add a valid
+            address.
+          </p>
         </ion-label>
       </ng-container>
 
       <ion-item>
-        <ion-input mode="ios" label="Address Line 2" labelPlacement="stacked" type="text" formControlName="address2"
-          placeholder="Extra information..."></ion-input>
+        <ion-input
+          mode="ios"
+          label="Address Line 2"
+          labelPlacement="stacked"
+          type="text"
+          formControlName="address2"
+          placeholder="Extra information..."
+        ></ion-input>
       </ion-item>
 
-
-
-  <ion-row>
-    <ion-col size="4">
-      <ion-item>
-        <ion-input mode="ios" label="Zip Code" labelPlacement="stacked"  formControlName="zip" type="text"
-          placeholder="Only numbers"></ion-input>
-      </ion-item>
-      <ng-container *ngFor="let er of merchantScript.errors">
-        <ion-label
-          *ngIf="step2Form.get('zip')?.hasError(er) && (step2Form.get('zip')?.touched || step2Form.get('zip')?.dirty)"
-          class="invalid-field" color="danger">
-          <p> <ion-icon name="alert-circle-outline"></ion-icon>
-            Please add a valid zip code. </p>
-        </ion-label>
-      </ng-container>
-    </ion-col>
-    <ion-col size="8">
-      <ion-item>
-        <ion-input mode="ios" label="City" labelPlacement="stacked" formControlName="city" type="text"
-          placeholder="Enter city..."></ion-input>
-      </ion-item>
-      <ng-container *ngFor="let er of merchantScript.errors">
-        <ion-label
-          *ngIf="step2Form.get('city')?.hasError(er) && (step2Form.get('city')?.touched || step2Form.get('city')?.dirty)"
-          class="invalid-field" color="danger">
-          <p> <ion-icon name="alert-circle-outline"></ion-icon>
-            Please add a valid city. </p>
-        </ion-label>
-      </ng-container>
-    </ion-col>
-  </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-input
+              mode="ios"
+              label="Zip Code"
+              labelPlacement="stacked"
+              formControlName="zip"
+              type="text"
+              placeholder="Only numbers"
+            ></ion-input>
+          </ion-item>
+          <ng-container *ngFor="let er of merchantScript.errors">
+            <ion-label
+              *ngIf="
+                step2Form.get('zip')?.hasError(er) &&
+                (step2Form.get('zip')?.touched || step2Form.get('zip')?.dirty)
+              "
+              class="invalid-field"
+              color="danger"
+            >
+              <p>
+                <ion-icon name="alert-circle-outline"></ion-icon> Please add a
+                valid zip code.
+              </p>
+            </ion-label>
+          </ng-container>
+        </ion-col>
+        <ion-col size="8">
+          <ion-item>
+            <ion-input
+              mode="ios"
+              label="City"
+              labelPlacement="stacked"
+              formControlName="city"
+              type="text"
+              placeholder="Enter city..."
+            ></ion-input>
+          </ion-item>
+          <ng-container *ngFor="let er of merchantScript.errors">
+            <ion-label
+              *ngIf="
+                step2Form.get('city')?.hasError(er) &&
+                (step2Form.get('city')?.touched || step2Form.get('city')?.dirty)
+              "
+              class="invalid-field"
+              color="danger"
+            >
+              <p>
+                <ion-icon name="alert-circle-outline"></ion-icon> Please add a
+                valid city.
+              </p>
+            </ion-label>
+          </ng-container>
+        </ion-col>
+      </ion-row>
 
       <ion-row class="btns-row">
-        <ion-button *ngIf="merchantScript.enableEdit" (click)="merchantScript.changeToStep(7)" fill="outline" shape="round" mode="ios">Discard Changes</ion-button>
-        <ion-button *ngIf="!merchantScript.enableEdit"  (click)="merchantScript.changeToStep(1)" fill="outline" shape="round" mode="ios">Previous</ion-button>
-        <ion-button (click)="validateForm()" [disabled]="!step2Form.valid" shape="round" mode="ios">{{merchantScript.enableEdit ? 'Accept Changes' : 'Next'}}</ion-button>
+        <ion-button
+          *ngIf="merchantScript.enableEdit"
+          (click)="merchantScript.changeToStep(7)"
+          fill="outline"
+          shape="round"
+          mode="ios"
+          >Discard Changes</ion-button
+        >
+        <ion-button
+          *ngIf="!merchantScript.enableEdit"
+          (click)="merchantScript.changeToStep(1)"
+          fill="outline"
+          shape="round"
+          mode="ios"
+          >Previous</ion-button
+        >
+        <ion-button
+          (click)="validateForm()"
+          [disabled]="!step2Form.valid"
+          shape="round"
+          mode="ios"
+          >{{merchantScript.enableEdit ? merchantScript.merchantAlreadyIndexed ? 'Save Changes' : 'Accept Changes' : 'Next'}}</ion-button
+        >
       </ion-row>
     </form>
-
   </ion-card-content>
-
 </ion-card>

@@ -22,19 +22,13 @@ export class MerchantStep3Component  implements OnInit {
     this.validateDays();
     if(this.errorMsg.length === 0) {
       if(this.merchantScript.enableEdit) {
+        this.merchantScript.merchantAlreadyIndexed && this.merchantScript.editExistentMerchant();
         this.merchantScript.enableEdit = false;
         this.merchantScript.changeToStep(7);
       } else {
         this.merchantScript.changeToStep(4);
       }
     }
-    
-    // if there are errors, display them
-    // this.errorMsg = 'Please add a valid timeslot for Monday'
-
-    
-
-    // this.merchantScript.changeToStep(4);
   }
 
   validateDays() {

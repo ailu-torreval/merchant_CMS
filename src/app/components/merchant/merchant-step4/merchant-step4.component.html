@@ -131,7 +131,7 @@
               </ion-col>
               <ion-col size="4">
                 <ion-button
-                type="submit"
+                  type="submit"
                   [disabled]="!distanceForm.valid"
                   fill="clear"
                   shape="round"
@@ -150,7 +150,9 @@
             color="light"
             *ngFor="let range of deliveryPriceObject; let i = index"
           >
-            <ion-text> Until {{ range[0] }} km. costs {{ range[1] }} kr. </ion-text>
+            <ion-text>
+              Until {{ range[0] }} km. costs {{ range[1] }} kr.
+            </ion-text>
             <ion-button
               (click)="deleteDeliveryRange(i)"
               fill="clear"
@@ -182,11 +184,19 @@
         >
         <ion-button
           (click)="validateForm()"
-          [disabled]="this.step4Form.get('deliveryOptions')?.value !== 0 ? !(step4Form.valid && deliveryPriceObject.length > 0) : !step4Form.valid"
+          [disabled]="
+            this.step4Form.get('deliveryOptions')?.value !== 0
+              ? !(step4Form.valid && deliveryPriceObject.length > 0)
+              : !step4Form.valid
+          "
           shape="round"
           mode="ios"
           >{{
-            merchantScript.enableEdit ? "Accept Changes" : "Next"
+            merchantScript.enableEdit
+              ? merchantScript.merchantAlreadyIndexed
+                ? "Save Changes"
+                : "Accept Changes"
+              : "Next"
           }}</ion-button
         >
       </ion-row>

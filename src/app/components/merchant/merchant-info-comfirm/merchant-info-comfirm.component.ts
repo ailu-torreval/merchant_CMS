@@ -74,6 +74,7 @@ export class MerchantInfoComfirmComponent implements OnInit {
       await this.addImages(logo, cover);
 
       this.loadingStatus = this.STATUS_DONE;
+      this.merchantScript.showSuccessAlert();
     } catch (error) {
       console.log('error', error);
       this.loadingStatus = 0;
