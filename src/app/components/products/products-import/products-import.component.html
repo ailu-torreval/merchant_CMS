@@ -1,23 +1,25 @@
 <ion-grid class="grid">
   <ion-row>
     <ion-title>Import Products</ion-title>
-    <ion-text
-      >This items are not indexed yet. Select the product, fill the infortmation
-      needed, and upload each of them.</ion-text
-    >
+    <ion-text *ngIf="merchantScript && merchantScript.notIndexedProducts && merchantScript.notIndexedProducts.length > 0">
+      This items are not indexed yet. Select the product, fill the infortmation needed, and upload each of them.
+    </ion-text>
+    <ion-text *ngIf="merchantScript?.notIndexedProducts?.length === 0">
+      All your items are already indexed. If you want to edit them, go to Products List Tab.
+    </ion-text>
   </ion-row>
-  <ion-row>
-    <ion-button (click)="page = page - 1" [disabled]="page === 1"
-      >Previous</ion-button
-    >
+  <ion-row *ngIf="merchantScript && merchantScript.notIndexedProducts && merchantScript.notIndexedProducts.length > 10">
+    <ion-button (click)="page = page - 1" [disabled]="page === 1">Previous</ion-button>
     <ion-button (click)="page = page + 1"> Next </ion-button>
   </ion-row>
-  <ion-row
-    *ngFor="
-      let prod of skScript?.skData?.products
-        | slice : (page - 1) * pageSize : page * pageSize
-    "
-  >
-    <ion-item (click)="openProductModal(prod)" >{{ prod.productName }}</ion-item>
-  </ion-row>
+  <ng-container *ngIf="merchantScript && merchantScript.notIndexedProducts && merchantScript.notIndexedProducts.length > 0">
+    <ion-row
+      *ngFor="
+        let prod of merchantScript?.notIndexedProducts
+          | slice : (page - 1) * pageSize : page * pageSize
+      "
+    >
+      <ion-item (click)="openProductModal(prod)" >{{ prod?.productName }}</ion-item>
+    </ion-row>
+  </ng-container>
 </ion-grid>

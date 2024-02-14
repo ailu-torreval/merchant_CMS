@@ -1,8 +1,12 @@
 <ion-card class="ion-padding">
   <ng-container *ngIf="!isLoading">
     <ion-card-header>
-      <ion-card-title *ngIf="!merchantScript.merchantAlreadyIndexed">Review Information before Uploading</ion-card-title>
-      <ion-card-title *ngIf="merchantScript.merchantAlreadyIndexed">View and Edit Profile</ion-card-title>
+      <ion-card-title *ngIf="!merchantScript.merchantAlreadyIndexed"
+        >Review Information before Uploading</ion-card-title
+      >
+      <ion-card-title *ngIf="merchantScript.merchantAlreadyIndexed"
+        >View and Edit Profile</ion-card-title
+      >
     </ion-card-header>
 
     <!-- step 1  -->
@@ -54,36 +58,39 @@
                 <ion-text>Logo</ion-text>
 
                 <img
-                *ngIf="!merchantScript.merchantAlreadyIndexed"
+                  *ngIf="!merchantScript.merchantAlreadyIndexed"
                   [src]="merchantScript.merchant.logo"
                   alt="logo"
                   height="120"
                   width="120"
                 />
                 <img
-                *ngIf="merchantScript.merchantAlreadyIndexed"
-                [src]="imgPath + merchantScript.merchant.skMerchID + '/logo.jpg'"
-                alt="logo-picture"
-                height="120"
-                width="120"
+                  *ngIf="merchantScript.merchantAlreadyIndexed"
+                  [src]="
+                    imgPath + merchantScript.merchant.skMerchID + '/logo.jpg'
+                  "
+                  alt="logo-picture"
+                  height="120"
+                  width="120"
                 />
               </ion-col>
               <ion-col size="6">
                 <ion-text>Cover Image</ion-text>
                 <img
-                *ngIf="!merchantScript.merchantAlreadyIndexed"
-                [src]="merchantScript.merchant.picture"
-                alt="cover-picture"
-                height="120"
-                width="213"
-                />
-                <img
-                *ngIf="merchantScript.merchantAlreadyIndexed"
-                  [src]="imgPath + merchantScript.merchant.skMerchID + '/cover.jpg'"
+                  *ngIf="!merchantScript.merchantAlreadyIndexed"
+                  [src]="merchantScript.merchant.picture"
                   alt="cover-picture"
                   height="120"
                   width="213"
-         
+                />
+                <img
+                  *ngIf="merchantScript.merchantAlreadyIndexed"
+                  [src]="
+                    imgPath + merchantScript.merchant.skMerchID + '/cover.jpg'
+                  "
+                  alt="cover-picture"
+                  height="120"
+                  width="213"
                 />
               </ion-col>
             </ion-row>
@@ -399,6 +406,7 @@
         </ion-item>
 
         <ion-item
+          lines="none"
           color="light"
           *ngIf="
             merchantScript.merchant.deliveryOptions === 2 ||
@@ -409,14 +417,12 @@
             <ion-row
               class="ion-no-padding ion-align-items-center ion-justify-content-between"
             >
-              <ion-col class="ion-no-padding" size="5">Delivery Price</ion-col>
-              <ion-col size="7">
-                <ion-text>
-                  <strong>
-                    {{ merchantScript.merchant.deliveryPrice }} kr.</strong
-                  ></ion-text
-                >
+              <ion-col class="ion-no-padding" size="5">
+                <strong> Delivery Price </strong>
               </ion-col>
+              <!-- <ion-col size="7">
+
+              </ion-col> -->
             </ion-row>
           </ion-label>
         </ion-item>
@@ -435,14 +441,18 @@
             >
               <ion-col class="ion-no-padding" size="5">Distance Limit</ion-col>
               <ion-col size="7">
-                <ng-container  *ngFor="let range of merchantScript.merchant.distanceLimit; let i = index">
-
+                <ng-container
+                  *ngFor="
+                    let range of merchantScript.merchant.distanceLimit;
+                    let i = index
+                  "
+                >
                   <ion-text>
                     <strong>
                       Until {{ range[0] }} km. costs {{ range[1] }} kr.
                     </strong>
                   </ion-text>
-                  <br>
+                  <br />
                 </ng-container>
               </ion-col>
             </ion-row>

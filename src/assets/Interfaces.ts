@@ -85,7 +85,7 @@ export interface MenuCategories {
 export interface Products {
     id: number,
     merchantId: number,
-    menuCategoryId: number, //reference to main category
+    menuCategoryId: number, //reference to menu category
     dietryOptionsIds: object, // list of dietry options ids
     mainCategoryId: number, //reference to main category
     similarProductId: number,
@@ -106,6 +106,47 @@ export interface Products {
     isOffer: boolean,
     lister: Lister, // comes from lister object
 }
+
+export interface SkProduct {
+    accountNumber: string;
+    askForBuyPrice: any;
+    barred: number;
+    costPrice: number;
+    date: string;
+    description: string;
+    excludeFromRapports: any;
+    extra: string;
+    extra2: string;
+    hideNumber: number;
+    id: number;
+    inStock: number;
+    isDiverse: number;
+    isNegative: any;
+    isNew: any;
+    isOffer: any;
+    isOpenPlu: number;
+    isScanOnly: number;
+    kitchenOrder: any;
+    kitchenPrinter: number;
+    kitchenSameDashLine: any;
+    listeIDs: any[];
+    offerPrice: any;
+    offerQuantity: any;
+    otherCats: any;
+    picUrl: string;
+    price: number;
+    productBarcode: string;
+    productCategory: string;
+    productColor: string;
+    productName: string;
+    productNumber: string;
+    showNumPad: any;
+    stockAlarmAmount: any;
+    supply: any;
+    taxLess: any;
+    unit: string;
+    weight: any;
+  }
 
 
 export interface Lister {

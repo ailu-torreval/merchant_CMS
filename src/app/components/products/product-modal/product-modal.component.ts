@@ -27,13 +27,14 @@ export class ProductModalComponent implements OnInit {
   @Input() product: any;
   @Input() isAlreadyIndexed!: boolean;
   rawImg: string = '';
-  croppedImg: any = '';
+  croppedImg: any = null;
   // isOffer: boolean = false;
   // dietOptions: DietaryOptions[] = dietOptJson;
   selectedDiet: number[] = [];
   optName: string = '';
   optPrice: number = 0;
   showSuggestion: boolean = false;
+  imgPath: string = '';
 
   currentLister: Liste = {
     title: '',
@@ -56,7 +57,7 @@ export class ProductModalComponent implements OnInit {
     price: new FormControl(0, [Validators.required, Validators.min(0)]),
     offerPrice: new FormControl(0, [Validators.min(0)]),
     isOffer: new FormControl(false),
-    menuCategories_id: new FormControl('', [Validators.required]),
+    menuCategories_id: new FormControl(null, [Validators.required]),
   });
 
   constructor(
@@ -71,22 +72,38 @@ export class ProductModalComponent implements OnInit {
   ngOnInit() {
     if(this.isAlreadyIndexed) {
       this.prodScript.selectedProduct = this.product;
+
+      this.imgPath = `${this.http.mainUrl}/static/images/M/${this.merchantScript.merchant.skMerchID}/${this.product.id}.jpg`;
+
       if(this.product.lister.length > 0 ) {
         this.lister = this.product.lister;
       }
       this.showSuggestion = this.product.showAsSuggestion;
 
       // preselect the menu category
-
       // preselect the dietary options
+      if (this.prodScript.selectedProduct) {
+        if (this.prodScript.selectedProduct.dietaryOptionsIds) {
+          this.selectedDiet = [...this.prodScript.selectedProduct.dietaryOptionsIds];
+        }
+        if( this.prodScript.selectedProduct.menuCategories_id !== null){
+          let menuCategories_id_control = this.productForm.get('menuCategories_id');
+          if (menuCategories_id_control) {
+            menuCategories_id_control.setValue(this.prodScript.selectedProduct.menuCategories_id as any);
+          }
+        }
+      }
+
+
 
     } else {
+      console.log('prod not indexed')
       this.prodScript.selectedProduct.title = this.product.productName;
       this.prodScript.selectedProduct.price = this.product.price;
       this.prodScript.selectedProduct.skId = this.product.id;
       this.prodScript.selectedProduct.merchants_id = this.merchantScript
-        .merchant[0].id
-        ? this.merchantScript.merchant[0].id
+        .merchant.id
+        ? this.merchantScript.merchant.id
         : 0;
       if (this.product.lister) {
         this.lister = this.product.lister.map((item: any) => ({
@@ -103,6 +120,8 @@ export class ProductModalComponent implements OnInit {
           order: 0,
         }));
       }
+
+      console.log(this.prodScript.selectedProduct)
     }
     if (this.prodScript.selectedProduct.title) {
       this.productForm.controls.title.setValue(
@@ -123,7 +142,15 @@ export class ProductModalComponent implements OnInit {
     }
 
     console.log(this.product, 'modal');
-    console.log(this.prodScript.selectedProduct);
+    console.log(this.croppedImg, this.productForm.valid);
+  }
+
+  get isButtonDisabled() {
+    if(this.isAlreadyIndexed) {
+      return !this.productForm.valid
+    } else {
+      return !this.productForm.valid || this.croppedImg === null;
+    }
   }
 
   closeModal() {
@@ -143,13 +170,13 @@ export class ProductModalComponent implements OnInit {
   }
 
   updateSelectedDiet(option: DietaryOptions) {
-    if (option.checked) {
-      // If the option is checked, add its id to the selectedDiet array
-      this.selectedDiet.push(option?.id);
-      this.prodScript.selectedProduct.dietaryOptions_id = option?.id;
-    } else {
-      // If the option is unchecked, remove its id from the selectedDiet array
+    if (this.selectedDiet.includes(option.id)) {
+      // If the option is already selected, remove its id from the selectedDiet array
       this.selectedDiet = this.selectedDiet.filter((id) => id !== option.id);
+    } else {
+      // If the option is not selected, add its id to the selectedDiet array
+      this.selectedDiet.push(option.id);
+      this.prodScript.selectedProduct.dietaryOptions_id = option.id;
     }
   }
 
@@ -191,7 +218,7 @@ export class ProductModalComponent implements OnInit {
     this.lister.splice(index, 1);
   }
 
-  async selectImage(isLogo: boolean) {
+  async selectImage() {
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
@@ -235,14 +262,14 @@ export class ProductModalComponent implements OnInit {
 
 
   async validateForm() {
+
     try {
       this.prepareProductObject();
       await this.uploadProduct();
       if (this.prodScript.selectedProduct.id !== 0) {
         await this.uploadImage();
-        if (this.lister.length > 0) {
-          await this.uploadLister();
-        }
+      } else {
+
       }
       this.showSuccessAlert(); 
     } catch (error) {
@@ -258,6 +285,7 @@ export class ProductModalComponent implements OnInit {
       'POST',
       this.prodScript.selectedProduct
     );
+    
     if (createdProduct) {
       console.log(createdProduct);
       this.prodScript.selectedProduct = createdProduct as Product;
@@ -273,18 +301,20 @@ export class ProductModalComponent implements OnInit {
       type: 'PRODUCT_IMAGE',
       merchantID: this.merchantScript.merchant.skMerchID,
     };
-    const imageUploaded: any = await this.http.request(
-      'uploadImage',
-      'POST',
-      imageObjectForUpload
-    );
-    console.log(`${imageObjectForUpload.name}Uploaded`, imageUploaded);
+    try {
+      const imageUploaded: any = await this.http.request(
+        'uploadImage',
+        'POST',
+        imageObjectForUpload
+      );
+      console.log(`${imageObjectForUpload.name}Uploaded`, imageUploaded);
+
+    } catch(error) {
+      console.log(error);
+      this.http.showErrorAlert('We couldnt upload the product image. Please try again.')
+    }
   }
 
-
-  async uploadLister(){
-    console.log(this.lister)
-  }
 
   prepareProductObject() {
     if (this.prodScript.selectedProduct.merchants_id !== 0) {
@@ -294,6 +324,7 @@ export class ProductModalComponent implements OnInit {
       this.prodScript.selectedProduct.showAsSuggestion =
         this.lister.length === 0 ? this.showSuggestion : false;
       this.prodScript.selectedProduct.dietaryOptionsIds = this.selectedDiet;
+      this.prodScript.selectedProduct.lister = this.lister;
     }
     console.log('OBJECT READY FOR UPLOAD', this.prodScript.selectedProduct);
   }

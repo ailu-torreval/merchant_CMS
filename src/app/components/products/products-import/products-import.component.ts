@@ -4,6 +4,8 @@ import { SkScript } from 'src/app/myScripts/SkScript';
 import { ProductModalComponent } from '../product-modal/product-modal.component';
 import { Http } from 'src/app/myScripts/Http';
 import { MerchantScript } from 'src/app/myScripts/MerchantScript';
+import { ProductScript } from 'src/app/myScripts/ProductScript';
+import { Product } from 'src/app/myScripts/Interfaces';
 
 @Component({
   selector: 'app-products-import',
@@ -14,11 +16,13 @@ export class ProductsImportComponent implements OnInit {
   page: number = 1;
   pageSize: number = 10;
 
-  constructor(public skScript: SkScript, private modalCtrl: ModalController, private http: Http, private merchantScript: MerchantScript) {}
+  constructor(public skScript: SkScript, private modalCtrl: ModalController, private http: Http, public merchantScript: MerchantScript, private prodScript: ProductScript) {}
 
  async  ngOnInit() {
     // only for production
-    this.skScript.populateClient();
+    // this.skScript.populateClient();
+    // this.merchantScript.filterNotIndexedProducts();
+
 
 
     // THIS SHOULDNT BE HERE - JUST FOR PRODUCTION
@@ -48,6 +52,11 @@ export class ProductsImportComponent implements OnInit {
       component: ProductModalComponent,
       componentProps:{ product: product, isAlreadyIndexed: false },
     });
+
+    modal.onDidDismiss().then(() => {
+      this.prodScript.selectedProduct = {} as Product;
+    });
+
     modal.present();
 
   }

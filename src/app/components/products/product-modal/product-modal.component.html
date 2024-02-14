@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Add Product Info</ion-title>
+    <ion-title> {{isAlreadyIndexed ? 'Edit Product Info' : 'Add Product Info'}} </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="closeModal()">Close</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-label>
+  <ion-label *ngIf="!isAlreadyIndexed" >
     <h1>Product Info</h1>
     <p>Add information about the product.</p>
   </ion-label>
@@ -64,32 +64,33 @@
     <ion-item>
       <ion-label>
         <h3>Add Product Picture</h3>
+        <ion-row class="ion-padding"  *ngIf="croppedImg || (croppedImg === null && isAlreadyIndexed)" >
+          <br>
+          <img [src]="croppedImg ? croppedImg : imgPath" height="80" />
+          <ion-button *ngIf="croppedImg"
+          size="small"
+            (click)="removeImg()"
+            fill="clear"
+            shape="round"
+            mode="ios"
+            expand="block"
+            color="danger">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+          <br />
+        </ion-row>
         <ion-button
-          (click)="selectImage(false)"
+          (click)="selectImage()"
           fill="clear"
           shape="round"
           mode="ios"
           expand="block"
         >
-          <ion-icon slot="start" name="add-circle"></ion-icon>Select
-          Picture</ion-button
+          <ion-icon slot="start" name="add-circle"></ion-icon>
+          {{isAlreadyIndexed ? 'Replace Picture' : 'Select Picture'}}</ion-button
         >
       </ion-label>
     </ion-item>
-    <br />
-    <ion-row  *ngIf="croppedImg" >
-      <img [src]="croppedImg" height="80" />
-      <ion-button
-      size="small"
-        (click)="removeImg()"
-        fill="clear"
-        shape="round"
-        mode="ios"
-        expand="block"
-        color="danger">
-      <ion-icon slot="icon-only" name="trash"></ion-icon>
-      </ion-button>
-    </ion-row>
 
     <ion-item>
     <ion-input
@@ -176,7 +177,7 @@
   <ion-row>
     <ion-list class="grid">
       <ion-item lines="none" class="item" *ngFor="let option of merchantScript.dietaryOptions" >
-              <ion-checkbox [(ngModel)]="option.checked" (ionChange)="updateSelectedDiet(option)" labelPlacement="end" alignment="center">
+              <ion-checkbox [checked]="selectedDiet.includes(option.id)" (ionChange)="updateSelectedDiet(option)" labelPlacement="end" alignment="center">
                 <div class="ion-no-padding">
                   <img [src]="createImgSrc(option.icon)" width="40">
                   <ion-text>{{option.name}}</ion-text>   
@@ -281,9 +282,11 @@
 <ion-footer>
   <ion-button
     (click)="validateForm()"
-    [disabled]="!productForm.valid"
+    [disabled]="isButtonDisabled"
     shape="round"
     mode="ios"
-    >Upload Product</ion-button
+    >
+    {{isAlreadyIndexed ? 'Save Changes' : 'Upload Product'}}
+    </ion-button
   >
 </ion-footer>

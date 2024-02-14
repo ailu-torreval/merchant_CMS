@@ -3,6 +3,7 @@ import { DietaryOptions, MainCategories, MenuCategories, Merchant, Product } fro
 import { SkScript } from './SkScript';
 import { Http } from './Http';
 import { AlertController } from '@ionic/angular';
+import { SkProduct } from 'src/assets/Interfaces';
 
 @Injectable()
 export class MerchantScript {
@@ -78,7 +79,7 @@ export class MerchantScript {
 
   indexedProducts: Product[] = [];
 
-  notIndexedProducts:any = [];
+  notIndexedProducts: SkProduct[] = [];
 
   constructor(private skScript: SkScript, private http: Http, private alert: AlertController) {}
 

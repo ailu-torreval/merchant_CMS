@@ -29,7 +29,7 @@ export class MerchantStep4Component implements OnInit {
   constructor(public merchantScript: MerchantScript) {}
 
   ngOnInit() {
-    if (this.merchantScript.merchant.minOrderValue) {
+    if (this.merchantScript.merchant.minOrderValue || this.merchantScript.enableEdit || this.merchantScript.merchantAlreadyIndexed) {
       console.log(this.merchantScript.merchant.deliveryOptions);
       this.step4Form
         .get('deliveryOptions')
@@ -40,6 +40,7 @@ export class MerchantStep4Component implements OnInit {
       this.step4Form
         .get('minOrderValue')
         ?.setValue(this.merchantScript.merchant.minOrderValue);
+        this.deliveryPriceObject = this.merchantScript.merchant.distanceLimit;
     }
   }
 
