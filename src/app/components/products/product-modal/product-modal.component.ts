@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import {
+  AlertController,
+  LoadingController,
+  ModalController,
+} from '@ionic/angular';
 import {
   DietaryOptions,
   Liste,
@@ -8,11 +12,7 @@ import {
   Product,
 } from 'src/app/myScripts/Interfaces';
 import { ProductScript } from 'src/app/myScripts/ProductScript';
-import {
-  Camera,
-  CameraResultType,
-  CameraSource,
-} from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ImageCropPage } from 'src/app/image/image-crop/image-crop.page';
 import { MerchantScript } from 'src/app/myScripts/MerchantScript';
 import { Http } from 'src/app/myScripts/Http';
@@ -22,7 +22,6 @@ import { Http } from 'src/app/myScripts/Http';
   templateUrl: './product-modal.component.html',
   styleUrls: ['./product-modal.component.scss'],
 })
-
 export class ProductModalComponent implements OnInit {
   @Input() product: any;
   @Input() isAlreadyIndexed!: boolean;
@@ -31,6 +30,7 @@ export class ProductModalComponent implements OnInit {
   // isOffer: boolean = false;
   // dietOptions: DietaryOptions[] = dietOptJson;
   selectedDiet: number[] = [];
+  showListerForm: boolean = false;
   optName: string = '';
   optPrice: number = 0;
   showSuggestion: boolean = false;
@@ -51,7 +51,6 @@ export class ProductModalComponent implements OnInit {
   productForm = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.minLength(3)]),
     description: new FormControl('', [
-      Validators.required,
       Validators.minLength(5),
     ]),
     price: new FormControl(0, [Validators.required, Validators.min(0)]),
@@ -70,12 +69,12 @@ export class ProductModalComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if(this.isAlreadyIndexed) {
+    if (this.isAlreadyIndexed) {
       this.prodScript.selectedProduct = this.product;
 
       this.imgPath = `${this.http.mainUrl}/static/images/M/${this.merchantScript.merchant.skMerchID}/${this.product.id}.jpg`;
 
-      if(this.product.lister.length > 0 ) {
+      if (this.product.lister.length > 0) {
         this.lister = this.product.lister;
       }
       this.showSuggestion = this.product.showAsSuggestion;
@@ -84,20 +83,22 @@ export class ProductModalComponent implements OnInit {
       // preselect the dietary options
       if (this.prodScript.selectedProduct) {
         if (this.prodScript.selectedProduct.dietaryOptionsIds) {
-          this.selectedDiet = [...this.prodScript.selectedProduct.dietaryOptionsIds];
+          this.selectedDiet = [
+            ...this.prodScript.selectedProduct.dietaryOptionsIds,
+          ];
         }
-        if( this.prodScript.selectedProduct.menuCategories_id !== null){
-          let menuCategories_id_control = this.productForm.get('menuCategories_id');
+        if (this.prodScript.selectedProduct.menuCategories_id !== null) {
+          let menuCategories_id_control =
+            this.productForm.get('menuCategories_id');
           if (menuCategories_id_control) {
-            menuCategories_id_control.setValue(this.prodScript.selectedProduct.menuCategories_id as any);
+            menuCategories_id_control.setValue(
+              this.prodScript.selectedProduct.menuCategories_id as any
+            );
           }
         }
       }
-
-
-
     } else {
-      console.log('prod not indexed')
+      console.log('prod not indexed');
       this.prodScript.selectedProduct.title = this.product.productName;
       this.prodScript.selectedProduct.price = this.product.price;
       this.prodScript.selectedProduct.skId = this.product.id;
@@ -121,7 +122,7 @@ export class ProductModalComponent implements OnInit {
         }));
       }
 
-      console.log(this.prodScript.selectedProduct)
+      console.log(this.prodScript.selectedProduct);
     }
     if (this.prodScript.selectedProduct.title) {
       this.productForm.controls.title.setValue(
@@ -146,8 +147,8 @@ export class ProductModalComponent implements OnInit {
   }
 
   get isButtonDisabled() {
-    if(this.isAlreadyIndexed) {
-      return !this.productForm.valid
+    if (this.isAlreadyIndexed) {
+      return !this.productForm.valid;
     } else {
       return !this.productForm.valid || this.croppedImg === null;
     }
@@ -180,12 +181,17 @@ export class ProductModalComponent implements OnInit {
     }
   }
 
+  openListerForm() {
+    this.showListerForm = true;
+  }
+
   addLister() {
     // validate form
     this.currentLister.options = this.currentOptions;
     this.lister.push({ ...this.currentLister });
     this.resetCurrentLister();
     this.currentOptions = [] as Option[];
+    this.showListerForm = false;
   }
 
   addOption() {
@@ -260,18 +266,26 @@ export class ProductModalComponent implements OnInit {
     this.croppedImg = null;
   }
 
-
   async validateForm() {
-
     try {
       this.prepareProductObject();
-      await this.uploadProduct();
-      if (this.prodScript.selectedProduct.id !== 0) {
-        await this.uploadImage();
-      } else {
 
+      if (this.isAlreadyIndexed) {
+        await this.updateProduct();
+      } else {
+        await this.uploadProduct();
       }
-      this.showSuccessAlert(); 
+
+      if (
+        this.prodScript.selectedProduct.id !== 0 &&
+        this.croppedImg !== null
+      ) {
+        await this.uploadImage();
+      }
+
+      this.showSuccessAlert(
+        `Product ${this.isAlreadyIndexed ? 'updated' : 'created'}`
+      );
     } catch (error) {
       this.http.showErrorAlert();
       console.log(error);
@@ -285,12 +299,27 @@ export class ProductModalComponent implements OnInit {
       'POST',
       this.prodScript.selectedProduct
     );
-    
+
     if (createdProduct) {
       console.log(createdProduct);
       this.prodScript.selectedProduct = createdProduct as Product;
+      this.updateProductsList();
     } else {
       throw new Error('Product creation failed');
+    }
+  }
+
+  async updateProduct() {
+    const updatedProduct = (await this.http.request(
+      `product/${this.prodScript.selectedProduct.id}`,
+      'PUT',
+      this.prodScript.selectedProduct
+    )) as { sucess: string };
+
+    if (updatedProduct.sucess === 'ok') {
+      console.log('from if statement');
+    } else {
+      throw new Error('Update product failed');
     }
   }
 
@@ -308,13 +337,31 @@ export class ProductModalComponent implements OnInit {
         imageObjectForUpload
       );
       console.log(`${imageObjectForUpload.name}Uploaded`, imageUploaded);
-
-    } catch(error) {
+    } catch (error) {
       console.log(error);
-      this.http.showErrorAlert('We couldnt upload the product image. Please try again.')
+      this.http.showErrorAlert(
+        'We couldnt upload the product image. Please try again.'
+      );
     }
   }
 
+  updateProductsList() {
+    // if (this.isAlreadyIndexed) {
+    //   const index = this.merchantScript.indexedProducts.findIndex(
+    //     (product) => product.id === this.prodScript.selectedProduct.id
+    //   );
+    //   if (index !== -1) {
+    //     this.merchantScript.indexedProducts[index] =
+    //       this.prodScript.selectedProduct;
+    //   }
+    // } else {
+      this.merchantScript.notIndexedProducts =
+        this.merchantScript.notIndexedProducts.filter(
+          (product) => product.id !== this.prodScript.selectedProduct.skId
+        );
+      this.merchantScript.indexedProducts.push(this.prodScript.selectedProduct);
+    // }
+  }
 
   prepareProductObject() {
     if (this.prodScript.selectedProduct.merchants_id !== 0) {
@@ -329,10 +376,10 @@ export class ProductModalComponent implements OnInit {
     console.log('OBJECT READY FOR UPLOAD', this.prodScript.selectedProduct);
   }
 
- async showSuccessAlert() {
+  async showSuccessAlert(msg: string) {
     console.log('Success! All requests were made successfully.');
     const alert = await this.alert.create({
-      header: 'Product Created',
+      header: msg,
       buttons: ['Accept'],
       htmlAttributes: {
         'aria-label': 'alert dialog',
@@ -340,10 +387,10 @@ export class ProductModalComponent implements OnInit {
     });
 
     alert.onDidDismiss().then(() => {
+      this.prodScript.selectedProduct = {} as Product;
       this.closeModal();
     });
 
     await alert.present();
   }
-
 }
