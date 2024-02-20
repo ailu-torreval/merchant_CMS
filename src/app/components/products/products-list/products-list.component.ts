@@ -16,12 +16,12 @@ export class ProductsListComponent  implements OnInit {
 
   ngOnInit() {}
 
-  async openProductModal(product: any) {
+  async openProductModal(isNew: boolean, product?: any) {
     console.log(product);
     //open prod modal
     const modal = await this.modalCtrl.create({
       component: ProductModalComponent,
-      componentProps:{ product: product, isAlreadyIndexed: true },
+      componentProps:{ product: product, isAlreadyIndexed: isNew? false : true, isNew: isNew },
     });
     modal.present();
 

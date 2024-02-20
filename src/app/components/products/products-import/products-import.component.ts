@@ -50,7 +50,7 @@ export class ProductsImportComponent implements OnInit {
     //open prod modal
     const modal = await this.modalCtrl.create({
       component: ProductModalComponent,
-      componentProps:{ product: product, isAlreadyIndexed: false },
+      componentProps:{ product: product, isAlreadyIndexed: false, isNew:false },
     });
 
     modal.onDidDismiss().then(() => {

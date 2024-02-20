@@ -47,7 +47,7 @@
       <ion-textarea
       aria-label="description"
         type="text"
-        placeholder="Add a short description of your company..."
+        placeholder="Add a short description of the product..."
         [counter]="true"
         maxlength="150"
         formControlName="description"
@@ -110,7 +110,7 @@
           type="text"
           placeholder="Enter product price..."
           formControlName="price"
-          readonly="true"
+          [readonly]="!isNew"
         ></ion-input>
       </ion-item>
       </ion-col>

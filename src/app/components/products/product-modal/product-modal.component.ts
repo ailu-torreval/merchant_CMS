@@ -25,6 +25,7 @@ import { Http } from 'src/app/myScripts/Http';
 export class ProductModalComponent implements OnInit {
   @Input() product: any;
   @Input() isAlreadyIndexed!: boolean;
+  @Input() isNew!: boolean;
   rawImg: string = '';
   croppedImg: any = null;
   // isOffer: boolean = false;
@@ -69,7 +70,7 @@ export class ProductModalComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.isAlreadyIndexed) {
+    if (this.isAlreadyIndexed && !this.isNew) {
       this.prodScript.selectedProduct = this.product;
 
       this.imgPath = `${this.http.mainUrl}/static/images/M/${this.merchantScript.merchant.skMerchID}/${this.product.id}.jpg`;
@@ -97,7 +98,7 @@ export class ProductModalComponent implements OnInit {
           }
         }
       }
-    } else {
+    } else if(!this.isAlreadyIndexed && !this.isNew) {
       console.log('prod not indexed');
       this.prodScript.selectedProduct.title = this.product.productName;
       this.prodScript.selectedProduct.price = this.product.price;
@@ -346,15 +347,6 @@ export class ProductModalComponent implements OnInit {
   }
 
   updateProductsList() {
-    // if (this.isAlreadyIndexed) {
-    //   const index = this.merchantScript.indexedProducts.findIndex(
-    //     (product) => product.id === this.prodScript.selectedProduct.id
-    //   );
-    //   if (index !== -1) {
-    //     this.merchantScript.indexedProducts[index] =
-    //       this.prodScript.selectedProduct;
-    //   }
-    // } else {
       this.merchantScript.notIndexedProducts =
         this.merchantScript.notIndexedProducts.filter(
           (product) => product.id !== this.prodScript.selectedProduct.skId

@@ -16,8 +16,7 @@ export class ProductsPage implements OnInit {
     private merchantScript: MerchantScript,
     private router: Router
   ) {
-    this.activePage = 'import';
-    // this.activePage = 'productsList';
+    this.activePage = 'productsList';
   }
 
   async ngOnInit() {
@@ -42,20 +41,6 @@ export class ProductsPage implements OnInit {
     // filter products between indexed and not indexed
     this.merchantScript.filterNotIndexedProducts();
 
-    //   try {
-    //     // const FAMerchant: any = await this.http.request('merchantData/48');
-    //     // const dietOptions: any = await this.http.request('allDietaryOptions');
-    //     // console.log(FAMerchant);
-    //     // this.merchantScript.merchant = FAMerchant.merchants;
-    //     // this.merchantScript.menuCategoriesObject = FAMerchant.menuCategories;
-    //     // this.merchantScript.indexedProducts = FAMerchant.products;
-    //     // this.merchantScript.dietaryOptions = dietOptions;
-    //     // this.merchantScript.merchantAlreadyIndexed = true;
-    //     // console.log(this.merchantScript.merchant)
-    //     // console.log(this.merchantScript.menuCategoriesObject)
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
   }
 
   changeSection(selectedSection: 'import' | 'productsList') {

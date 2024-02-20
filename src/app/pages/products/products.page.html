@@ -11,10 +11,10 @@
 <ion-grid>
   <ion-row>
     <ion-col class="menu" size="3">
-      <ion-item [class]="activePage === 'import' ? 'selected' : ''" (click)="changeSection('import')">Import Data</ion-item>
       <ion-item [class]="activePage === 'productsList' ? 'selected' : ''" (click)="changeSection('productsList')" >Products List</ion-item>
+      <ion-item [class]="activePage === 'import' ? 'selected' : ''" (click)="changeSection('import')">Import Data</ion-item>
     </ion-col>
-    <ion-col class="content" size="9">
+    <ion-col class="content ion-no-padding" size="9">
       <app-products-list *ngIf="activePage === 'productsList'"></app-products-list>
       <app-products-import *ngIf="activePage === 'import'"></app-products-import>
 
