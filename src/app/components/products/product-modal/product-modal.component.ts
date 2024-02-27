@@ -51,9 +51,7 @@ export class ProductModalComponent implements OnInit {
 
   productForm = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    description: new FormControl('', [
-      Validators.minLength(5),
-    ]),
+    description: new FormControl('', [Validators.minLength(5)]),
     price: new FormControl(0, [Validators.required, Validators.min(0)]),
     offerPrice: new FormControl(0, [Validators.min(0)]),
     isOffer: new FormControl(false),
@@ -70,6 +68,10 @@ export class ProductModalComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.merchantScript.merchant.id !== undefined &&
+    (this.prodScript.selectedProduct.merchants_id =
+      this.merchantScript.merchant.id);
+      
     if (this.isAlreadyIndexed && !this.isNew) {
       this.prodScript.selectedProduct = this.product;
 
@@ -98,7 +100,7 @@ export class ProductModalComponent implements OnInit {
           }
         }
       }
-    } else if(!this.isAlreadyIndexed && !this.isNew) {
+    } else if (!this.isAlreadyIndexed && !this.isNew) {
       console.log('prod not indexed');
       this.prodScript.selectedProduct.title = this.product.productName;
       this.prodScript.selectedProduct.price = this.product.price;
@@ -147,13 +149,13 @@ export class ProductModalComponent implements OnInit {
     console.log(this.croppedImg, this.productForm.valid);
   }
 
-  get isButtonDisabled() {
-    if (this.isAlreadyIndexed) {
-      return !this.productForm.valid;
-    } else {
-      return !this.productForm.valid || this.croppedImg === null;
-    }
-  }
+  // get isButtonDisabled() {
+  //   if (this.isAlreadyIndexed) {
+  //     return !this.productForm.valid;
+  //   } else {
+  //     return !this.productForm.valid;
+  //   }
+  // }
 
   closeModal() {
     this.modalCtrl.dismiss();
@@ -347,11 +349,11 @@ export class ProductModalComponent implements OnInit {
   }
 
   updateProductsList() {
-      this.merchantScript.notIndexedProducts =
-        this.merchantScript.notIndexedProducts.filter(
-          (product) => product.id !== this.prodScript.selectedProduct.skId
-        );
-      this.merchantScript.indexedProducts.push(this.prodScript.selectedProduct);
+    this.merchantScript.notIndexedProducts =
+      this.merchantScript.notIndexedProducts.filter(
+        (product) => product.id !== this.prodScript.selectedProduct.skId
+      );
+    this.merchantScript.indexedProducts.push(this.prodScript.selectedProduct);
     // }
   }
 

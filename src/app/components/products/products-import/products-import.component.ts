@@ -54,7 +54,8 @@ export class ProductsImportComponent implements OnInit {
     });
 
     modal.onDidDismiss().then(() => {
-      this.prodScript.selectedProduct = {} as Product;
+      this.prodScript.reset();
+      console.log(this.prodScript.selectedProduct)
     });
 
     modal.present();

@@ -52,4 +52,32 @@ export class ProductScript {
     }
     console.log(this.selectedProduct);
   }
+
+  reset() {
+    this.selectedProduct = {
+      skId: 0,
+      merchants_id: 0,
+      menuCategories_id: 0, //reference to menu category
+      dietaryOptionsIds: [],
+      dietaryOptions_id: 1, // list of dietry options ids
+      mainCategories_id: 1, //reference to main category
+      similarProductId: 0,
+      title: '',
+      description: '',
+      picture: '',
+      price: 0,
+      price2: 0,
+      offerPrice: 0,
+      offerDate: '',
+      highlightTag: '', // offer, popular, special of the week etc.
+      highlightColor: '', // background color of the highlight
+      highLightIcon: '', // icon for highlight
+      mainHighlightTag: '', // offer, popular, special of the week etc.
+      mainHighlightColor: '', // background color of the highlight
+      mainHighlightIcon: '', // icon for highlight
+      showAsSuggestion: false,
+      isOffer: false,
+      lister: [], // comes from lister object
+    };
+  }
 }

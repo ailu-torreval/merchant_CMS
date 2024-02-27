@@ -325,8 +325,9 @@
 </ion-content>
 <ion-footer>
   <ion-button
+  class="ion-float-right"
     (click)="validateForm()"
-    [disabled]="isButtonDisabled"
+    [disabled]="!productForm.valid"
     shape="round"
     mode="ios"
     >
