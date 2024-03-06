@@ -30,14 +30,14 @@
       color="secondary"
       (click)="page = page - 1"
       [disabled]="page === 1"
-      ><ion-icon slot="start" name="arrow-back"></ion-icon>
-      Previous</ion-button
+      ><ion-icon slot="start" name="arrow-back"></ion-icon> Previous</ion-button
     >
     <ion-button
       fill="clear"
       mode="ios"
       color="secondary"
       (click)="page = page + 1"
+      [disabled]="page === totalPages"
       ><ion-icon slot="end" name="arrow-forward"></ion-icon> Next
     </ion-button>
   </ion-row>

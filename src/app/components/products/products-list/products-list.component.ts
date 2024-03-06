@@ -16,6 +16,10 @@ export class ProductsListComponent  implements OnInit {
 
   ngOnInit() {}
 
+  get totalPages(): number {
+    return Math.ceil(this.merchantScript.indexedProducts.length / this.pageSize);
+  }
+
   async openProductModal(isNew: boolean, product?: any) {
     console.log(product);
     //open prod modal

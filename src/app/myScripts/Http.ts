@@ -137,7 +137,22 @@ export class Http {
               err(error);
             }
           );
-      } else {
+      } else if (req_type == 'DELETE') {
+        this.httpClient
+        .delete(finalUrl, { headers, params:request_params })
+        .toPromise()
+        .then(
+          (response) => {
+            console.log('DELETE response:', response); // Add this line
+            res(response);
+          },
+          (error) => {
+            console.log('DELETE error:', error); // Add this line
+            err(error);
+            return;
+          }
+        );
+      }  else {
         //GET
         this.httpClient
           .get(finalUrl, { headers, params:request_params })

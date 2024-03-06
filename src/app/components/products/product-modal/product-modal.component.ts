@@ -75,7 +75,7 @@ export class ProductModalComponent implements OnInit {
 
       this.imgPath = `${this.http.mainUrl}/static/images/M/${this.merchantScript.merchant.skMerchID}/${this.product.id}.jpg`;
 
-      if (this.product.lister.length > 0) {
+      if (this.product.lister && this.product.lister.length > 0) {
         this.lister = this.product.lister;
       }
       this.showSuggestion = this.product.showAsSuggestion;
@@ -161,6 +161,12 @@ export class ProductModalComponent implements OnInit {
 
   createImgSrc(name: string) {
     return 'assets/icons/' + name;
+  }
+
+  setDefaultImage(event: any) {
+    // event.target.src = `${this.http.mainUrl}/static/images/M/cover.jpg`;
+    //for production
+    event.target.src = 'assets/product-unavailable.png';
   }
 
   handleOfferToggle(ev: any) {
@@ -268,7 +274,34 @@ export class ProductModalComponent implements OnInit {
   }
 
   async deleteProduct() {
-    console.log("delete product")
+    const confirmation = await this.alert.create({
+      header: 'Please Confirm',
+      message: 'Are you sure you want to delete this product?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        }, {
+          text: 'Yes',
+          handler: async () => {
+            try {
+              const deletedProd = await this.http.request(`product/${this.product.id}`, 'DELETE') as { sucess: string };
+              console.log(deletedProd);
+  
+              if (deletedProd.sucess === 'ok') {
+                this.showSuccessAlert("The product has been deleted", false);
+                this.merchantScript.indexedProducts = this.merchantScript.indexedProducts.filter(product => product.id !== this.product.id);
+              }
+            } catch(error) {
+              this.http.showErrorAlert();
+              console.log(error);
+            }
+          }
+        }
+      ]
+    });
+  
+    await confirmation.present();
   }
 
   async validateForm(openNextProduct: boolean) {

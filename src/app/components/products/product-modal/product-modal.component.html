@@ -198,7 +198,7 @@
           *ngIf="croppedImg || (croppedImg === null && isAlreadyIndexed)"
         >
           <br />
-          <img [src]="croppedImg ? croppedImg : imgPath" height="80" />
+          <img [src]="croppedImg ? croppedImg : imgPath" height="80" (error)="setDefaultImage($event)" />
           <ion-button
             *ngIf="croppedImg"
             size="small"

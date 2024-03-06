@@ -43,6 +43,10 @@ export class ProductsImportComponent implements OnInit {
   //
   }
 
+  get totalPages(): number {
+    return Math.ceil(this.merchantScript.notIndexedProducts.length / this.pageSize);
+  }
+
 
 
   async openProductModal(product: any) {
