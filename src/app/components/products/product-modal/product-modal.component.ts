@@ -28,8 +28,6 @@ export class ProductModalComponent implements OnInit {
   @Input() isNew!: boolean;
   rawImg: string = '';
   croppedImg: any = null;
-  // isOffer: boolean = false;
-  // dietOptions: DietaryOptions[] = dietOptJson;
   selectedDiet: number[] = [];
   showListerForm: boolean = false;
   optName: string = '';
@@ -51,7 +49,7 @@ export class ProductModalComponent implements OnInit {
 
   productForm = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    description: new FormControl('', [Validators.minLength(5)]),
+    description: new FormControl(''),
     price: new FormControl(0, [Validators.required, Validators.min(0)]),
     offerPrice: new FormControl(0, [Validators.min(0)]),
     isOffer: new FormControl(false),
@@ -269,7 +267,11 @@ export class ProductModalComponent implements OnInit {
     this.croppedImg = null;
   }
 
-  async validateForm() {
+  async deleteProduct() {
+    console.log("delete product")
+  }
+
+  async validateForm(openNextProduct: boolean) {
     try {
       this.prepareProductObject();
 
@@ -287,7 +289,7 @@ export class ProductModalComponent implements OnInit {
       }
 
       this.showSuccessAlert(
-        `Product ${this.isAlreadyIndexed ? 'updated' : 'created'}`
+        `Product ${this.isAlreadyIndexed ? 'updated' : 'created'}`, openNextProduct
       );
     } catch (error) {
       this.http.showErrorAlert();
@@ -370,7 +372,7 @@ export class ProductModalComponent implements OnInit {
     console.log('OBJECT READY FOR UPLOAD', this.prodScript.selectedProduct);
   }
 
-  async showSuccessAlert(msg: string) {
+  async showSuccessAlert(msg: string, openNextProduct: boolean) {
     console.log('Success! All requests were made successfully.');
     const alert = await this.alert.create({
       header: msg,
@@ -380,8 +382,19 @@ export class ProductModalComponent implements OnInit {
       },
     });
 
-    alert.onDidDismiss().then(() => {
-      this.prodScript.selectedProduct = {} as Product;
+    alert.onDidDismiss().then(async () => {
+      this.prodScript.reset();
+      if(openNextProduct) {
+        const currentIndex = this.merchantScript.notIndexedProducts.findIndex((skProduct) => skProduct.id === this.product.id)
+        const nextProduct = this.merchantScript.notIndexedProducts[currentIndex + 1];
+        if (nextProduct) {
+          const modal2 = await this.modalCtrl.create({
+            component: ProductModalComponent,
+            componentProps:{ product: nextProduct, isAlreadyIndexed: false, isNew:false },
+          });
+          modal2.present();
+        }
+      }
       this.closeModal();
     });
 

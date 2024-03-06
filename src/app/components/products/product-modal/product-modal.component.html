@@ -1,10 +1,20 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()"
+        ><ion-icon color="secondary" name="close"></ion-icon
+      ></ion-button>
+    </ion-buttons>
     <ion-title>
       {{ isAlreadyIndexed ? "Edit Product Info" : "Add Product Info" }}
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="closeModal()">Close</ion-button>
+      <ion-button
+        (click)="validateForm(false)"
+        color="secondary"
+        [disabled]="!productForm.valid"
+        >{{ isAlreadyIndexed ? "Save Changes" : "Upload Product" }}</ion-button
+      >
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -217,7 +227,6 @@
         >
       </ion-label>
     </ion-item>
-
   </form>
 
   <ion-row class="title-row ion-padding">
@@ -426,14 +435,36 @@
    offerPrice isOffer dietaryOptions LISTER
   show as suggestion (only show if the prod doesnt have lister) -->
 </ion-content>
-<ion-footer>
+<ion-footer [class]="isAlreadyIndexed ? 'btn-grid' : 'btn-grid-right'">
   <ion-button
-    class="ion-float-right"
-    (click)="validateForm()"
+    *ngIf="isAlreadyIndexed"
+    fill="outline"
+    color="danger"
+    (click)="deleteProduct()"
+    [disabled]="!productForm.valid"
+    shape="round"
+    mode="ios"
+  >
+    <ion-icon slot="start" name="trash"></ion-icon>
+    Delete Product
+  </ion-button>
+  <ion-button
+    *ngIf="isNew || isAlreadyIndexed"
+    (click)="validateForm(false)"
     [disabled]="!productForm.valid"
     shape="round"
     mode="ios"
   >
     {{ isAlreadyIndexed ? "Save Changes" : "Upload Product" }}
+  </ion-button>
+  <ion-button
+    *ngIf="!isAlreadyIndexed && !isNew"
+    (click)="validateForm(true)"
+    [disabled]="!productForm.valid"
+    shape="round"
+    mode="ios"
+  >
+    Upload and Open Next Product
+    <ion-icon slot="end" name="play-forward"></ion-icon>
   </ion-button>
 </ion-footer>

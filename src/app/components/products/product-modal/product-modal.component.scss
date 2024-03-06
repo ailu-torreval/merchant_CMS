@@ -5,6 +5,7 @@
     flex-wrap: wrap;
     flex-direction: row;
     gap: 1rem;
+    padding-left: 1rem;
   
     .item {
       --background: var(--ion-color-medium);
@@ -60,5 +61,16 @@
       // text-align:end;
       font-style: italic;
     }
+  }
+
+  .btn-grid {
+    padding-inline: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  .btn-grid-right {
+    padding-inline: 0.5rem;
+    display: flex;
+    justify-content: flex-end;
   }
 
