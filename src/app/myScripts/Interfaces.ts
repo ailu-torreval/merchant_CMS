@@ -88,8 +88,8 @@ export interface Product {
   skId?: number;
   merchants_id: number;
   menuCategories_id: number; //reference to main category
-  dietaryOptionsIds: any[]; // list of dietry options ids
-  dietaryOptions_id: number;
+  dietaryOptionsIds: any[] | null; // list of dietry options ids
+  dietaryOptions_id: number | null;
   mainCategories_id: number; //reference to main category
   similarProductId: number;
   title: string;

@@ -19,7 +19,7 @@ export class ProductScript {
     merchants_id: 0,
     menuCategories_id: 0, //reference to menu category
     dietaryOptionsIds: [],
-    dietaryOptions_id: 1, // list of dietry options ids
+    dietaryOptions_id: null, // list of dietry options ids
     mainCategories_id: 1, //reference to main category
     similarProductId: 0,
     title: '',
@@ -59,7 +59,7 @@ export class ProductScript {
       merchants_id: 0,
       menuCategories_id: 0, //reference to menu category
       dietaryOptionsIds: [],
-      dietaryOptions_id: 1, // list of dietry options ids
+      dietaryOptions_id: null, // list of dietry options ids
       mainCategories_id: 1, //reference to main category
       similarProductId: 0,
       title: '',
