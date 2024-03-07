@@ -79,12 +79,27 @@
 
   <ion-row class="btns-row">
     <ion-button
+    *ngIf="merchantScript.enableEdit"
+    (click)="merchantScript.changeToStep(7)"
+    fill="outline"
+    shape="round"
+    mode="ios"
+    >Discard Changes</ion-button
+  >
+    <ion-button
+    *ngIf="!merchantScript.enableEdit"
       (click)="merchantScript.changeToStep(5)"
       shape="round"
       mode="ios"
       fill="outline"
       >Previous</ion-button
     >
-    <ion-button (click)="nextStep()" [disabled]="categories.length === 0" shape="round" mode="ios">Next</ion-button>
+    <ion-button (click)="nextStep()" [disabled]="categories.length === 0" shape="round" mode="ios">{{
+      merchantScript.enableEdit
+        ? merchantScript.merchantAlreadyIndexed
+          ? "Save Changes"
+          : "Accept Changes"
+        : "Next"
+    }}</ion-button>
   </ion-row>
 </ion-card>
