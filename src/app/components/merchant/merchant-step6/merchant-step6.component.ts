@@ -33,7 +33,10 @@ export class MerchantStep6Component implements OnInit {
       this.categories.sort((a, b) => a.sortOrder - b.sortOrder);
     }
 
-    console.log("FIRST, merchantScript",this.merchantScript.menuCategoriesObject)
+    console.log(
+      'FIRST, merchantScript',
+      this.merchantScript.menuCategoriesObject
+    );
   }
 
   addCategory() {
@@ -58,11 +61,49 @@ export class MerchantStep6Component implements OnInit {
     ev.detail.complete();
   }
 
-  deleteCat(catName: string) {
-    const index = this.categories.findIndex((cat) => cat.name === catName);
-    console.log(this.categories[index].id)
-    this.categories.splice(index, 1);
-    console.log("!delete", this.categories, catName)
+  deleteCat(catName: string, id: number | undefined) {
+    if (this.merchantScript.merchantAlreadyIndexed && id !== undefined) {
+      this.confirmDeletion(id);
+    } else {
+      const index = this.categories.findIndex((cat) => cat.name === catName);
+      this.categories.splice(index, 1);
+    }
+  }
+
+  async confirmDeletion(id: number) {
+    const confirmation = await this.alert.create({
+      header: 'Please Confirm',
+      message:
+        'Are you sure you want to delete this category? This is permanent.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Yes',
+          handler: async () => {
+            try {
+              const deletedCat = (await this.http.request(
+                `menucategory/${id}`,
+                'DELETE'
+              )) as { sucess: string };
+              console.log(deletedCat);
+
+              if (deletedCat.sucess === 'ok') {
+                const index = this.categories.findIndex((cat) => cat.id === id);
+                this.categories.splice(index, 1);
+              }
+            } catch (error) {
+              this.http.showErrorAlert();
+              console.log(error);
+            }
+          },
+        },
+      ],
+    });
+
+    await confirmation.present();
   }
 
   nextStep() {
@@ -83,8 +124,10 @@ export class MerchantStep6Component implements OnInit {
   }
 
   async compareAndUpdateCategories() {
-    console.log("SECOND", this.categories)
-    console.log(this.merchantScript.menuCategoriesObject.find(cat => cat.id === 27))
+    console.log('SECOND', this.categories);
+    console.log(
+      this.merchantScript.menuCategoriesObject.find((cat) => cat.id === 27)
+    );
     // Create a map of categories by id for easy lookup
     const categoriesMap = new Map(
       this.categories.map((category) => [category.id, category])
@@ -116,17 +159,6 @@ export class MerchantStep6Component implements OnInit {
       }
     }
 
-    // Iterate over this.merchantScript.menuCategoriesObject to find deleted categories
-    for (const menuCategory of this.merchantScript.menuCategoriesObject) {
-      console.log('Checking menuCategory with id:', menuCategory.id);
-    
-      if (!categoriesMap.has(menuCategory.id)) {
-        console.log("This should be deleted", menuCategory.name);
-        // If the menuCategory doesn't exist in this.categories, delete it
-        promises.push(this.manageCategoryRequests(menuCategory, 'DELETE'));
-      }
-    }
-
     try {
       // Wait for all promises to resolve
       await Promise.all(promises);
@@ -143,7 +175,7 @@ export class MerchantStep6Component implements OnInit {
 
   async manageCategoryRequests(
     category: MenuCategories,
-    request: 'POST' | 'PUT' | 'DELETE'
+    request: 'POST' | 'PUT' 
   ) {
     try {
       if (request == 'POST') {
@@ -167,13 +199,6 @@ export class MerchantStep6Component implements OnInit {
           'PUT',
           category
         );
-      } else if(request == 'DELETE') {
-        // DELETE
-        const deletedCategory: any = await this.http.request(
-          `menucategory/${category.id}`,
-          'DELETE'
-        );
-        console.log('cat deleted', deletedCategory, category.id, category.name);
       }
     } catch (error) {
       console.log(request, error);
