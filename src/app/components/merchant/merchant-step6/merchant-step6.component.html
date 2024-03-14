@@ -41,7 +41,7 @@
           mode="ios"
           expand="block"
         >
-          <ion-icon slot="start" name="add-circle"></ion-icon> Add</ion-button
+          <ion-icon slot="start" name="add-circle"></ion-icon>{{editCategory ? 'Update' : 'Add'}}</ion-button
         >
       </form>
     </div>
@@ -61,6 +61,14 @@
             <h2>{{ cat.name }}</h2>
             <p>{{ cat.description }}</p>
           </ion-label>
+          <ion-button
+            (click)="editCat(cat.id, cat.name, cat.description)"
+            fill="clear"
+            shape="round"
+            color="secondary"
+          >
+            <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+          </ion-button>
           <ion-button
             (click)="deleteCat(cat.name, cat.id)"
             fill="clear"

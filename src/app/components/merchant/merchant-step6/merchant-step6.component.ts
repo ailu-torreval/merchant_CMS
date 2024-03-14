@@ -11,6 +11,9 @@ import { MerchantScript } from 'src/app/myScripts/MerchantScript';
   styleUrls: ['./merchant-step6.component.scss'],
 })
 export class MerchantStep6Component implements OnInit {
+  editCategory: boolean = false;
+  editCatId: number | undefined = undefined;
+
   newCatForm = new FormGroup({
     newCatName: new FormControl('', [
       Validators.required,
@@ -39,18 +42,6 @@ export class MerchantStep6Component implements OnInit {
     );
   }
 
-  addCategory() {
-    const categoryToAdd: MenuCategories = {
-      merchants_id: this.merchantScript.merchant.id,
-      name: this.newCatForm.get('newCatName')?.value || '',
-      description: this.newCatForm.get('newCatDesc')?.value || '',
-      sortOrder: this.categories.length,
-      picture: '',
-    };
-    this.categories.push(categoryToAdd);
-    console.log(this.categories);
-    this.newCatForm.reset();
-  }
 
   handleReorder(ev: CustomEvent<ItemReorderEventDetail>) {
     // The `from` and `to` properties contain the index of the item
@@ -68,6 +59,43 @@ export class MerchantStep6Component implements OnInit {
       const index = this.categories.findIndex((cat) => cat.name === catName);
       this.categories.splice(index, 1);
     }
+  }
+
+  editCat(id: number | undefined, catName: string, desc: string | undefined) {
+    this.editCategory = true;
+    if (id === undefined) {
+      this.deleteCat(catName, undefined);
+    } else {
+      this.editCatId = id;
+    }
+    this.newCatForm.setValue({
+      newCatName: catName,
+      newCatDesc: desc !== undefined ? desc : null,
+    });
+  }
+
+
+  addCategory() {
+    if(this.editCategory && this.editCatId !== undefined) {
+      const index = this.categories.findIndex((cat) => cat.id === this.editCatId)
+      if(index !== -1) {
+       this.categories[index].name = this.newCatForm.get('newCatName')?.value || ''
+       this.categories[index].description = this.newCatForm.get('newCatDesc')?.value || ''
+      }
+    } else {
+      const categoryToAdd: MenuCategories = {
+        merchants_id: this.merchantScript.merchant.id,
+        name: this.newCatForm.get('newCatName')?.value || '',
+        description: this.newCatForm.get('newCatDesc')?.value || '',
+        sortOrder: this.categories.length,
+        picture: '',
+      };
+      this.categories.push(categoryToAdd);
+    }
+    console.log(this.categories);
+    this.newCatForm.reset();
+    this.editCategory = false;
+    this.editCatId = undefined;
   }
 
   async confirmDeletion(id: number) {
@@ -175,7 +203,7 @@ export class MerchantStep6Component implements OnInit {
 
   async manageCategoryRequests(
     category: MenuCategories,
-    request: 'POST' | 'PUT' 
+    request: 'POST' | 'PUT'
   ) {
     try {
       if (request == 'POST') {
