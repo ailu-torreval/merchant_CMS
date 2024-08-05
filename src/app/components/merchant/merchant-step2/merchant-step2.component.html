@@ -159,7 +159,7 @@
           *ngIf="merchantScript.enableEdit"
           (click)="merchantScript.changeToStep(7)"
           fill="outline"
-          shape="round"
+          expand="block"
           mode="ios"
           >Discard Changes</ion-button
         >
@@ -167,14 +167,14 @@
           *ngIf="!merchantScript.enableEdit"
           (click)="merchantScript.changeToStep(1)"
           fill="outline"
-          shape="round"
+          expand="block"
           mode="ios"
           >Previous</ion-button
         >
         <ion-button
           (click)="validateForm()"
           [disabled]="!step2Form.valid"
-          shape="round"
+          expand="block"
           mode="ios"
           >{{merchantScript.enableEdit ? merchantScript.merchantAlreadyIndexed ? 'Save Changes' : 'Accept Changes' : 'Next'}}</ion-button
         >

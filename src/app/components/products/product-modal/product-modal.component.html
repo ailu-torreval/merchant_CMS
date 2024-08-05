@@ -12,6 +12,7 @@
       <ion-button
         (click)="validateForm(false)"
         color="secondary"
+        expand="block"
         [disabled]="!productForm.valid"
         >{{ isAlreadyIndexed ? "Save Changes" : "Upload Product" }}</ion-button
       >
@@ -204,7 +205,7 @@
             size="small"
             (click)="removeImg()"
             fill="clear"
-            shape="round"
+            expand="block"
             mode="ios"
             expand="block"
             color="danger"
@@ -216,7 +217,6 @@
         <ion-button
           (click)="selectImage()"
           fill="clear"
-          shape="round"
           mode="ios"
           expand="block"
         >
@@ -271,7 +271,7 @@
       expand="full"
       (click)="openListerForm()"
       fill="clear"
-      shape="round"
+      expand="block"
       mode="ios"
       color="secondary"
     >
@@ -335,7 +335,7 @@
           expand="full"
           (click)="addOption()"
           fill="clear"
-          shape="round"
+          expand="block"
           mode="ios"
         >
           <ion-icon slot="start" name="add-circle"></ion-icon>Add</ion-button
@@ -374,7 +374,6 @@
       expand="full"
       (click)="addLister()"
       fill="clear"
-      shape="round"
       mode="ios"
       expand="block"
     >
@@ -410,7 +409,6 @@
       color="danger"
       (click)="deleteListerForm(i)"
       fill="clear"
-      shape="round"
       mode="ios"
       expand="block"
     >
@@ -442,7 +440,7 @@
     color="danger"
     (click)="deleteProduct()"
     [disabled]="!productForm.valid"
-    shape="round"
+    expand="block"
     mode="ios"
   >
     <ion-icon slot="start" name="trash"></ion-icon>
@@ -452,7 +450,7 @@
     *ngIf="isNew || isAlreadyIndexed"
     (click)="validateForm(false)"
     [disabled]="!productForm.valid"
-    shape="round"
+    expand="block"
     mode="ios"
   >
     {{ isAlreadyIndexed ? "Save Changes" : "Upload Product" }}
@@ -461,7 +459,7 @@
     *ngIf="!isAlreadyIndexed && !isNew"
     (click)="validateForm(true)"
     [disabled]="!productForm.valid"
-    shape="round"
+    expand="block"
     mode="ios"
   >
     Upload and Open Next Product

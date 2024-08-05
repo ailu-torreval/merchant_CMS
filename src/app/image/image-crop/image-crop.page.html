@@ -10,11 +10,10 @@
   </ion-toolbar>
 </ion-header>
 
-
 <!-- <ion-button (click)="cropImage()" *ngIf="image"> -->
 <ion-content>
-
-  <image-cropper *ngIf="!isLogo"
+  <image-cropper
+    *ngIf="!isLogo"
     #cropper
     [imageBase64]="image"
     [maintainAspectRatio]="true"
@@ -31,7 +30,8 @@
     (imageLoaded)="imageLoaded()"
   ></image-cropper>
 
-  <image-cropper *ngIf="isLogo"
+  <image-cropper
+    *ngIf="isLogo"
     #cropper
     [imageBase64]="image"
     [maintainAspectRatio]="true"
@@ -47,9 +47,7 @@
     (loadImageFailed)="loadImageFailed()"
     (imageLoaded)="imageLoaded()"
   ></image-cropper>
-
 </ion-content>
-
 
 <ion-footer>
   <ion-row *ngIf="image">
@@ -59,14 +57,29 @@
       </ion-button>
     </ion-col>
     <ion-col class="ion-text-center">
-      <ion-button color="tertiary" mode="ios" fill="clear" (click)="flipHorizontal()">
-        <ion-icon  slot="start" name="arrow-forward"></ion-icon> Flip </ion-button>
+      <ion-button
+        color="tertiary"
+        mode="ios"
+        fill="clear"
+        (click)="flipHorizontal()"
+      >
+        <ion-icon slot="start" name="arrow-forward"></ion-icon> Flip
+      </ion-button>
     </ion-col>
     <ion-col class="ion-text-center">
-      <ion-button color="tertiary" mode="ios" fill="clear" (click)="flipVertical()"> <ion-icon  slot="start" name="arrow-down"></ion-icon> Flip </ion-button>
+      <ion-button
+        color="tertiary"
+        mode="ios"
+        fill="clear"
+        (click)="flipVertical()"
+      >
+        <ion-icon slot="start" name="arrow-down"></ion-icon> Flip
+      </ion-button>
     </ion-col>
     <ion-col class="ion-text-center">
-      <ion-button shape="round" mode="ios" (click)="cropImage()"> Upload Image </ion-button>
+      <ion-button expand="block" mode="ios" (click)="cropImage()">
+        Upload Image
+      </ion-button>
     </ion-col>
   </ion-row>
 </ion-footer>

@@ -19,6 +19,8 @@ export class MerchantStep4Component implements OnInit {
       Validators.min(0),
     ]),
     minOrderValue: new FormControl(0, [Validators.required, Validators.min(0)]),
+    bagFee: new FormControl(0, [Validators.required, Validators.min(0)])
+
   });
 
   distanceForm = new FormGroup({
@@ -41,6 +43,9 @@ export class MerchantStep4Component implements OnInit {
         .get('minOrderValue')
         ?.setValue(this.merchantScript.merchant.minOrderValue);
         this.deliveryPriceObject = this.merchantScript.merchant.distanceLimit;
+      this.step4Form
+        .get('bagFee')
+        ?.setValue(this.merchantScript.merchant.bagFee);
     }
   }
 

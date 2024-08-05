@@ -71,7 +71,6 @@
           type="submit"
           [disabled]="!newTag"
           fill="clear"
-          shape="round"
           mode="ios"
           expand="block"
         >
@@ -103,7 +102,7 @@
       *ngIf="merchantScript.enableEdit"
       (click)="merchantScript.changeToStep(7)"
       fill="outline"
-      shape="round"
+      expand="block"
       mode="ios"
       >Discard Changes</ion-button
     >
@@ -111,11 +110,11 @@
       *ngIf="!merchantScript.enableEdit"
       (click)="merchantScript.changeToStep(4)"
       fill="outline"
-      shape="round"
+      expand="block"
       mode="ios"
       >Previous</ion-button
     >
-    <ion-button (click)="nextStep()" shape="round" mode="ios">{{
+    <ion-button (click)="nextStep()" expand="block" mode="ios">{{
       merchantScript.enableEdit
         ? merchantScript.merchantAlreadyIndexed
           ? "Save Changes"

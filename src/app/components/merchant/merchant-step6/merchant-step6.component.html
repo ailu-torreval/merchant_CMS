@@ -37,15 +37,15 @@
           (click)="addCategory()"
           [disabled]="!newCatForm.valid"
           fill="clear"
-          shape="round"
+          expand="block"
           mode="ios"
           expand="block"
         >
-          <ion-icon slot="start" name="add-circle"></ion-icon>{{editCategory ? 'Update' : 'Add'}}</ion-button
+          <ion-icon slot="start" name="add-circle"></ion-icon
+          >{{ editCategory ? "Update" : "Add" }}</ion-button
         >
       </form>
     </div>
-
 
     <ion-list *ngIf="categories.length > 0">
       <ion-row class="cat-container-title">
@@ -87,27 +87,33 @@
 
   <ion-row class="btns-row">
     <ion-button
-    *ngIf="merchantScript.enableEdit"
-    (click)="merchantScript.changeToStep(7)"
-    fill="outline"
-    shape="round"
-    mode="ios"
-    >Discard Changes</ion-button
-  >
+      *ngIf="merchantScript.enableEdit"
+      (click)="merchantScript.changeToStep(7)"
+      fill="outline"
+      expand="block"
+      mode="ios"
+      >Discard Changes</ion-button
+    >
     <ion-button
-    *ngIf="!merchantScript.enableEdit"
+      *ngIf="!merchantScript.enableEdit"
       (click)="merchantScript.changeToStep(5)"
-      shape="round"
+      expand="block"
       mode="ios"
       fill="outline"
       >Previous</ion-button
     >
-    <ion-button (click)="nextStep()" [disabled]="categories.length === 0" shape="round" mode="ios">{{
-      merchantScript.enableEdit
-        ? merchantScript.merchantAlreadyIndexed
-          ? "Save Changes"
-          : "Accept Changes"
-        : "Next"
-    }}</ion-button>
+    <ion-button
+      (click)="nextStep()"
+      [disabled]="categories.length === 0"
+      expand="block"
+      mode="ios"
+      >{{
+        merchantScript.enableEdit
+          ? merchantScript.merchantAlreadyIndexed
+            ? "Save Changes"
+            : "Accept Changes"
+          : "Next"
+      }}</ion-button
+    >
   </ion-row>
 </ion-card>

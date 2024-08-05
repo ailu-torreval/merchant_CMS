@@ -69,6 +69,7 @@ export class MerchantScript {
     email: '',
     isActive: true,
     distanceLimit: [],
+    bagFee: null
   };
 
   menuCategoriesObject: MenuCategories[] = [];
@@ -171,4 +172,67 @@ export class MerchantScript {
   changeToStep(step: number) {
     this.step = step;
   }
+
+  reset() {
+    this.merchant = {
+      id: 0,
+      skMerchID: '',
+      dietaryOptionsIds: [], // list of dietryOptions ids
+      date: '',
+      name: '',
+      bio: 'description here',
+      logo: '', // to be processed -FAKE DATA FOR PRODUCTION REASONS
+      picture: '', // to be processed - FAKE DATA FOR PRODUCTIONS REASONS
+      openingHoursMon: '', // format example: 11:30-16:30
+      openingHoursTue: '',
+      openingHoursWed: '',
+      openingHoursThu: '',
+      openingHoursFri: '',
+      openingHoursSat: '',
+      openingHoursSun: '',
+      tags: [], // searchable tags, food they sell. Format: pizza,pasta,grill
+      rating: 0, // overall rating
+      merchantType: 0, //for determining if it's a restaurant, kiosk etc.
+      defaultPickupTime: 0, // minutes
+      minOrderValue: 0,
+      address1: '',
+      address2: '',
+      zip: '',
+      city: '',
+      info: '', // for address
+      mapsLocationLon: '', // google maps longitude
+      mapsLocationLat: '', // google maps latitude
+      mapsToken: '', // future use
+      paymentPreferences: '', // future use
+      highlightTag: '', // if we want to promote a seller
+      highlightColor: '', // background color of the highlight
+      highlightIcon: '', // icon for highlight
+      putOnTop: false, // puts the seller on the slider, top of the page with the rest new ones
+      deliveryPrice: 0,
+      deliveryOptions: 2, // whether the merchant does deliver or not
+      phone: '',
+      feeRate: 0, // for future use as percentage
+      priceRange: 0, // 0=cheap, 1=okay, 2=expensive
+      mainCategoriesIds: [], // reference to a list of MainCategories
+      menuCategories: undefined, // reference to a list of MenuCategories
+      // mainCategories: MainCategories, // reference to a list of MainCategories
+      vat: '',
+      forcedClosed: false,
+      email: '',
+      isActive: true,
+      distanceLimit: [],
+      bagFee: null
+    };
+
+    this.menuCategoriesObject = [];
+
+    this.dietaryOptions = [];
+  
+    this.mainCategories = [];
+  
+    this.indexedProducts = [];
+  
+    this.notIndexedProducts = [];
+  }
+
 }

@@ -64,6 +64,7 @@ export interface Merchant {
   vat: string;
   isActive: boolean;
   forcedClosed: boolean;
+  bagFee:number | null;
 }
 
 export interface Ratings {

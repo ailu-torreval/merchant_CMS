@@ -1,7 +1,7 @@
 <ion-card class="ion-padding">
   <ion-card-header>
-        <ion-card-title>STEP 1 - Merchant Information</ion-card-title>
-        <ion-card-subtitle>Add data about your company.</ion-card-subtitle>
+    <ion-card-title>STEP 1 - Merchant Information</ion-card-title>
+    <ion-card-subtitle>Add data about your company.</ion-card-subtitle>
   </ion-card-header>
 
   <ion-card-content>
@@ -54,27 +54,32 @@
 
       <!-- ADD IMAGE AND LOGO -->
 
-
       <ion-item>
         <ion-label>
           <h3>Add Logo</h3>
-          <ion-row class="ion-padding" *ngIf="merchantScript.merchant.logo && merchantScript.merchant.logo.length > 2" >
+          <ion-row
+            class="ion-padding"
+            *ngIf="
+              merchantScript.merchant.logo &&
+              merchantScript.merchant.logo.length > 2
+            "
+          >
             <img [src]="merchantScript.merchant.logo" height="80" />
             <ion-button
-            size="small"
+              size="small"
               (click)="removeImg(true)"
               fill="clear"
               shape="round"
               mode="ios"
               expand="block"
-              color="danger">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
+              color="danger"
+            >
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
             </ion-button>
           </ion-row>
           <ion-button
             (click)="selectImage(true)"
             fill="clear"
-            shape="round"
             mode="ios"
             expand="block"
           >
@@ -86,27 +91,32 @@
       </ion-item>
       <br />
 
-
       <ion-item>
         <ion-label>
           <h3>Add Cover Photo</h3>
-          <ion-row class="ion-padding"  *ngIf="merchantScript.merchant.picture && merchantScript.merchant.picture.length > 2" >
+          <ion-row
+            class="ion-padding"
+            *ngIf="
+              merchantScript.merchant.picture &&
+              merchantScript.merchant.picture.length > 2
+            "
+          >
             <img [src]="merchantScript.merchant.picture" height="80" />
             <ion-button
-            size="small"
+              size="small"
               (click)="removeImg(false)"
               fill="clear"
               shape="round"
               mode="ios"
               expand="block"
-              color="danger">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
+              color="danger"
+            >
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
             </ion-button>
           </ion-row>
           <ion-button
             (click)="selectImage(false)"
             fill="clear"
-            shape="round"
             mode="ios"
             expand="block"
           >
@@ -116,7 +126,6 @@
         </ion-label>
       </ion-item>
       <br />
-
 
       <ion-label> Merchant Type </ion-label>
       <ion-item lines="none">
@@ -135,26 +144,40 @@
         </ion-segment>
       </ion-item>
 
-
-
-
-
-      <ion-row  class="btns-row">
+      <ion-row class="btns-row">
         <div>
-          <ion-button *ngIf="merchantScript.enableEdit" (click)="merchantScript.changeToStep(7)" fill="outline" shape="round" mode="ios">Discard Changes</ion-button>
-          <ion-label *ngIf="invalidImgs" class="ion-padding invalid-field"
-          color="danger">
-          <ion-text>         <ion-icon name="alert-circle-outline"></ion-icon>
-          Please add logo and cover images.</ion-text>
-
+          <ion-button
+            *ngIf="merchantScript.enableEdit"
+            (click)="merchantScript.changeToStep(7)"
+            fill="outline"
+            expand="block"
+            mode="ios"
+            >Discard Changes</ion-button
+          >
+          <ion-label
+            *ngIf="invalidImgs"
+            class="ion-padding invalid-field"
+            color="danger"
+          >
+            <ion-text>
+              <ion-icon name="alert-circle-outline"></ion-icon> Please add logo
+              and cover images.</ion-text
+            >
           </ion-label>
         </div>
         <ion-button
           (click)="validateForm()"
           [disabled]="!step1Form.valid"
-          shape="round"
+          expand="block"
           mode="ios"
-          > {{merchantScript.enableEdit ? merchantScript.merchantAlreadyIndexed ? 'Save Changes' : 'Accept Changes' : 'Next'}}</ion-button
+        >
+          {{
+            merchantScript.enableEdit
+              ? merchantScript.merchantAlreadyIndexed
+                ? "Save Changes"
+                : "Accept Changes"
+              : "Next"
+          }}</ion-button
         >
       </ion-row>
     </form>

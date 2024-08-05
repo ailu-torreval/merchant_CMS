@@ -76,6 +76,32 @@
           <ion-item>
             <ion-input
               mode="ios"
+              label="Bag Fee"
+              labelPlacement="stacked"
+              formControlName="bagFee"
+              type="number"
+            ></ion-input>
+            Kr.
+          </ion-item>
+          <ng-container *ngFor="let er of merchantScript.errors">
+            <ion-label
+              *ngIf="
+                step4Form.get('bagFee')?.hasError(er) &&
+                (step4Form.get('bagFee')?.touched ||
+                  step4Form.get('bagFee')?.dirty)
+              "
+              class="ion-padding invalid-field"
+              color="danger"
+            >
+              <ion-icon name="alert-circle-outline"></ion-icon>
+              <ion-text> Please add a valid value. </ion-text>
+            </ion-label>
+          </ng-container>
+        </ion-col>
+        <ion-col size="3">
+          <ion-item>
+            <ion-input
+              mode="ios"
               label="Minimal Order Value"
               labelPlacement="stacked"
               formControlName="minOrderValue"
@@ -134,7 +160,6 @@
                   type="submit"
                   [disabled]="!distanceForm.valid"
                   fill="clear"
-                  shape="round"
                   mode="ios"
                   expand="block"
                 >
@@ -170,7 +195,7 @@
           *ngIf="merchantScript.enableEdit"
           (click)="merchantScript.changeToStep(7)"
           fill="outline"
-          shape="round"
+          expand="block"
           mode="ios"
           >Discard Changes</ion-button
         >
@@ -178,7 +203,7 @@
           *ngIf="!merchantScript.enableEdit"
           (click)="merchantScript.changeToStep(3)"
           fill="outline"
-          shape="round"
+          expand="block"
           mode="ios"
           >Previous</ion-button
         >
@@ -189,7 +214,7 @@
               ? !(step4Form.valid && deliveryPriceObject.length > 0)
               : !step4Form.valid
           "
-          shape="round"
+          expand="block"
           mode="ios"
           >{{
             merchantScript.enableEdit
