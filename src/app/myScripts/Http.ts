@@ -4,7 +4,7 @@ import { AlertController } from '@ionic/angular';
 
 @Injectable()
 export class Http {
-  mainUrl = 'http://165.22.69.190/';
+  mainUrl = 'https://mealwize.com/';
 
 
 

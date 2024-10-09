@@ -61,6 +61,7 @@ export interface Merchant {
     vat: string,
     isOpen: boolean,
     forcedClosed: boolean,
+    deliveryPercentage: number
 }
 
 

@@ -65,6 +65,7 @@ export interface Merchant {
   isActive: boolean;
   forcedClosed: boolean;
   bagFee:number | null;
+  deliveryPercentage: number;
 }
 
 export interface Ratings {
