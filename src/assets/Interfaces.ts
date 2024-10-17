@@ -14,6 +14,11 @@ export interface DietaryOptions {
     sortOrder: number, //rækkefølge or sorting
 }
 
+export interface TokenResponse {
+    access_token: string;
+    refresh_token?: string;
+}
+
 
 export interface Merchant {
     id: number,

@@ -69,7 +69,8 @@ export class MerchantScript {
     email: '',
     isActive: true,
     distanceLimit: [],
-    bagFee: null
+    bagFee: null,
+    deliveryPercentage: 0
   };
 
   menuCategoriesObject: MenuCategories[] = [];
@@ -221,7 +222,8 @@ export class MerchantScript {
       email: '',
       isActive: true,
       distanceLimit: [],
-      bagFee: null
+      bagFee: null,
+      deliveryPercentage:0
     };
 
     this.menuCategoriesObject = [];
